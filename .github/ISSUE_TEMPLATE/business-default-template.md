@@ -1,8 +1,8 @@
 ---
-name: Business Default Template
-about: Use this template for all business related issues.
-title: "[BUSINESS ISSUE]"
-labels: business-related
+name: Feature Default Template
+about: Use this for (business) feature related issues.
+title: "[Feature ISSUE]"
+labels: feature-related
 assignees: ''
 
 ---
