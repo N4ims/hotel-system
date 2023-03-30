@@ -1,7 +1,7 @@
 ---
 name: Technical Template
 about: For technical issues.
-title: "[TECHNICAL ISSUE]"
+title: "[TECHNICAL]"
 labels: technical
 assignees: ''
 
