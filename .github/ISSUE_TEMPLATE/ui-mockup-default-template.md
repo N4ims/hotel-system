@@ -1,7 +1,7 @@
 ---
 name: UI-Mockup Default Template
-about: Use this template for all UI-Mockup related issues.
-title: 'FIGMA: [UI-MOCKUP ISSUE]'
+about: Use this for UI-Mockup related issues.
+title: '[UI-MOCKUP ISSUE]'
 labels: ui-mockup
 assignees: ''
 
