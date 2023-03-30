@@ -1,6 +1,6 @@
 ---
 name: Technical Default Template
-about: Use this template for all technical related issues.
+about: Use this for technical issues.
 title: "[TECHNICAL ISSUE]"
 labels: technical-related
 assignees: ''
