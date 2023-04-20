@@ -72,8 +72,9 @@ jobs:
 
     - run: |
         echo "Run, Build Application"
-        make bootstrap
-        make release
+        make clean
+        make install
+        make compile
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
