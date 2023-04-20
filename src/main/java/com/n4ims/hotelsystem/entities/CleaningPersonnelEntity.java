@@ -1,0 +1,113 @@
+package com.n4ims.hotelsystem.entities;
+
+import jakarta.persistence.*;
+
+import java.sql.Date;
+import java.util.Objects;
+
+@Entity
+@Table(name = "cleaning_personnel", schema = "hotel_system")
+public class CleaningPersonnelEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id")
+    private int id;
+    @Basic
+    @Column(name = "first_name")
+    private String firstName;
+    @Basic
+    @Column(name = "last_name")
+    private String lastName;
+    @Basic
+    @Column(name = "birthdate")
+    private Date birthdate;
+    @Basic
+    @Column(name = "address_id")
+    private Integer addressId;
+    @Basic
+    @Column(name = "telephone_number")
+    private String telephoneNumber;
+    @Basic
+    @Column(name = "mobile_number")
+    private String mobileNumber;
+    @Basic
+    @Column(name = "email_address")
+    private String emailAddress;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CleaningPersonnelEntity that = (CleaningPersonnelEntity) o;
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(birthdate, that.birthdate) && Objects.equals(addressId, that.addressId) && Objects.equals(telephoneNumber, that.telephoneNumber) && Objects.equals(mobileNumber, that.mobileNumber) && Objects.equals(emailAddress, that.emailAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, birthdate, addressId, telephoneNumber, mobileNumber, emailAddress);
+    }
+}
