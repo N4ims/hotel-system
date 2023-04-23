@@ -6,8 +6,8 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "guests", schema = "hotel_system")
-public class GuestsEntity {
+@Table(name = "cleaning_personnel", schema = "hotel_system")
+public class CleaningPersonnelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -21,9 +21,9 @@ public class GuestsEntity {
     @Basic
     @Column(name = "birthdate")
     private Date birthdate;
-    @Basic
-    @Column(name = "address_id")
-    private Integer addressId;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private AddressEntity addressId;
     @Basic
     @Column(name = "telephone_number")
     private String telephoneNumber;
@@ -33,9 +33,6 @@ public class GuestsEntity {
     @Basic
     @Column(name = "email_address")
     private String emailAddress;
-    @Basic
-    @Column(name = "member_since")
-    private Date memberSince;
 
     public int getId() {
         return id;
@@ -69,11 +66,11 @@ public class GuestsEntity {
         this.birthdate = birthdate;
     }
 
-    public Integer getAddressId() {
+    public AddressEntity getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(Integer addressId) {
+    public void setAddressId(AddressEntity addressId) {
         this.addressId = addressId;
     }
 
@@ -101,24 +98,16 @@ public class GuestsEntity {
         this.emailAddress = emailAddress;
     }
 
-    public Date getMemberSince() {
-        return memberSince;
-    }
-
-    public void setMemberSince(Date memberSince) {
-        this.memberSince = memberSince;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GuestsEntity that = (GuestsEntity) o;
-        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(birthdate, that.birthdate) && Objects.equals(addressId, that.addressId) && Objects.equals(telephoneNumber, that.telephoneNumber) && Objects.equals(mobileNumber, that.mobileNumber) && Objects.equals(emailAddress, that.emailAddress) && Objects.equals(memberSince, that.memberSince);
+        CleaningPersonnelEntity that = (CleaningPersonnelEntity) o;
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(birthdate, that.birthdate) && Objects.equals(addressId, that.addressId) && Objects.equals(telephoneNumber, that.telephoneNumber) && Objects.equals(mobileNumber, that.mobileNumber) && Objects.equals(emailAddress, that.emailAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, birthdate, addressId, telephoneNumber, mobileNumber, emailAddress, memberSince);
+        return Objects.hash(id, firstName, lastName, birthdate, addressId, telephoneNumber, mobileNumber, emailAddress);
     }
 }

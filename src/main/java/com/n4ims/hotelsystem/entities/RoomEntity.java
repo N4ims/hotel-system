@@ -6,14 +6,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "rooms", schema = "hotel_system")
-public class RoomsEntity {
+public class RoomEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private int id;
-    @Basic
-    @Column(name = "type_id")
-    private Integer typeId;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private RoomTypeEntity type;
 
     public int getId() {
         return id;
@@ -23,24 +23,24 @@ public class RoomsEntity {
         this.id = id;
     }
 
-    public Integer getTypeId() {
-        return typeId;
+    public RoomTypeEntity getType() {
+        return type;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setType(RoomTypeEntity typeId) {
+        this.type = typeId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoomsEntity that = (RoomsEntity) o;
-        return id == that.id && Objects.equals(typeId, that.typeId);
+        RoomEntity that = (RoomEntity) o;
+        return id == that.id && Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, typeId);
+        return Objects.hash(id, type);
     }
 }

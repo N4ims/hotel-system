@@ -4,16 +4,19 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
   <persistence-unit transaction-type="RESOURCE_LOCAL" name="hotel_system">
-    <class>com.n4ims.hotelsystem.entities.AddressesEntity</class>
-    <class>com.n4ims.hotelsystem.entities.CateringBookingsEntity</class>
-    <class>com.n4ims.hotelsystem.entities.CateringTypesEntity</class>
-    <class>com.n4ims.hotelsystem.entities.GuestsEntity</class>
-    <class>com.n4ims.hotelsystem.entities.RoomAmenitiesEntity</class>
-    <class>com.n4ims.hotelsystem.entities.RoomBookingsEntity</class>
-    <class>com.n4ims.hotelsystem.entities.RoomCleaningsEntity</class>
-    <class>com.n4ims.hotelsystem.entities.RoomOccupationsEntity</class>
-    <class>com.n4ims.hotelsystem.entities.RoomTypesEntity</class>
-    <class>com.n4ims.hotelsystem.entities.RoomsEntity</class>
+    <class>com.n4ims.hotelsystem.entities.AddressEntity</class>
+    <class>com.n4ims.hotelsystem.entities.CateringBookingEntity</class>
+    <class>com.n4ims.hotelsystem.entities.CateringTypeEntity</class>
+    <class>com.n4ims.hotelsystem.entities.CleaningPersonnelEntity</class>
+    <class>com.n4ims.hotelsystem.entities.CleaningTypeEntity</class>
+    <class>com.n4ims.hotelsystem.entities.GuestEntity</class>
+    <class>com.n4ims.hotelsystem.entities.AmenityEntity</class>
+    <class>com.n4ims.hotelsystem.entities.RoomTypeAmenityEntity</class>
+    <class>com.n4ims.hotelsystem.entities.RoomBookingEntity</class>
+    <class>com.n4ims.hotelsystem.entities.RoomCleaningEntity</class>
+    <class>com.n4ims.hotelsystem.entities.RoomOccupationEntity</class>
+    <class>com.n4ims.hotelsystem.entities.RoomTypeEntity</class>
+    <class>com.n4ims.hotelsystem.entities.RoomEntity</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbcDriver"/>
       <property name="javax.persistence.jdbc.url" value="localhost:3306/hotel_system"/>
