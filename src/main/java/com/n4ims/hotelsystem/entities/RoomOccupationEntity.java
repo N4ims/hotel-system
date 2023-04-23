@@ -7,17 +7,17 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "room_occupations", schema = "hotel_system")
-public class RoomOccupationsEntity {
+public class RoomOccupationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private int id;
-    @Basic
-    @Column(name = "booking_id")
-    private Integer bookingId;
-    @Basic
-    @Column(name = "room_id")
-    private Integer roomId;
+    @OneToOne
+    @JoinColumn(name = "room_booking_id")
+    private RoomBookingEntity roomBooking;
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private RoomEntity room;
     @Basic
     @Column(name = "check_in")
     private Timestamp checkIn;
@@ -42,20 +42,20 @@ public class RoomOccupationsEntity {
         this.id = id;
     }
 
-    public Integer getBookingId() {
-        return bookingId;
+    public RoomBookingEntity getRoomBooking() {
+        return roomBooking;
     }
 
-    public void setBookingId(Integer bookingId) {
-        this.bookingId = bookingId;
+    public void setRoomBooking(RoomBookingEntity bookingId) {
+        this.roomBooking = bookingId;
     }
 
-    public Integer getRoomId() {
-        return roomId;
+    public RoomEntity getRoom() {
+        return room;
     }
 
-    public void setRoomId(Integer roomId) {
-        this.roomId = roomId;
+    public void setRoom(RoomEntity roomId) {
+        this.room = roomId;
     }
 
     public Timestamp getCheckIn() {
@@ -102,12 +102,12 @@ public class RoomOccupationsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoomOccupationsEntity that = (RoomOccupationsEntity) o;
-        return id == that.id && Objects.equals(bookingId, that.bookingId) && Objects.equals(roomId, that.roomId) && Objects.equals(checkIn, that.checkIn) && Objects.equals(checkOut, that.checkOut) && Objects.equals(deposit, that.deposit) && Objects.equals(roomLeftBehindAcceptable, that.roomLeftBehindAcceptable) && Objects.equals(notes, that.notes);
+        RoomOccupationEntity that = (RoomOccupationEntity) o;
+        return id == that.id && Objects.equals(roomBooking, that.roomBooking) && Objects.equals(room, that.room) && Objects.equals(checkIn, that.checkIn) && Objects.equals(checkOut, that.checkOut) && Objects.equals(deposit, that.deposit) && Objects.equals(roomLeftBehindAcceptable, that.roomLeftBehindAcceptable) && Objects.equals(notes, that.notes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bookingId, roomId, checkIn, checkOut, deposit, roomLeftBehindAcceptable, notes);
+        return Objects.hash(id, roomBooking, room, checkIn, checkOut, deposit, roomLeftBehindAcceptable, notes);
     }
 }

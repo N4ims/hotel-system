@@ -1,12 +1,12 @@
 package com.n4ims.hotelsystem.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "room_types", schema = "hotel_system")
-public class RoomTypesEntity {
+public class RoomTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -32,9 +32,13 @@ public class RoomTypesEntity {
     @Basic
     @Column(name = "size")
     private Integer size;
-    @Basic
-    @Column(name = "amenity_id")
-    private Integer amenityId;
+    @ManyToMany
+    @JoinTable(
+            name = "room_type_amenities",
+            joinColumns = {@JoinColumn(name = "room_type_id")},
+            inverseJoinColumns = {@JoinColumn(name = "amenity_id")}
+    )
+    private Set<AmenityEntity> amenities;
 
     public int getId() {
         return id;
@@ -100,24 +104,24 @@ public class RoomTypesEntity {
         this.size = size;
     }
 
-    public Integer getAmenityId() {
-        return amenityId;
+    public Set<AmenityEntity> getAmenities() {
+        return amenities;
     }
 
-    public void setAmenityId(Integer amenityId) {
-        this.amenityId = amenityId;
+    public void setAmenities(Set<AmenityEntity> amenities) {
+        this.amenities = amenities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoomTypesEntity that = (RoomTypesEntity) o;
-        return id == that.id && Objects.equals(type, that.type) && Objects.equals(description, that.description) && Objects.equals(bedType, that.bedType) && Objects.equals(numberOfBeds, that.numberOfBeds) && Objects.equals(maxPersons, that.maxPersons) && Objects.equals(basePrice, that.basePrice) && Objects.equals(size, that.size) && Objects.equals(amenityId, that.amenityId);
+        RoomTypeEntity that = (RoomTypeEntity) o;
+        return id == that.id && Objects.equals(type, that.type) && Objects.equals(description, that.description) && Objects.equals(bedType, that.bedType) && Objects.equals(numberOfBeds, that.numberOfBeds) && Objects.equals(maxPersons, that.maxPersons) && Objects.equals(basePrice, that.basePrice) && Objects.equals(size, that.size) && Objects.equals(amenities, that.amenities);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, description, bedType, numberOfBeds, maxPersons, basePrice, size, amenityId);
+        return Objects.hash(id, type, description, bedType, numberOfBeds, maxPersons, basePrice, size, amenities);
     }
 }

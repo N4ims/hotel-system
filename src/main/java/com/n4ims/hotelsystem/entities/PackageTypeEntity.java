@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "catering_types", schema = "hotel_system")
-public class CateringTypesEntity {
+@Table(name = "package_types", schema = "hotel_system")
+public class PackageTypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -20,6 +20,9 @@ public class CateringTypesEntity {
     @Basic
     @Column(name = "price")
     private Integer price;
+    @Basic
+    @Column(name = "amount")
+    private Integer amount;
 
     public int getId() {
         return id;
@@ -53,16 +56,24 @@ public class CateringTypesEntity {
         this.price = price;
     }
 
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CateringTypesEntity that = (CateringTypesEntity) o;
-        return id == that.id && Objects.equals(type, that.type) && Objects.equals(description, that.description) && Objects.equals(price, that.price);
+        PackageTypeEntity that = (PackageTypeEntity) o;
+        return id == that.id && Objects.equals(type, that.type) && Objects.equals(description, that.description) && Objects.equals(price, that.price) && Objects.equals(amount, that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, description, price);
+        return Objects.hash(id, type, description, price, amount);
     }
 }

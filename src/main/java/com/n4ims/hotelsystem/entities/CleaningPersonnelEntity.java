@@ -21,9 +21,9 @@ public class CleaningPersonnelEntity {
     @Basic
     @Column(name = "birthdate")
     private Date birthdate;
-    @Basic
-    @Column(name = "address_id")
-    private Integer addressId;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private AddressEntity addressId;
     @Basic
     @Column(name = "telephone_number")
     private String telephoneNumber;
@@ -66,11 +66,11 @@ public class CleaningPersonnelEntity {
         this.birthdate = birthdate;
     }
 
-    public Integer getAddressId() {
+    public AddressEntity getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(Integer addressId) {
+    public void setAddressId(AddressEntity addressId) {
         this.addressId = addressId;
     }
 

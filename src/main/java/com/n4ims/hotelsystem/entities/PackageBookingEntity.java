@@ -8,17 +8,17 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "package_bookings", schema = "hotel_system")
-public class PackageBookingsEntity {
+public class PackageBookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "package_type_id")
+    private PackageTypeEntity packageType;
     @Basic
-    @Column(name = "package_type")
-    private Integer packageType;
-    @Basic
-    @Column(name = "booking_id")
-    private Integer bookingId;
+    @Column(name = "room_booking_id")
+    private Integer roomBookingId;
     @Basic
     @Column(name = "for_date")
     private Date forDate;
@@ -34,20 +34,20 @@ public class PackageBookingsEntity {
         this.id = id;
     }
 
-    public Integer getPackageType() {
+    public PackageTypeEntity getPackageType() {
         return packageType;
     }
 
-    public void setPackageType(Integer packageType) {
+    public void setPackageType(PackageTypeEntity packageType) {
         this.packageType = packageType;
     }
 
     public Integer getBookingId() {
-        return bookingId;
+        return roomBookingId;
     }
 
     public void setBookingId(Integer bookingId) {
-        this.bookingId = bookingId;
+        this.roomBookingId = bookingId;
     }
 
     public Date getForDate() {
@@ -70,12 +70,12 @@ public class PackageBookingsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PackageBookingsEntity that = (PackageBookingsEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(packageType, that.packageType) && Objects.equals(bookingId, that.bookingId) && Objects.equals(forDate, that.forDate) && Objects.equals(timestamp, that.timestamp);
+        PackageBookingEntity that = (PackageBookingEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(packageType, that.packageType) && Objects.equals(roomBookingId, that.roomBookingId) && Objects.equals(forDate, that.forDate) && Objects.equals(timestamp, that.timestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, packageType, bookingId, forDate, timestamp);
+        return Objects.hash(id, packageType, roomBookingId, forDate, timestamp);
     }
 }
