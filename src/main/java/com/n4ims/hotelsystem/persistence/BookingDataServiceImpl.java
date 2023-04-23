@@ -1,8 +1,8 @@
 package com.n4ims.hotelsystem.persistence;
 
-import com.n4ims.hotelsystem.entities.AddressesEntity;
-import com.n4ims.hotelsystem.entities.GuestsEntity;
-import com.n4ims.hotelsystem.entities.RoomBookingsEntity;
+import com.n4ims.hotelsystem.entities.AddressEntity;
+import com.n4ims.hotelsystem.entities.GuestEntity;
+import com.n4ims.hotelsystem.entities.RoomBookingEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
@@ -17,32 +17,32 @@ public class BookingDataServiceImpl implements BookingDataService{
     private static final Logger log = LoggerFactory.getLogger( MethodHandles.lookup().lookupClass() );
 
     @Override
-    public List<RoomBookingsEntity> getAllBookingsForPeriod(Date startDate, Date endDate) {
+    public List<RoomBookingEntity> getAllBookingsForPeriod(Date startDate, Date endDate) {
         return null;
     }
 
     @Override
-    public List<RoomBookingsEntity> getAllFreeRoomsForPeriod(Date startDate, Date endDate) {
+    public List<RoomBookingEntity> getAllFreeRoomsForPeriod(Date startDate, Date endDate) {
         return null;
     }
 
     @Override
-    public void createRoomBooking(RoomBookingsEntity booking) {
+    public void createRoomBooking(RoomBookingEntity booking) {
 
     }
 
     @Override
-    public void updateRoomBooking(RoomBookingsEntity booking) {
+    public void updateRoomBooking(RoomBookingEntity booking) {
 
     }
 
     @Override
-    public void createAddress(AddressesEntity address) {
+    public void createAddress(AddressEntity address) {
 
     }
 
     @Override
-    public void createGuest(GuestsEntity guest) {
+    public void createGuest(GuestEntity guest) {
 
     }
 
