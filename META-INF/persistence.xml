@@ -7,11 +7,7 @@
     <class>com.n4ims.hotelsystem.entities.AddressesEntity</class>
     <class>com.n4ims.hotelsystem.entities.CateringBookingsEntity</class>
     <class>com.n4ims.hotelsystem.entities.CateringTypesEntity</class>
-    <class>com.n4ims.hotelsystem.entities.CleaningPersonnelEntity</class>
-    <class>com.n4ims.hotelsystem.entities.CleaningTypeEntity</class>
     <class>com.n4ims.hotelsystem.entities.GuestsEntity</class>
-    <class>com.n4ims.hotelsystem.entities.PackageBookingsEntity</class>
-    <class>com.n4ims.hotelsystem.entities.PackageTypesEntity</class>
     <class>com.n4ims.hotelsystem.entities.RoomAmenitiesEntity</class>
     <class>com.n4ims.hotelsystem.entities.RoomBookingsEntity</class>
     <class>com.n4ims.hotelsystem.entities.RoomCleaningsEntity</class>
