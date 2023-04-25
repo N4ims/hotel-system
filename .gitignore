@@ -1,6 +1,10 @@
 # Compiled class file
 *.class
 
+# DB Settings
+persistence.xml
+orm.xml
+
 # Log file
 *.log
 
