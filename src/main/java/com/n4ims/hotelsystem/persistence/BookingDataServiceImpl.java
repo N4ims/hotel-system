@@ -3,8 +3,14 @@ package com.n4ims.hotelsystem.persistence;
 import com.n4ims.hotelsystem.entities.AddressEntity;
 import com.n4ims.hotelsystem.entities.GuestEntity;
 import com.n4ims.hotelsystem.entities.RoomBookingEntity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.awt.print.Book;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
@@ -13,9 +19,13 @@ import java.util.List;
 import java.util.Properties;
 
 public class BookingDataServiceImpl implements BookingDataService{
-
+    private static final String PERSISTENCE_UNIT = "hotel_system";
+    private final EntityManager entityManager;
     private static final Logger log = LoggerFactory.getLogger( MethodHandles.lookup().lookupClass() );
 
+    public BookingDataServiceImpl(){
+        entityManager = getEntityManager();
+    }
     @Override
     public List<RoomBookingEntity> getAllBookingsForPeriod(Date startDate, Date endDate) {
         return null;
@@ -27,8 +37,13 @@ public class BookingDataServiceImpl implements BookingDataService{
     }
 
     @Override
-    public void createRoomBooking(RoomBookingEntity booking) {
-
+    public void createRoomBooking(RoomBookingEntity roomBooking) throws PersistenceException {
+        try{
+            entityManager.persist(roomBooking);
+        } catch (PersistenceException e){
+            log.error(e.toString(), e);
+            throw e;
+        }
     }
 
     @Override
@@ -48,6 +63,18 @@ public class BookingDataServiceImpl implements BookingDataService{
 
     // private EntityManager getEntityManager(){}
 
+    private EntityManager getEntityManager() throws PersistenceException {
+        EntityManager em;
+
+        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT)) {
+            em = factory.createEntityManager();
+        } catch ( PersistenceException e) {
+            log.error(e.toString(), e);
+            throw e;
+        }
+
+        return em;
+    }
     private Properties getDbAccessProperties() {
         Properties dbAccessProperties;
 

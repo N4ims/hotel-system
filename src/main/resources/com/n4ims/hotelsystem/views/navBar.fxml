@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="754.0" prefWidth="239.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="754.0" prefWidth="239.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="NavBar" textAlignment="CENTER" wrapText="false">
          <font>
@@ -33,7 +29,7 @@
          <children>
             <Pane id="navBarItem1" prefHeight="50.0" prefWidth="296.0">
                <children>
-                  <Label id="navBarItem0" layoutX="48.0" layoutY="26.0" prefHeight="25.0" prefWidth="253.0" text="%nav1">
+                  <Label id="navBarItem0" layoutX="48.0" layoutY="26.0" prefHeight="25.0" prefWidth="253.0" text="%navBarItem0">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -42,7 +38,7 @@
             </Pane>
             <Pane id="navBarItem2" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="1">
                <children>
-                  <Label id="navBarItem1" layoutX="49.0" layoutY="27.0" prefHeight="25.0" prefWidth="300.0" text="%nav2">
+                  <Label id="navBarItem1" layoutX="49.0" layoutY="27.0" prefHeight="25.0" prefWidth="300.0" text="%navBarItem1">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -51,7 +47,7 @@
             </Pane>
             <Pane prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="2">
                <children>
-                  <Label id="navBarItem2" layoutX="50.0" layoutY="27.0" prefHeight="25.0" prefWidth="320.0" text="%nav3">
+                  <Label id="navBarItem2" layoutX="50.0" layoutY="27.0" prefHeight="25.0" prefWidth="320.0" text="%navBarItem2">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -60,7 +56,7 @@
             </Pane>
             <Pane id="navBarItem4" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="3">
                <children>
-                  <Label id="navBarItem3" layoutX="50.0" layoutY="26.0" prefHeight="25.0" prefWidth="288.0" text="%nav4">
+                  <Label id="navBarItem3" layoutX="50.0" layoutY="26.0" prefHeight="25.0" prefWidth="288.0" text="%navBarItem3">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -69,7 +65,7 @@
             </Pane>
             <Pane id="navBarItem4" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="4">
                <children>
-                  <Label id="navBarItem4" layoutX="51.0" layoutY="27.0" prefHeight="25.0" prefWidth="332.0" text="%nav5">
+                  <Label id="navBarItem4" layoutX="51.0" layoutY="27.0" prefHeight="25.0" prefWidth="332.0" text="%navBarItem4">
                      <font>
                         <Font size="16.0" />
                      </font>

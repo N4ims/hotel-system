@@ -32,24 +32,13 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="1020.0" prefWidth="1825.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="1020.0" prefWidth="1825.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
   <children>
       <HBox prefHeight="150.0" prefWidth="1834.0">
          <children>
@@ -67,13 +56,9 @@
                      </font></Label>
                         <HBox layoutX="14.0" layoutY="81.0" prefHeight="28.0" prefWidth="857.0" spacing="30.0">
                            <children>
-                              <DatePicker />
-                              <DatePicker />
-                              <ChoiceBox prefHeight="27.0" prefWidth="200.0">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </ChoiceBox>
+                              <DatePicker id="startDatePicker" promptText="%checkInPromptText" />
+                              <DatePicker id="endDatePicker" promptText="%checkOutPromptText" />
+                        <TextField promptText="%roomTypePromptText" />
                            </children>
                         </HBox>
                   <HBox layoutX="14.0" layoutY="131.0" prefHeight="163.0" prefWidth="983.0">
@@ -107,7 +92,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestText" GridPane.valignment="BOTTOM" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%roomNumberLabel" GridPane.valignment="BOTTOM" />
                                           <ChoiceBox prefHeight="26.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="5.0" />
@@ -124,7 +109,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestText" GridPane.valignment="BOTTOM" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%adultsLabel" GridPane.valignment="BOTTOM" />
                                           <ChoiceBox prefHeight="26.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="5.0" />
@@ -141,7 +126,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestText" GridPane.valignment="BOTTOM" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%childrenLabel" GridPane.valignment="BOTTOM" />
                                           <ChoiceBox prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="5.0" />
@@ -170,7 +155,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestText" GridPane.valignment="BOTTOM" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%cateringLabel" GridPane.valignment="BOTTOM" />
                                           <ChoiceBox prefHeight="26.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="5.0" />
@@ -187,7 +172,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TestText" GridPane.valignment="BOTTOM" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%packageLabel" GridPane.valignment="BOTTOM" />
                                           <ChoiceBox prefHeight="26.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="5.0" />
@@ -252,8 +237,8 @@
                                                 <RowConstraints maxHeight="36.19998779296875" minHeight="10.0" prefHeight="36.19998779296875" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.valignment="BOTTOM" />
-                                                <TextField prefHeight="30.0" prefWidth="163.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.rowIndex="1">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%firstNameLabel" GridPane.valignment="BOTTOM" />
+                                                <TextField prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                                    <opaqueInsets>
                                                       <Insets />
                                                    </opaqueInsets>
@@ -272,8 +257,8 @@
                                                 <RowConstraints maxHeight="36.19998779296875" minHeight="10.0" prefHeight="36.19998779296875" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.valignment="BOTTOM" />
-                                                <TextField prefHeight="30.0" prefWidth="472.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.rowIndex="1">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%lastNameLabel" GridPane.valignment="BOTTOM" />
+                                                <TextField prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                                    <GridPane.margin>
                                                       <Insets left="5.0" />
                                                    </GridPane.margin>
@@ -293,8 +278,8 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                                          <TextField prefHeight="30.0" prefWidth="163.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.rowIndex="1">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%birthdateLabel" />
+                                          <TextField prefHeight="30.0" prefWidth="163.0" promptText="%dayPromptText" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
@@ -302,8 +287,7 @@
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" />
-                                          <TextField prefHeight="30.0" prefWidth="163.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <TextField prefHeight="30.0" prefWidth="163.0" promptText="%monthPromptText" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
@@ -312,7 +296,7 @@
                                              </GridPane.margin>
                                           </TextField>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="2" />
-                                          <TextField prefHeight="30.0" prefWidth="163.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                          <TextField prefHeight="30.0" prefWidth="163.0" promptText="%yearPromptText" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
@@ -332,13 +316,12 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-                                          <TextField prefHeight="28.0" prefWidth="193.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%mobileNumberLabel" />
+                                          <TextField prefHeight="28.0" prefWidth="193.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" />
                                           <ComboBox prefWidth="150.0" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
@@ -351,8 +334,8 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.valignment="BOTTOM" />
-                                          <TextField prefHeight="30.0" prefWidth="472.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.rowIndex="1" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%emailLabel" GridPane.valignment="BOTTOM" />
+                                          <TextField prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
                                     <GridPane GridPane.rowIndex="4">
@@ -365,14 +348,14 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.valignment="BOTTOM" />
-                                          <TextField prefHeight="28.0" prefWidth="193.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.rowIndex="1">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%postcodeLabel" GridPane.valignment="BOTTOM" />
+                                          <TextField prefHeight="28.0" prefWidth="193.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
-                                          <TextField prefHeight="30.0" prefWidth="472.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%residenceLabel" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
+                                          <TextField prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="5.0" />
                                              </GridPane.margin>
@@ -388,11 +371,11 @@
                                           <RowConstraints maxHeight="36.19998779296875" minHeight="10.0" prefHeight="36.19998779296875" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.valignment="BOTTOM">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%streetLabel" GridPane.valignment="BOTTOM">
                                              <GridPane.margin>
                                                 <Insets />
                                              </GridPane.margin></Text>
-                                          <TextField prefHeight="30.0" prefWidth="472.0" promptText="Prompttext" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" text="TextField" GridPane.rowIndex="1" />
+                                          <TextField prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
                                  </children>
@@ -401,7 +384,7 @@
                         </GridPane>
                      </children>
                   </HBox>
-                  <Button layoutX="721.0" layoutY="646.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px;" text="Buchung anlegen" />
+                  <Button layoutX="721.0" layoutY="646.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px;" text="%createBookingLabel" />
               </children>
             </AnchorPane>
          </children>
