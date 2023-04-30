@@ -39,13 +39,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
@@ -57,85 +52,13 @@
       </HBox>
       <HBox>
          <children>
-        <AnchorPane prefHeight="754.0" prefWidth="239.0">
-          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="NavBar" textAlignment="CENTER" wrapText="false">
-              <font>
-                <Font size="18.0" fx:id="x1" />
-              </font>
-              <textFill>
-                <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
-              </textFill>
-            </Label>
-                  <GridPane layoutX="29.0" layoutY="73.0" prefHeight="323.0" prefWidth="310.0">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Pane id="navBarItem1" prefHeight="50.0" prefWidth="296.0">
-                           <children>
-                               <!-- TODO add icon -->
-                              <Label id="navBarItem0" layoutX="48.0" layoutY="26.0" prefHeight="25.0" prefWidth="253.0" text="%nav1">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane id="navBarItem2" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="1">
-                            <!-- TODO add icon -->
-                           <children>
-                              <Label id="navBarItem1" layoutX="49.0" layoutY="27.0" prefHeight="25.0" prefWidth="300.0" text="%nav2">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="2">
-                           <children>
-                               <!-- TODO add icon -->
-                              <Label id="navBarItem2" layoutX="50.0" layoutY="27.0" prefHeight="25.0" prefWidth="320.0" text="%nav3">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane id="navBarItem4" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="3">
-                           <children>
-                               <!-- TODO add icon -->
-                              <Label id="navBarItem3" layoutX="50.0" layoutY="26.0" prefHeight="25.0" prefWidth="288.0" text="%nav4">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <Pane id="navBarItem4" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="4">
-                           <children>
-                               <!-- TODO add icon -->
-                              <Label id="navBarItem4" layoutX="51.0" layoutY="27.0" prefHeight="25.0" prefWidth="332.0" text="%nav5">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                     </children>
-                  </GridPane>
-          </children>
-        </AnchorPane>
+            <fx:include source="navBar.fxml" />
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Übersicht" textAlignment="CENTER" wrapText="false" />
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Übersicht" textAlignment="CENTER" wrapText="false">
+                     <font>
+                <Font size="18.0" fx:id="x1" />
+                     </font></Label>
                         <HBox layoutX="14.0" layoutY="81.0" prefHeight="28.0" prefWidth="857.0" spacing="30.0">
                            <children>
                               <ChoiceBox prefHeight="27.0" prefWidth="200.0" />

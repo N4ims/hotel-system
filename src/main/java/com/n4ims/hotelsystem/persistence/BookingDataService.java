@@ -12,7 +12,7 @@ public interface BookingDataService {
      * This method will return all bookings that have their start date in the given period.
      * @param startDate inclusive
      * @param endDate exclusive, bookings that start at or follow after this date will not be included
-     * @return
+     * @return all bookings for the given period
      */
     List<RoomBookingEntity> getAllBookingsForPeriod(Date startDate, Date endDate);
 
@@ -20,7 +20,7 @@ public interface BookingDataService {
      * This method will return all rooms that have no bookings in between the given period.
      * @param startDate inclusive
      * @param endDate exclusive, bookings that start at or follow after this date will not be included
-     * @return
+     * @return all rooms that have no booking in the given period
      */
     List<RoomBookingEntity> getAllFreeRoomsForPeriod(Date startDate, Date endDate);
 
