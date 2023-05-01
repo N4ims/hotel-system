@@ -3,26 +3,27 @@ package com.n4ims.hotelsystem.persistence;
 import com.n4ims.hotelsystem.entities.AddressEntity;
 import com.n4ims.hotelsystem.entities.GuestEntity;
 import com.n4ims.hotelsystem.entities.RoomBookingEntity;
+import com.n4ims.hotelsystem.entities.RoomEntity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public interface BookingDataService {
     /**
      * This method will return all bookings that have their start date in the given period.
-     * @param startDate inclusive
-     * @param endDate exclusive, bookings that start at or follow after this date will not be included
+     * @param fromDate inclusive
+     * @param toDate exclusive, bookings that start at or follow after this date will not be included
      * @return all bookings for the given period
      */
-    List<RoomBookingEntity> getAllBookingsForPeriod(Date startDate, Date endDate);
+    List<RoomBookingEntity> getAllBookingsForPeriod(Date fromDate, Date toDate);
 
     /**
      * This method will return all rooms that have no bookings in between the given period.
-     * @param startDate inclusive
-     * @param endDate exclusive, bookings that start at or follow after this date will not be included
+     * @param fromDate inclusive
+     * @param toDate exclusive, bookings that start at or follow after this date will not be included
      * @return all rooms that have no booking in the given period
      */
-    List<RoomBookingEntity> getAllFreeRoomsForPeriod(Date startDate, Date endDate);
+    List<RoomEntity> getAllFreeRoomsForPeriod(Date fromDate, Date toDate);
 
     void createRoomBooking(RoomBookingEntity booking);
     void updateRoomBooking(RoomBookingEntity booking);

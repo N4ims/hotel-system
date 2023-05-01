@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import utils.ResourcePaths;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class OverviewCalenderController extends BasicController{
@@ -18,12 +19,12 @@ public class OverviewCalenderController extends BasicController{
     private ChoiceBox occupationStatusPicker;
 
     @FXML
-    private DatePicker startDatePicker;
+    private DatePicker fromDatePicker;
     private final LocalDate startMinDate = LocalDate.now();
     private final LocalDate startMaxDate = LocalDate.MAX;
 
     @FXML
-    private DatePicker endDatePicker;
+    private DatePicker toDatePicker;
     private final LocalDate endMinDate = LocalDate.now().plusDays(1);
     private final LocalDate endMaxDate = LocalDate.MAX;
 
@@ -36,10 +37,10 @@ public class OverviewCalenderController extends BasicController{
 
         // Allow only certain fields of the datePickers to be picked
         Callback<DatePicker, DateCell> startDayCellFactory = getDayCellFactory(startMinDate, startMaxDate);
-        startDatePicker.setDayCellFactory(startDayCellFactory);
+        fromDatePicker.setDayCellFactory(startDayCellFactory);
 
         Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(endMinDate, endMaxDate);
-        endDatePicker.setDayCellFactory(endDayCellFactory);
+        toDatePicker.setDayCellFactory(endDayCellFactory);
 
         System.out.println("OverviewController initialized");
     }
@@ -48,6 +49,7 @@ public class OverviewCalenderController extends BasicController{
     private void handleOnMouseClicked(MouseEvent event){
         if (event.getSource().equals(occupationStatusPicker)) {
             Scene scene = occupationStatusPicker.getScene();
+
             super.navigate(scene, ResourcePaths.BOOKING_CREATION_VIEW);
         }
     }

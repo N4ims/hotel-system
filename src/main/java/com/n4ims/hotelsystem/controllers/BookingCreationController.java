@@ -1,71 +1,112 @@
 package com.n4ims.hotelsystem.controllers;
 
+import com.n4ims.hotelsystem.entities.RoomEntity;
+import com.n4ims.hotelsystem.persistence.BookingDataService;
+import com.n4ims.hotelsystem.persistence.BookingDataServiceImpl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import utils.ResourcePaths;
-
+import utils.DateUtils;
+import java.util.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class BookingCreationController extends BasicController{
 
-    @FXML
-    private DatePicker startDatePicker;
-    private LocalDate selectedStartDate;
-    private final LocalDate startMinDate = LocalDate.now();
-    private LocalDate startMaxDate = LocalDate.MAX;
+    protected BookingDataService bookingDataService;
 
     @FXML
-    private DatePicker endDatePicker;
-    private LocalDate selectedEndDate;
-    private LocalDate endMinDate = LocalDate.now().plusDays(1);
-    private final LocalDate endMaxDate = LocalDate.MAX;
+    private DatePicker fromDatePicker;
+    private LocalDate selectedFromDate;
+    private final LocalDate fromDateMin = LocalDate.now();
+    private LocalDate fromDateMax = LocalDate.MAX;
+
+    @FXML
+    private DatePicker toDatePicker;
+    private LocalDate selectedToDate;
+    private LocalDate toDateMin = LocalDate.now().plusDays(1);
+    private final LocalDate toDateMax = LocalDate.MAX;
+
+
+    @FXML
+    private ChoiceBox<RoomEntity> roomNumberPicker;
+    ObservableList<RoomEntity> freeRooms;
+
+
+    public BookingCreationController(){
+        this.bookingDataService = new BookingDataServiceImpl();
+    }
 
     public void initialize(){
+
         // Avoid useless reloading of view
         getNavigationBarController().disableNavigationItem(1);
 
         setupDatePickers();
         loadValuesIntoComboboxes();
 
-        System.out.println("OverviewController initialized");
+        System.out.println("BookingCreationController initialized");
     }
 
     private void loadValuesIntoComboboxes(){
+        Thread thread = new Thread(){
+            public void run() {
+                Date fromDate = null;
+                Date toDate = null;
 
+                if (selectedFromDate != null) {
+                    fromDate = DateUtils.asDate(selectedFromDate);
+                }
+
+                if(selectedToDate != null) {
+                    toDate = DateUtils.asDate(selectedToDate);
+                }
+
+                List<RoomEntity> r = bookingDataService.getAllFreeRoomsForPeriod(fromDate, toDate);
+                freeRooms = FXCollections.observableList(r);
+
+                roomNumberPicker.setItems(freeRooms);
+            }
+        };
+
+        thread.start();
     }
 
     private void setupDatePickers(){
         // Allow only certain fields of the datePickers to be picked
-        Callback<DatePicker, DateCell> startDayCellFactory = super.getDayCellFactory(startMinDate, startMaxDate);
-        startDatePicker.setDayCellFactory(startDayCellFactory);
-        endDatePicker.setOnAction(this::handleOnStartDatePicked);
+        Callback<DatePicker, DateCell> startDayCellFactory = super.getDayCellFactory(fromDateMin, fromDateMax);
+        fromDatePicker.setDayCellFactory(startDayCellFactory);
+        fromDatePicker.setOnAction(this::handleOnFromDatePicked);
 
-        Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(endMinDate, endMaxDate);
-        endDatePicker.setDayCellFactory(endDayCellFactory);
-        endDatePicker.setOnAction(this::handleOnEndDatePicked);
+        Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(toDateMin, toDateMax);
+        toDatePicker.setDayCellFactory(endDayCellFactory);
+        toDatePicker.setOnAction(this::handleOnToDatePicked);
     }
 
     @FXML
-    private void handleOnStartDatePicked(ActionEvent event){
+    private void handleOnFromDatePicked(ActionEvent event){
         DatePicker picker = (DatePicker) event.getSource();
-        selectedStartDate = picker.getValue();
+        selectedFromDate = picker.getValue();
 
         // So selected start date < end date
-        endMinDate = selectedStartDate;
+        toDateMin = selectedFromDate;
+        loadValuesIntoComboboxes();
     }
 
     @FXML
-    private void handleOnEndDatePicked(ActionEvent event){
+    private void handleOnToDatePicked(ActionEvent event){
         DatePicker picker = (DatePicker) event.getSource();
-        selectedEndDate = picker.getValue();
-        System.out.println("End Picker picked");
+        selectedToDate = picker.getValue();
+
         // So selected start date < end date
-        startMaxDate = selectedEndDate;
+        fromDateMax = selectedToDate;
+        loadValuesIntoComboboxes();
     }
+
+
 }

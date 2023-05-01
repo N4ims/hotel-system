@@ -7,6 +7,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import utils.ResourcePaths;
 
+import java.io.IOException;
+
 public class NavigationBarController extends BasicController{
 
     @FXML
@@ -46,6 +48,7 @@ public class NavigationBarController extends BasicController{
     private void handleNavigation(MouseEvent event){
         if (event.getSource().equals(navBarItem0)){
             Scene scene = navBarItem0.getScene();
+
             super.navigate(scene, ResourcePaths.OVERVIEW_CALENDER_VIEW);
         }
 
