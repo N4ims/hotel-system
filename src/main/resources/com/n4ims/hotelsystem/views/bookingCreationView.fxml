@@ -38,7 +38,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="1020.0" prefWidth="1825.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="1020.0" prefWidth="1825.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
   <children>
       <HBox prefHeight="150.0" prefWidth="1834.0">
          <children>
@@ -47,7 +47,7 @@
       </HBox>
       <HBox prefHeight="870.0" prefWidth="1756.0">
          <children>
-            <fx:include source="navigationBar.fxml" />
+            <fx:include fx:id="navigationBar" source="navigationBar.fxml" />
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
                 <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="%headline4" textAlignment="CENTER" wrapText="false">
@@ -56,8 +56,8 @@
                      </font></Label>
                         <HBox layoutX="14.0" layoutY="81.0" prefHeight="28.0" prefWidth="857.0" spacing="30.0">
                            <children>
-                              <DatePicker id="startDatePicker" promptText="%checkInPromptText" />
-                              <DatePicker id="endDatePicker" promptText="%checkOutPromptText" />
+                              <DatePicker fx:id="startDatePicker" promptText="%checkInPromptText" />
+                              <DatePicker fx:id="endDatePicker" promptText="%checkOutPromptText" />
                         <TextField promptText="%roomTypePromptText" />
                            </children>
                         </HBox>
