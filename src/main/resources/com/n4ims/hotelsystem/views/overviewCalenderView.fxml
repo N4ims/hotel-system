@@ -38,7 +38,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.OverviewController">
   <children>
       <HBox>
          <children>
@@ -47,7 +47,7 @@
       </HBox>
       <HBox>
          <children>
-            <fx:include source="navBar.fxml" />
+            <fx:include source="navigationBar.fxml" />
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
                 <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Übersicht" textAlignment="CENTER" wrapText="false">
@@ -59,7 +59,7 @@
                               <ChoiceBox id="roomTypePicker" prefHeight="27.0" prefWidth="200.0" />
                               <DatePicker id="startDatePicker" promptText="%startDateLabel" />
                               <DatePicker id="endDatePicker" promptText="%endDateLabel" />
-                              <ChoiceBox id="occupationStatusPicker" prefHeight="27.0" prefWidth="200.0">
+                              <ChoiceBox fx:id="occupationStatusPicker" prefHeight="27.0" prefWidth="200.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

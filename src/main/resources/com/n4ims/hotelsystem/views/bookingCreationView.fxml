@@ -47,7 +47,7 @@
       </HBox>
       <HBox prefHeight="870.0" prefWidth="1756.0">
          <children>
-            <fx:include source="navBar.fxml" />
+            <fx:include source="navigationBar.fxml" />
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
                 <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="%headline4" textAlignment="CENTER" wrapText="false">

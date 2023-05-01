@@ -27,18 +27,18 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Pane id="navBarItem1" prefHeight="50.0" prefWidth="296.0">
+            <Pane prefHeight="50.0" prefWidth="296.0">
                <children>
-                  <Label id="navBarItem0" layoutX="48.0" layoutY="26.0" prefHeight="25.0" prefWidth="253.0" text="%navBarItem0">
+                  <Label fx:id="navBarItem0" layoutX="48.0" layoutY="26.0" prefHeight="25.0" prefWidth="253.0" text="%navBarItem0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane id="navBarItem2" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="1">
+            <Pane prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="1">
                <children>
-                  <Label id="navBarItem1" layoutX="49.0" layoutY="27.0" prefHeight="25.0" prefWidth="300.0" text="%navBarItem1">
+                  <Label fx:id="navBarItem1" layoutX="49.0" layoutY="27.0" prefHeight="25.0" prefWidth="300.0" text="%navBarItem1">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -47,25 +47,25 @@
             </Pane>
             <Pane prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="2">
                <children>
-                  <Label id="navBarItem2" layoutX="50.0" layoutY="27.0" prefHeight="25.0" prefWidth="320.0" text="%navBarItem2">
+                  <Label fx:id="navBarItem2" layoutX="50.0" layoutY="27.0" prefHeight="25.0" prefWidth="320.0" text="%navBarItem2">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane id="navBarItem4" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="3">
+            <Pane prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="3">
                <children>
-                  <Label id="navBarItem3" layoutX="50.0" layoutY="26.0" prefHeight="25.0" prefWidth="288.0" text="%navBarItem3">
+                  <Label fx:id="navBarItem3" layoutX="50.0" layoutY="26.0" prefHeight="25.0" prefWidth="288.0" text="%navBarItem3">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane id="navBarItem4" prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="4">
+            <Pane prefHeight="50.0" prefWidth="420.0" GridPane.rowIndex="4">
                <children>
-                  <Label id="navBarItem4" layoutX="51.0" layoutY="27.0" prefHeight="25.0" prefWidth="332.0" text="%navBarItem4">
+                  <Label fx:id="navBarItem4" layoutX="51.0" layoutY="27.0" prefHeight="25.0" prefWidth="332.0" text="%navBarItem4">
                      <font>
                         <Font size="16.0" />
                      </font>

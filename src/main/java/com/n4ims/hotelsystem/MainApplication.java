@@ -4,8 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.Locale;
+import utils.ResourcePaths;
 import java.util.ResourceBundle;
 
 public class MainApplication extends Application {
@@ -13,8 +12,8 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         ResourceBundle resources = ResourceBundle.getBundle("com.n4ims.hotelsystem.i18n.lang");
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(ResourcePaths.OVERVIEW_CALENDER_VIEW), resources);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("views/overviewCalenderView.fxml"), resources);
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Techlodge");
         stage.setScene(scene);
