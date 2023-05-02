@@ -1,9 +1,6 @@
 package com.n4ims.hotelsystem.persistence;
 
-import com.n4ims.hotelsystem.entities.AddressEntity;
-import com.n4ims.hotelsystem.entities.GuestEntity;
-import com.n4ims.hotelsystem.entities.RoomBookingEntity;
-import com.n4ims.hotelsystem.entities.RoomEntity;
+import com.n4ims.hotelsystem.entities.*;
 import jakarta.persistence.*;
 import org.hibernate.exception.JDBCConnectionException;
 import org.slf4j.Logger;
@@ -61,6 +58,32 @@ public class BookingDataServiceImpl implements BookingDataService{
                 log.error(e.toString(), e);
                 return new ArrayList<RoomEntity>();
             }
+        }
+    }
+
+    @Override
+    public List<CateringTypeEntity> getAllCateringTypes() {
+        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+             EntityManager em = factory.createEntityManager();) {
+
+            TypedQuery<CateringTypeEntity> query = em.createQuery("SELECT t FROM RoomEntity t)", CateringTypeEntity.class);
+
+            return executeTypedQuery(query);
+        }
+    }
+
+    private <T> List<T> executeTypedQuery(TypedQuery<T> query){
+        try {
+            List<T> queryResultList = query.getResultList();
+
+            return queryResultList;
+        } catch (NoResultException e) {
+            log.error(e.toString(), e);
+            return new ArrayList<T>();
+        } catch (JDBCConnectionException e) {
+            // TODO show user error message: database down
+            log.error(e.toString(), e);
+            return new ArrayList<T>();
         }
     }
 

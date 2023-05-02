@@ -37,6 +37,17 @@ public class GuestEntity {
     @Column(name = "member_since")
     private Date memberSince;
 
+    public GuestEntity(String firstName, String lastName, Date birthdate, AddressEntity address, String telephoneNumber, String mobileNumber, String emailAddress, Date memberSince) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.address = address;
+        this.telephoneNumber = telephoneNumber;
+        this.mobileNumber = mobileNumber;
+        this.emailAddress = emailAddress;
+        this.memberSince = memberSince;
+    }
+
 
     public int getId() {
         return id;

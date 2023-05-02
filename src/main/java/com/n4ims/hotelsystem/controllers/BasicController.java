@@ -1,5 +1,7 @@
 package com.n4ims.hotelsystem.controllers;
 
+import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoader;
+import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoaderImpl;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +13,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.ResourcePaths;
-
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
@@ -26,7 +26,14 @@ public class BasicController extends Application {
     @FXML
     private Parent navigationBar;
     @FXML
-    private NavigationBarController navigationBarController;
+    protected NavigationBarController navigationBarController;
+
+    protected ComponentContentLoader componentContentLoader;
+
+
+    public BasicController(){
+        componentContentLoader = new ComponentContentLoaderImpl();
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -50,6 +57,7 @@ public class BasicController extends Application {
             Scene scene = new Scene(view);
             Stage stage = (Stage) sourceScene.getWindow();
             stage.setScene(scene);
+            stage.setMaximized(true);
             stage.show();
         } catch (IOException | NullPointerException e) {
             log.error(Arrays.toString(e.getStackTrace()));
@@ -75,10 +83,6 @@ public class BasicController extends Application {
                 };
             }
         };
-    }
-
-    public Parent getNavigationBar() {
-        return navigationBar;
     }
 
     public NavigationBarController getNavigationBarController() {

@@ -38,6 +38,18 @@ public class RoomBookingEntity {
     @Column(name = "notes")
     private String notes;
 
+    public RoomBookingEntity(){}
+    public RoomBookingEntity(GuestEntity guest, RoomEntity room, Date fromDate, Date toDate, Integer numberOfAdults, Integer numberOfChildren, Timestamp timestamp, String notes) {
+        this.guest = guest;
+        this.room = room;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.numberOfAdults = numberOfAdults;
+        this.numberOfChildren = numberOfChildren;
+        this.timestamp = timestamp;
+        this.notes = notes;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,9 +1,6 @@
 package com.n4ims.hotelsystem.persistence;
 
-import com.n4ims.hotelsystem.entities.AddressEntity;
-import com.n4ims.hotelsystem.entities.GuestEntity;
-import com.n4ims.hotelsystem.entities.RoomBookingEntity;
-import com.n4ims.hotelsystem.entities.RoomEntity;
+import com.n4ims.hotelsystem.entities.*;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +21,7 @@ public interface BookingDataService {
      * @return all rooms that have no booking in the given period
      */
     List<RoomEntity> getAllFreeRoomsForPeriod(Date fromDate, Date toDate);
-
+    List<CateringTypeEntity> getAllCateringTypes();
     void createRoomBooking(RoomBookingEntity booking);
     void updateRoomBooking(RoomBookingEntity booking);
     void createAddress(AddressEntity address);
