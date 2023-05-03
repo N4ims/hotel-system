@@ -401,7 +401,7 @@
                               </GridPane>
                            </children>
                         </HBox>
-                        <Button layoutX="742.0" layoutY="620.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px;" text="%createBookingLabel" />
+                        <Button layoutX="742.0" layoutY="620.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px; -fx-background-color: #130D5C;" text="%createBookingLabel" />
                     </children>
                   </AnchorPane>
                </children>
