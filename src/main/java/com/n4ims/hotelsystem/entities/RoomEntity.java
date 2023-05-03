@@ -3,6 +3,7 @@ package com.n4ims.hotelsystem.entities;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "rooms", schema = "hotel_system")
@@ -14,6 +15,9 @@ public class RoomEntity {
     @ManyToOne
     @JoinColumn(name = "type_id")
     private RoomTypeEntity type;
+
+    @OneToMany(mappedBy="room")
+    private Set<RoomBookingEntity> roomBookings;
 
     public int getId() {
         return id;
