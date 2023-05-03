@@ -32,13 +32,8 @@ public class RoomTypeEntity {
     @Basic
     @Column(name = "size")
     private Integer size;
-    @ManyToMany
-    @JoinTable(
-            name = "room_type_amenities",
-            joinColumns = {@JoinColumn(name = "room_type_id")},
-            inverseJoinColumns = {@JoinColumn(name = "amenity_id")}
-    )
-    private Set<AmenityEntity> amenities;
+    @OneToMany(mappedBy = "roomType", fetch = FetchType.EAGER)
+    private Set<RoomTypeAmenityEntity> amenities;
 
     public int getId() {
         return id;
@@ -104,11 +99,11 @@ public class RoomTypeEntity {
         this.size = size;
     }
 
-    public Set<AmenityEntity> getAmenities() {
+    public Set<RoomTypeAmenityEntity> getAmenities() {
         return amenities;
     }
 
-    public void setAmenities(Set<AmenityEntity> amenities) {
+    public void setAmenities(Set<RoomTypeAmenityEntity> amenities) {
         this.amenities = amenities;
     }
 

@@ -9,11 +9,11 @@ import java.sql.Date;
 public class DateUtils {
 
     public static Date asDate(LocalDate localDate) {
-        return (Date) Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        return Date.valueOf(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
     public static Date asDate(LocalDateTime localDateTime) {
-        return (Date) Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return Date.valueOf(localDateTime.atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
     public static LocalDate asLocalDate(Date date) {

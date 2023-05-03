@@ -10,7 +10,7 @@ import java.util.Objects;
 public class GuestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
     @Basic
     @Column(name = "first_name")
@@ -37,7 +37,8 @@ public class GuestEntity {
     @Column(name = "member_since")
     private Date memberSince;
 
-    public GuestEntity(String firstName, String lastName, Date birthdate, AddressEntity address, String telephoneNumber, String mobileNumber, String emailAddress, Date memberSince) {
+    public GuestEntity(){}
+    public GuestEntity(String firstName, String lastName, Date birthdate, AddressEntity address, String telephoneNumber, String mobileNumber, String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;

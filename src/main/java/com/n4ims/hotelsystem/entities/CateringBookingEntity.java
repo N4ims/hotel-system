@@ -10,7 +10,7 @@ import java.util.Objects;
 public class CateringBookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
     @ManyToOne
     @JoinColumn(name = "catering_type_id")
@@ -62,6 +62,15 @@ public class CateringBookingEntity {
     }
 
     public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public CateringBookingEntity(){};
+
+    public CateringBookingEntity(CateringTypeEntity cateringType, RoomBookingEntity roomBooking, Date startDate, Date endDate) {
+        this.cateringType = cateringType;
+        this.roomBooking = roomBooking;
+        this.startDate = startDate;
         this.endDate = endDate;
     }
 
