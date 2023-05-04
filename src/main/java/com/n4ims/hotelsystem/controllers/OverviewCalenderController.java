@@ -17,7 +17,6 @@ public class OverviewCalenderController extends BasicController{
 
     @FXML
     private ChoiceBox occupationStatusPicker;
-
     @FXML
     private DatePicker fromDatePicker;
     private final LocalDate startMinDate = LocalDate.now();
@@ -41,8 +40,6 @@ public class OverviewCalenderController extends BasicController{
 
         Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(endMinDate, endMaxDate);
         toDatePicker.setDayCellFactory(endDayCellFactory);
-
-        System.out.println("OverviewController initialized");
     }
 
     @FXML

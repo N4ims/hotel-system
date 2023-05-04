@@ -2,6 +2,7 @@ package com.n4ims.hotelsystem.controllers;
 
 import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoader;
 import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoaderImpl;
+import jakarta.persistence.criteria.Root;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,15 +19,19 @@ import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class BasicController extends Application {
     public static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
+    private static Locale locale = Locale.getDefault();
     @FXML
     private Parent navigationBar;
     @FXML
     protected NavigationBarController navigationBarController;
+    @FXML Parent imageHeader;
+    @FXML
+    protected ImageHeaderController imageHeaderController;
 
     protected ComponentContentLoader componentContentLoader;
 
@@ -49,7 +54,7 @@ public class BasicController extends Application {
      */
     protected void navigate(Scene sourceScene, String resourcePath){
         try {
-            ResourceBundle resources = ResourceBundle.getBundle("com.n4ims.hotelsystem.i18n.lang");
+            ResourceBundle resources = ResourceBundle.getBundle("com.n4ims.hotelsystem.i18n.lang", locale);
             URL url = getClass().getClassLoader().getResource(resourcePath);
             assert url != null;
             Parent view = FXMLLoader.load(url, resources);
@@ -64,7 +69,6 @@ public class BasicController extends Application {
             // TODO show user error field
         }
     }
-
     protected Callback<DatePicker, DateCell> getDayCellFactory(LocalDate minDate, LocalDate maxDate){
         return new Callback<>() {
             @Override
@@ -83,6 +87,18 @@ public class BasicController extends Application {
                 };
             }
         };
+    }
+
+    protected static Locale getLocale() {
+        return locale;
+    }
+
+    protected void setLocale(Locale locale, BasicController controller) {
+        if (locale != BasicController.locale){
+            BasicController.locale = locale;
+            // reload the view
+            controller.initialize();
+        }
     }
 
     public NavigationBarController getNavigationBarController() {

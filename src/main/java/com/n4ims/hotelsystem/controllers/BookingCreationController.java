@@ -17,6 +17,7 @@ import javafx.util.Callback;
 import utils.DateUtils;
 import utils.DecimalTextFormatter;
 import javafx.scene.control.Button;
+import utils.ResourcePaths;
 
 import java.awt.*;
 import java.sql.Date;
@@ -24,9 +25,12 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 public class BookingCreationController extends BasicController{
+
+    ResourceBundle langBundle;
 
     protected BookingDataService bookingDataService;
 
@@ -36,6 +40,10 @@ public class BookingCreationController extends BasicController{
     private final LocalDate fromDateMin = LocalDate.now();
     private LocalDate fromDateMax = LocalDate.MAX;
 
+    @FXML
+    private Button germanButton;
+    @FXML
+    private Button englishButton;
     @FXML
     private DatePicker toDatePicker;
     private LocalDate selectedToDate;
@@ -84,6 +92,7 @@ public class BookingCreationController extends BasicController{
 
     public BookingCreationController(){
         this.bookingDataService = new BookingDataServiceImpl();
+        ResourceBundle langBundle = ResourceBundle.getBundle(ResourcePaths.LANGUAGE_BUNDLE);
     }
 
     public void initialize(){
@@ -114,7 +123,6 @@ public class BookingCreationController extends BasicController{
         // Note: handleOnBookingCreationButtonClicked is assigned in .fxml as it does not work in code
         fromDatePicker.setOnAction(this::handleOnFromDatePicked);
         toDatePicker.setOnAction(this::handleOnToDatePicked);
-
     }
 
     private void setTextFieldFormatters(){
@@ -199,29 +207,30 @@ public class BookingCreationController extends BasicController{
 
         RoomEntity room = roomNumberPicker.getValue();
 
-        try {
-            adultsNumber = Integer.parseInt(adultNumberString);
-        }catch (NumberFormatException e){
-            // TODO show label below TextField stating that input has to be number
-            return;
-        }
-        try {
-            childrenNumber = Integer.parseInt(childNumberString);
-        }catch (NumberFormatException e){
-            // TODO show label below TextField stating that input has to be number
-            return;
-        }
+        // No try and catch needed as formatter only allows numbers
+        adultsNumber = Integer.parseInt(adultNumberString);
+        childrenNumber = Integer.parseInt(childNumberString);
+
         try {
             birthDay = Integer.parseInt(birthDayTextField.getText());
             birthMonth = Integer.parseInt(birthMonthTextField.getText());
             birthYear = Integer.parseInt(birthYearTextField.getText());
         }catch (NumberFormatException e){
-            // TODO show label below TextField stating that input has to be number
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("onlyNumbersForDateAllowedMessage")).showAndWait();
+            return;
+        }
+
+        //check if date is valid
+        if (birthMonth > 12 || birthDay > 31) {
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("enterValidDateMessage")).showAndWait();
             return;
         }
 
         // If input of guest numbers is not valid
         if(!checkNumberOfGuestsValidity(adultsNumber, childrenNumber, room)){
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("tooManyGuestsForRoomMessage") + " " + room.getType().getMaxPersons()
+            ).showAndWait();
             return;
         }
 
@@ -248,7 +257,6 @@ public class BookingCreationController extends BasicController{
         CateringBookingEntity tmp;
 
         for (int i = 0; i < number; i++){
-            //tmp = new CateringBookingEntity(cateringType, roomBooking, startDate, endDate);
             tmp = new CateringBookingEntity();
             tmp.setCateringType(cateringType);
             tmp.setRoomBooking(roomBooking);
@@ -261,14 +269,8 @@ public class BookingCreationController extends BasicController{
     }
 
     private boolean checkNumberOfGuestsValidity(int adultsNumber, int childrenNumber, RoomEntity room){
-        if(adultsNumber < 0 || childrenNumber < 0) {
-            // TODO show label below TextField stating that input has to be <= 0
-            return false;
-        }
-
         int personNumber = adultsNumber + childrenNumber;
         if (personNumber > room.getType().getMaxPersons()){
-            // TODO show hint that too many persons for room
             return false;
         }
         return true;
