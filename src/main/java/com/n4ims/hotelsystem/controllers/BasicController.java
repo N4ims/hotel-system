@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class BasicController extends Application {
-    public static final Logger log = LoggerFactory.getLogger( MethodHandles.lookup().lookupClass() );
+    public static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @FXML
     private Parent navigationBar;
@@ -29,7 +29,6 @@ public class BasicController extends Application {
     protected NavigationBarController navigationBarController;
 
     protected ComponentContentLoader componentContentLoader;
-
 
     public BasicController(){
         componentContentLoader = new ComponentContentLoaderImpl();
@@ -52,6 +51,7 @@ public class BasicController extends Application {
         try {
             ResourceBundle resources = ResourceBundle.getBundle("com.n4ims.hotelsystem.i18n.lang");
             URL url = getClass().getClassLoader().getResource(resourcePath);
+            assert url != null;
             Parent view = FXMLLoader.load(url, resources);
 
             Scene scene = new Scene(view);

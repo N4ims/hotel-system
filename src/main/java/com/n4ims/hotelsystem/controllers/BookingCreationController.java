@@ -1,22 +1,30 @@
 package com.n4ims.hotelsystem.controllers;
 
+import com.n4ims.hotelsystem.controllers.converters.CateringTypeEntityConverter;
+import com.n4ims.hotelsystem.controllers.converters.RoomEntityConverter;
+import com.n4ims.hotelsystem.controllers.converters.RoomTypeConverter;
 import com.n4ims.hotelsystem.entities.*;
 import com.n4ims.hotelsystem.persistence.BookingDataService;
 import com.n4ims.hotelsystem.persistence.BookingDataServiceImpl;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import utils.DateUtils;
 import utils.DecimalTextFormatter;
+import javafx.scene.control.Button;
 
+import java.awt.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BookingCreationController extends BasicController{
 
@@ -34,6 +42,8 @@ public class BookingCreationController extends BasicController{
     private LocalDate toDateMin = LocalDate.now().plusDays(1);
     private final LocalDate toDateMax = LocalDate.MAX;
 
+    @FXML
+    private ChoiceBox<RoomTypeEntity> roomTypePicker;
     @FXML
     private ChoiceBox<RoomEntity> roomNumberPicker;
     @FXML
@@ -68,6 +78,8 @@ public class BookingCreationController extends BasicController{
     private TextField streetNameTextField;
     @FXML
     private TextField streetNumberTextField;
+    @FXML
+    private Button bookingCreationButton;
 
 
     public BookingCreationController(){
@@ -75,40 +87,69 @@ public class BookingCreationController extends BasicController{
     }
 
     public void initialize(){
+        roomTypePicker.setOnAction(this::handleOnRoomTypePicked);
 
-        // Avoid useless reloading of view
-        navigationBarController.disableNavigationItem(1);
-        adultsNumberPicker.setTextFormatter(new DecimalTextFormatter(0, 100));
-        childrenNumberPicker.setTextFormatter(new DecimalTextFormatter(0, 100));
-        birthDayTextField.setTextFormatter(new DecimalTextFormatter(1, 31));
-        birthMonthTextField.setTextFormatter(new DecimalTextFormatter(1, 12));
-        birthYearTextField.setTextFormatter(new DecimalTextFormatter(1900, LocalDate.now().getYear()));
-        postcodeTextField.setTextFormatter(new DecimalTextFormatter(0, 999999));
-
+        setChoiceBoxConverters();
+        setTextFieldFormatters();
 
         loadValuesIntoPickers();
         setupDatePickers();
-
-
-        System.out.println("BookingCreationController initialized");
     }
 
     private void loadValuesIntoPickers(){
+        RoomTypeEntity roomType= roomTypePicker.getValue();
 
-        componentContentLoader.loadFreeRooms(roomNumberPicker, selectedFromDate, selectedToDate);
-
+        componentContentLoader.loadRoomTypes(roomTypePicker);
+        componentContentLoader.loadFreeRooms(roomNumberPicker, roomType, selectedFromDate, selectedToDate);
         componentContentLoader.loadCateringTypes(cateringTypePicker);
     }
 
     private void setupDatePickers(){
         // Allow only certain fields of the datePickers to be picked
         Callback<DatePicker, DateCell> startDayCellFactory = super.getDayCellFactory(fromDateMin, fromDateMax);
-        fromDatePicker.setDayCellFactory(startDayCellFactory);
-        fromDatePicker.setOnAction(this::handleOnFromDatePicked);
-
         Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(toDateMin, toDateMax);
+        fromDatePicker.setDayCellFactory(startDayCellFactory);
         toDatePicker.setDayCellFactory(endDayCellFactory);
+
+        // Note: handleOnBookingCreationButtonClicked is assigned in .fxml as it does not work in code
+        fromDatePicker.setOnAction(this::handleOnFromDatePicked);
         toDatePicker.setOnAction(this::handleOnToDatePicked);
+
+    }
+
+    private void setTextFieldFormatters(){
+        adultsNumberPicker.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+        childrenNumberPicker.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+        birthDayTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+        birthMonthTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+        birthYearTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+        postcodeTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+
+        // To show promptText clear Fields
+        birthDayTextField.setText("");
+        birthMonthTextField.setText("");
+        birthYearTextField.setText("");
+        postcodeTextField.setText("");
+    }
+
+    private void setChoiceBoxConverters(){
+        roomTypePicker.setConverter(new RoomTypeConverter());
+        cateringTypePicker.setConverter(new CateringTypeEntityConverter());
+        roomNumberPicker.setConverter(new RoomEntityConverter());
+    }
+
+    @FXML
+    private void handleOnRoomTypePicked(ActionEvent event){
+        RoomTypeEntity roomType= roomTypePicker.getValue();
+        RoomEntity alreadySelectedRoom = roomNumberPicker.getValue();
+
+        if(alreadySelectedRoom != null){
+            if (alreadySelectedRoom.getType() != roomType) {
+                roomNumberPicker.setValue(null);
+            }
+        }
+
+        componentContentLoader.loadFreeRooms(roomNumberPicker, roomType, selectedFromDate, selectedToDate);
     }
 
     @FXML
@@ -118,7 +159,8 @@ public class BookingCreationController extends BasicController{
 
         // So selected start date < end date
         toDateMin = selectedFromDate;
-        componentContentLoader.loadFreeRooms(roomNumberPicker, selectedFromDate, selectedToDate);
+        roomNumberPicker.setValue(null);
+        loadValuesIntoPickers();
     }
 
     @FXML
@@ -128,9 +170,11 @@ public class BookingCreationController extends BasicController{
 
         // So selected start date < end date
         fromDateMax = selectedToDate;
-        componentContentLoader.loadFreeRooms(roomNumberPicker, selectedFromDate, selectedToDate);
+        roomNumberPicker.setValue(null);
+        loadValuesIntoPickers();
     }
 
+    @FXML
     private void handleOnBookingCreationButtonClicked(ActionEvent event){
         Date fromDate = DateUtils.asDate(selectedFromDate);
         Date toDate = DateUtils.asDate(selectedToDate);
@@ -182,17 +226,38 @@ public class BookingCreationController extends BasicController{
         }
 
         // TODO implement country
-        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, "Germany");
-        Date birthDate = new Date(birthYear, birthMonth, birthDay);
 
+        Date birthDate = new Date(birthYear-1900, birthMonth, birthDay);
         Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
-        // TODO check if guest already existing and replace dateString
-        GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress, new Date(timestamp.getTime()));
-        RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, "");
+        int totalGuestNumber = childrenNumber + adultsNumber;
 
-        bookingDataService.createAddress(address);
-        bookingDataService.createGuest(guest);
-        bookingDataService.createRoomBooking(roomBooking);
+        // TODO check if guest already existing and replace dateString
+        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, "Germany");
+        GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress);
+        RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, "");
+        Set<CateringBookingEntity> cateringBookings = createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
+
+        bookingDataService.persistAddress(address);
+        bookingDataService.persistGuest(guest);
+        bookingDataService.persistRoomBooking(roomBooking);
+        bookingDataService.persistCateringBookings(cateringBookings);
+    }
+
+    private Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
+        Set<CateringBookingEntity> cateringBookings = new HashSet<>();
+        CateringBookingEntity tmp;
+
+        for (int i = 0; i < number; i++){
+            //tmp = new CateringBookingEntity(cateringType, roomBooking, startDate, endDate);
+            tmp = new CateringBookingEntity();
+            tmp.setCateringType(cateringType);
+            tmp.setRoomBooking(roomBooking);
+            tmp.setStartDate(startDate);
+            tmp.setEndDate(endDate);
+            cateringBookings.add(tmp);
+        }
+
+        return cateringBookings;
     }
 
     private boolean checkNumberOfGuestsValidity(int adultsNumber, int childrenNumber, RoomEntity room){
@@ -202,7 +267,7 @@ public class BookingCreationController extends BasicController{
         }
 
         int personNumber = adultsNumber + childrenNumber;
-        if(personNumber > room.getType().getMaxPersons()){
+        if (personNumber > room.getType().getMaxPersons()){
             // TODO show hint that too many persons for room
             return false;
         }
