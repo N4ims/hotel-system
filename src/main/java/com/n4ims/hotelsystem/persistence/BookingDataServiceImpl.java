@@ -2,7 +2,6 @@ package com.n4ims.hotelsystem.persistence;
 
 import com.n4ims.hotelsystem.entities.*;
 import jakarta.persistence.*;
-import org.hibernate.exception.JDBCConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,51 +50,53 @@ public class BookingDataServiceImpl implements BookingDataService{
             } catch (NoResultException e) {
                 log.info("No rooms for period " + fromDate + "-" + toDate);
                 return new ArrayList<RoomEntity>();
-            } catch (JDBCConnectionException e) {
-                // TODO show user error message: database down
+            } catch (PersistenceException e) {
                 log.error(e.toString(), e);
-                return new ArrayList<RoomEntity>();
+                throw e;
             }
+        } catch (PersistenceException e){
+            log.error(e.toString(), e);
+            throw e;
         }
     }
 
     @Override
-    public List<CateringTypeEntity> getAllCateringTypes() throws JDBCConnectionException{
+    public List<CateringTypeEntity> getAllCateringTypes() throws PersistenceException{
         try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
              EntityManager em = factory.createEntityManager();) {
 
             TypedQuery<CateringTypeEntity> query = em.createQuery("SELECT t FROM CateringTypeEntity t", CateringTypeEntity.class);
 
             return executeTypedQuery(query);
-        }  catch (NoResultException e) {
+        } catch (NoResultException e) {
             log.info("No catering types in database");
             return new ArrayList<CateringTypeEntity>();
-        } catch (JDBCConnectionException e) {
+        } catch (PersistenceException e) {
             // TODO show user error message: database down
             log.error(e.toString(), e);
-            return new ArrayList<CateringTypeEntity>();
+            throw e;
         }
     }
 
     @Override
-    public List<RoomTypeEntity> getAllRoomTypes() throws JDBCConnectionException {
+    public List<RoomTypeEntity> getAllRoomTypes() throws PersistenceException {
         try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
              EntityManager em = factory.createEntityManager();) {
 
             TypedQuery<RoomTypeEntity> query = em.createQuery("SELECT t FROM RoomTypeEntity t", RoomTypeEntity.class);
 
             return executeTypedQuery(query);
-        }  catch (NoResultException e) {
+        } catch (NoResultException e) {
             log.info("No room types in database", e);
             return new ArrayList<RoomTypeEntity>();
-        } catch (JDBCConnectionException e) {
+        } catch (PersistenceException e) {
             // TODO show user error message: database down
             log.error(e.toString(), e);
-            return new ArrayList<RoomTypeEntity>();
+            throw e;
         }
     }
 
-    private <T> List<T> executeTypedQuery(TypedQuery<T> query) throws NoResultException, JDBCConnectionException{
+    private <T> List<T> executeTypedQuery(TypedQuery<T> query) {
         try {
             List<T> queryResultList = query.getResultList();
 
@@ -103,10 +104,10 @@ public class BookingDataServiceImpl implements BookingDataService{
         } catch (NoResultException e) {
             log.error(e.toString(), e);
             return new ArrayList<T>();
-        } catch (JDBCConnectionException e) {
+        } catch (PersistenceException e) {
             // TODO show user error message: database down
             log.error(e.toString(), e);
-            return new ArrayList<T>();
+            throw e;
         }
     }
 

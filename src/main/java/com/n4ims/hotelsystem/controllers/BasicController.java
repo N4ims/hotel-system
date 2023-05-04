@@ -24,14 +24,15 @@ import java.util.ResourceBundle;
 
 public class BasicController extends Application {
     public static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    private static Locale locale = Locale.getDefault();
+
+    @FXML
+    protected Parent imageHeader;
+    @FXML
+    protected ImageHeaderController imageHeaderController;
     @FXML
     private Parent navigationBar;
     @FXML
     protected NavigationBarController navigationBarController;
-    @FXML Parent imageHeader;
-    @FXML
-    protected ImageHeaderController imageHeaderController;
 
     protected ComponentContentLoader componentContentLoader;
 
@@ -54,11 +55,11 @@ public class BasicController extends Application {
      */
     protected void navigate(Scene sourceScene, String resourcePath){
         try {
-            ResourceBundle resources = ResourceBundle.getBundle("com.n4ims.hotelsystem.i18n.lang", locale);
+            ResourceBundle resources = ResourceBundle.getBundle("com.n4ims.hotelsystem.i18n.lang");
             URL url = getClass().getClassLoader().getResource(resourcePath);
-            assert url != null;
-            Parent view = FXMLLoader.load(url, resources);
+            System.out.println("Following resource bundle was loaded: " + resources.getBaseBundleName() + " AND: " + resources.getLocale());
 
+            Parent view = FXMLLoader.load(url, resources);
             Scene scene = new Scene(view);
             Stage stage = (Stage) sourceScene.getWindow();
             stage.setScene(scene);
@@ -89,19 +90,16 @@ public class BasicController extends Application {
         };
     }
 
-    protected static Locale getLocale() {
-        return locale;
-    }
-
-    protected void setLocale(Locale locale, BasicController controller) {
-        if (locale != BasicController.locale){
-            BasicController.locale = locale;
-            // reload the view
-            controller.initialize();
-        }
+    protected void setLocale(Locale locale) {
+        Locale.setDefault(locale);
     }
 
     public NavigationBarController getNavigationBarController() {
         return navigationBarController;
     }
+
+    public ImageHeaderController getImageHeaderController() {
+        return imageHeaderController;
+    }
+
 }

@@ -13,6 +13,8 @@ public class ImageHeaderController extends BasicController{
     @FXML
     private Button englishButton;
 
+    private String sourceViewPath;
+
     public void initialize(){
         germanButton.setOnAction(this::handleOnGermanButtonClicked);
         englishButton.setOnAction(this::handleOnEnglishButtonClicked);
@@ -21,12 +23,21 @@ public class ImageHeaderController extends BasicController{
     public void handleOnGermanButtonClicked(ActionEvent e){
         Button button = (Button) e.getSource();
         Scene scene = button.getScene();
-        setLocale(Locale.GERMAN, this);
-        System.out.println("Switched to German");
+        setLocale(Locale.GERMAN);
+
+        // to reload the resources
+        navigate(scene, sourceViewPath);
     }
     public void handleOnEnglishButtonClicked(ActionEvent e){
         Button button = (Button) e.getSource();
         Scene scene = button.getScene();
-        setLocale(Locale.ENGLISH, this);
+        setLocale(Locale.ENGLISH);
+
+        // to reload the resources
+        navigate(scene, sourceViewPath);
+    }
+
+    public void setSourceViewPath(String sourceViewPath){
+        this.sourceViewPath = sourceViewPath;
     }
 }

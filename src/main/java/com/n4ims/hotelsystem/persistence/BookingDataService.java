@@ -24,9 +24,9 @@ public interface BookingDataService {
      * @return all rooms that have no booking in the given period
      */
 
-    List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity roomType, Date fromDate, Date toDate) throws JDBCConnectionException;
-    List<CateringTypeEntity> getAllCateringTypes() throws JDBCConnectionException;
-    List<RoomTypeEntity> getAllRoomTypes() throws JDBCConnectionException;
+    List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity roomType, Date fromDate, Date toDate) throws PersistenceException;
+    List<CateringTypeEntity> getAllCateringTypes() throws PersistenceException;
+    List<RoomTypeEntity> getAllRoomTypes() throws PersistenceException;
     void persistRoomBooking(RoomBookingEntity booking) throws PersistenceException;
     void persistAddress(AddressEntity address) throws PersistenceException;
     void persistGuest(GuestEntity guest) throws PersistenceException;

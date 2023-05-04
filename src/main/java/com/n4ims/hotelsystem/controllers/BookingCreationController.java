@@ -6,32 +6,26 @@ import com.n4ims.hotelsystem.controllers.converters.RoomTypeConverter;
 import com.n4ims.hotelsystem.entities.*;
 import com.n4ims.hotelsystem.persistence.BookingDataService;
 import com.n4ims.hotelsystem.persistence.BookingDataServiceImpl;
+import jakarta.persistence.PersistenceException;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import utils.DateUtils;
 import utils.DecimalTextFormatter;
 import javafx.scene.control.Button;
 import utils.ResourcePaths;
 
-import java.awt.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class BookingCreationController extends BasicController{
 
     ResourceBundle langBundle;
-
     protected BookingDataService bookingDataService;
 
     @FXML
@@ -40,10 +34,6 @@ public class BookingCreationController extends BasicController{
     private final LocalDate fromDateMin = LocalDate.now();
     private LocalDate fromDateMax = LocalDate.MAX;
 
-    @FXML
-    private Button germanButton;
-    @FXML
-    private Button englishButton;
     @FXML
     private DatePicker toDatePicker;
     private LocalDate selectedToDate;
@@ -92,11 +82,15 @@ public class BookingCreationController extends BasicController{
 
     public BookingCreationController(){
         this.bookingDataService = new BookingDataServiceImpl();
-        ResourceBundle langBundle = ResourceBundle.getBundle(ResourcePaths.LANGUAGE_BUNDLE);
+        langBundle = ResourceBundle.getBundle(ResourcePaths.LANGUAGE_BUNDLE);
     }
 
     public void initialize(){
+        // enable reloading of this view when switching language
+        imageHeaderController.setSourceViewPath(ResourcePaths.BOOKING_CREATION_VIEW);
+
         roomTypePicker.setOnAction(this::handleOnRoomTypePicked);
+        bookingCreationButton.setOnAction((this::handleOnBookingCreationButtonClicked));
 
         setChoiceBoxConverters();
         setTextFieldFormatters();
@@ -108,19 +102,25 @@ public class BookingCreationController extends BasicController{
     private void loadValuesIntoPickers(){
         RoomTypeEntity roomType= roomTypePicker.getValue();
 
-        componentContentLoader.loadRoomTypes(roomTypePicker);
-        componentContentLoader.loadFreeRooms(roomNumberPicker, roomType, selectedFromDate, selectedToDate);
-        componentContentLoader.loadCateringTypes(cateringTypePicker);
+        try{
+            componentContentLoader.loadRoomTypes(roomTypePicker);
+            componentContentLoader.loadFreeRooms(roomNumberPicker, roomType, selectedFromDate, selectedToDate);
+            componentContentLoader.loadCateringTypes(cateringTypePicker);
+        } catch (PersistenceException e){
+            log.error("Error while trying to access database", e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().setContent(new Text(langBundle.getString("databaseErrorMessage")));
+            alert.showAndWait();
+        }
     }
 
     private void setupDatePickers(){
         // Allow only certain fields of the datePickers to be picked
-        Callback<DatePicker, DateCell> startDayCellFactory = super.getDayCellFactory(fromDateMin, fromDateMax);
+        Callback<DatePicker, DateCell> startDayCellFactory = getDayCellFactory(fromDateMin, fromDateMax);
         Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(toDateMin, toDateMax);
         fromDatePicker.setDayCellFactory(startDayCellFactory);
         toDatePicker.setDayCellFactory(endDayCellFactory);
 
-        // Note: handleOnBookingCreationButtonClicked is assigned in .fxml as it does not work in code
         fromDatePicker.setOnAction(this::handleOnFromDatePicked);
         toDatePicker.setOnAction(this::handleOnToDatePicked);
     }
@@ -168,6 +168,7 @@ public class BookingCreationController extends BasicController{
         // So selected start date < end date
         toDateMin = selectedFromDate;
         roomNumberPicker.setValue(null);
+        // reload disabled date tiles
         loadValuesIntoPickers();
     }
 
@@ -179,13 +180,12 @@ public class BookingCreationController extends BasicController{
         // So selected start date < end date
         fromDateMax = selectedToDate;
         roomNumberPicker.setValue(null);
+        // reload disabled date tiles
         loadValuesIntoPickers();
     }
 
     @FXML
     private void handleOnBookingCreationButtonClicked(ActionEvent event){
-        Date fromDate = DateUtils.asDate(selectedFromDate);
-        Date toDate = DateUtils.asDate(selectedToDate);
         String adultNumberString = adultsNumberPicker.getText();
         String childNumberString = childrenNumberPicker.getText();
         CateringTypeEntity cateringType = cateringTypePicker.getValue();
@@ -199,18 +199,38 @@ public class BookingCreationController extends BasicController{
         String postcode = postcodeTextField.getText();
         String place = placeTextField.getText();
 
+        RoomEntity room = roomNumberPicker.getValue();
+
         int adultsNumber;
         int childrenNumber;
         int birthDay;
         int birthMonth;
         int birthYear;
 
-        RoomEntity room = roomNumberPicker.getValue();
 
         // No try and catch needed as formatter only allows numbers
         adultsNumber = Integer.parseInt(adultNumberString);
         childrenNumber = Integer.parseInt(childNumberString);
 
+
+
+
+        if (!checkInputDatesValidity(selectedFromDate, selectedToDate)){
+            return;
+        }
+        // check if a room is selected
+        if(room == null){
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("pickARoomMessage")).showAndWait();
+            return;
+        }
+        if (!checkNumberOfGuestsValidity(adultsNumber, childrenNumber, room)){
+            return;
+        }
+
+        Date fromDate = DateUtils.asDate(selectedFromDate);
+        Date toDate = DateUtils.asDate(selectedToDate);
+
+        // Check birthday
         try {
             birthDay = Integer.parseInt(birthDayTextField.getText());
             birthMonth = Integer.parseInt(birthMonthTextField.getText());
@@ -220,19 +240,10 @@ public class BookingCreationController extends BasicController{
             return;
         }
 
-        //check if date is valid
-        if (birthMonth > 12 || birthDay > 31) {
-            new Alert(Alert.AlertType.WARNING, langBundle.getString("enterValidDateMessage")).showAndWait();
+        if (!checkBirthdayValidity(birthMonth, birthDay)){
             return;
         }
 
-        // If input of guest numbers is not valid
-        if(!checkNumberOfGuestsValidity(adultsNumber, childrenNumber, room)){
-            new Alert(Alert.AlertType.WARNING,
-                    langBundle.getString("tooManyGuestsForRoomMessage") + " " + room.getType().getMaxPersons()
-            ).showAndWait();
-            return;
-        }
 
         // TODO implement country
 
@@ -270,9 +281,52 @@ public class BookingCreationController extends BasicController{
 
     private boolean checkNumberOfGuestsValidity(int adultsNumber, int childrenNumber, RoomEntity room){
         int personNumber = adultsNumber + childrenNumber;
-        if (personNumber > room.getType().getMaxPersons()){
+
+        if (personNumber == 0){
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("selectNumberOfGuestsMessage")
+            ).showAndWait();
             return false;
         }
+
+        if (personNumber > room.getType().getMaxPersons()){
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("tooManyGuestsForRoomMessage") + " " + room.getType().getMaxPersons()
+            ).showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkInputDatesValidity(LocalDate fromLocalDate, LocalDate toLocalDate){
+        Date fromDate;
+        Date toDate;
+        try{
+            fromDate = DateUtils.asDate(selectedFromDate);
+            toDate = DateUtils.asDate(selectedToDate);
+        } catch (NullPointerException e){
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("selectBothDates")).showAndWait();
+            return false;
+        }
+
+
+        // check if booking timeframe validity
+        if (!toDate.after(fromDate)){
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("startDateGreaterThanToDateMessage")).showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkBirthdayValidity(int birthMonth, int birthDay){
+        //check if date is valid
+        if (birthMonth > 12 || birthDay > 31) {
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("enterValidDateMessage")).showAndWait();
+            return false;
+        }
+
         return true;
     }
 }
