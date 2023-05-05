@@ -66,6 +66,7 @@ public class BasicController extends Application {
             stage.setMaximized(true);
             stage.show();
         } catch (IOException | NullPointerException e) {
+            System.out.println("Navigation error: " + e.toString());
             log.error(Arrays.toString(e.getStackTrace()));
             // TODO show user error field
         }
@@ -94,11 +95,11 @@ public class BasicController extends Application {
         Locale.setDefault(locale);
     }
 
-    public NavigationBarController getNavigationBarController() {
+    protected NavigationBarController getNavigationBarController() {
         return navigationBarController;
     }
 
-    public ImageHeaderController getImageHeaderController() {
+    protected ImageHeaderController getImageHeaderController() {
         return imageHeaderController;
     }
 
