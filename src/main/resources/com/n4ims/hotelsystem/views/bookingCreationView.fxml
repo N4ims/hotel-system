@@ -206,7 +206,6 @@
                               <GridPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="323.0" prefWidth="1392.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="590.5556131998699" minWidth="10.0" prefWidth="390.888916015625" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="590.5556131998699" minWidth="10.0" prefWidth="517.111083984375" />
                                 </columnConstraints>
                                 <rowConstraints>
                                     <RowConstraints maxHeight="155.77777099609375" minHeight="10.0" prefHeight="67.77777099609375" vgrow="SOMETIMES" />
@@ -225,7 +224,7 @@
                               </GridPane>
                            </children>
                         </HBox>
-                        <Button layoutX="1067.0" layoutY="632.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px; -fx-background-color: #130D5C;" text="%createBookingLabel" />
+                        <Button layoutX="1067.0" layoutY="632.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px; -fx-background-color: #130D5C;" text="%createBookingLabel" textFill="WHITE" />
                         <GridPane layoutX="766.0" layoutY="143.0" prefHeight="360.0" prefWidth="435.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -259,7 +258,7 @@
                                        </rowConstraints>
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%firstNameLabel" GridPane.valignment="BOTTOM" />
-                                          <TextField fx:id="firstNameTextField" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
+                                          <TextField fx:id="firstNameTextField" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
@@ -279,7 +278,11 @@
                                        </rowConstraints>
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%lastNameLabel" GridPane.valignment="BOTTOM" />
-                                          <TextField fx:id="lastNameTextField" prefHeight="30.0" prefWidth="398.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="lastNameTextField" prefHeight="30.0" prefWidth="398.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="5.0" />
+                                             </GridPane.margin>
+                                          </TextField>
                                        </children>
                                     </GridPane>
                                  </children>
@@ -296,7 +299,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%birthdateLabel" />
-                                    <TextField fx:id="birthDayTextField" prefHeight="30.0" prefWidth="163.0" promptText="%dayPromptText" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
+                                    <TextField fx:id="birthDayTextField" prefHeight="30.0" prefWidth="163.0" promptText="%dayPromptText" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -304,7 +307,7 @@
                                           <Insets right="5.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <TextField fx:id="birthMonthTextField" prefHeight="30.0" prefWidth="163.0" promptText="%monthPromptText" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TextField fx:id="birthMonthTextField" prefHeight="30.0" prefWidth="163.0" promptText="%monthPromptText" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -312,7 +315,7 @@
                                           <Insets left="5.0" right="5.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <TextField fx:id="birthYearTextField" prefHeight="30.0" prefWidth="163.0" promptText="%yearPromptText" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <TextField fx:id="birthYearTextField" prefHeight="30.0" prefWidth="163.0" promptText="%yearPromptText" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -324,8 +327,8 @@
                               </GridPane>
                               <GridPane GridPane.rowIndex="2">
                                  <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="231.20001220703125" minWidth="10.0" prefWidth="163.20001220703125" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.39996337890625" minWidth="10.0" prefWidth="308.79998779296875" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.9998982747396" minWidth="10.0" prefWidth="268.9998982747396" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.39996337890625" minWidth="10.0" prefWidth="165.666768391927" />
                                  </columnConstraints>
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -333,10 +336,9 @@
                                  </rowConstraints>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%mobileNumberLabel" />
-                                    <ChoiceBox fx:id="countryCodePicker" prefWidth="150.0" GridPane.rowIndex="1" />
-                                    <TextField fx:id="telephoneNumberTextField" prefHeight="28.0" prefWidth="193.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TextField fx:id="telephoneNumberTextField" prefHeight="26.0" prefWidth="273.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                        <GridPane.margin>
-                                          <Insets left="5.0" />
+                                          <Insets right="5.0" />
                                        </GridPane.margin>
                                     </TextField>
                                  </children>
@@ -351,13 +353,14 @@
                                  </rowConstraints>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%emailLabel" GridPane.valignment="BOTTOM" />
-                                    <TextField fx:id="emailTextField" prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="emailTextField" prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="4">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.39996337890625" minWidth="10.0" prefWidth="164.8" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="308.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.99993896484375" minWidth="10.0" prefWidth="208.33331298828128" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="177.66668701171875" />
                                  </columnConstraints>
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -365,17 +368,27 @@
                                  </rowConstraints>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%postcodeLabel" GridPane.valignment="BOTTOM" />
-                                    <TextField fx:id="postcodeTextField" prefHeight="28.0" prefWidth="193.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
+                                    <TextField fx:id="postcodeTextField" prefHeight="28.0" prefWidth="193.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets right="5.0" />
                                        </GridPane.margin>
                                     </TextField>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%residenceLabel" GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
-                                    <TextField fx:id="placeTextField" prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TextField fx:id="placeTextField" prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                    <TextField fx:id="countryTextField" layoutX="142.0" layoutY="36.0" prefHeight="30.0" prefWidth="472.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets left="5.0" />
                                        </GridPane.margin>
                                     </TextField>
+                                    <Text layoutX="137.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%countryLabel" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin>
+                                    </Text>
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="5">
@@ -393,9 +406,23 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </Text>
-                                    <TextField id="streetNameTextField" fx:id="streetNameTextField" prefHeight="30.0" prefWidth="317.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
+                                    <TextField id="streetNameTextField" fx:id="streetNameTextField" prefHeight="30.0" prefWidth="261.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
+                                       <padding>
+                                          <Insets right="5.0" />
+                                       </padding>
+                                       <GridPane.margin>
+                                          <Insets right="5.0" />
+                                       </GridPane.margin>
+                                    </TextField>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%streetNumberLabel" GridPane.columnIndex="1" />
-                                    <TextField id="streetNumberTextField" fx:id="streetNameTextField1" prefHeight="30.0" prefWidth="317.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField id="streetNumberTextField" fx:id="streetNameTextField1" prefHeight="30.0" prefWidth="317.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin>
+                                    </TextField>
                                  </children>
                               </GridPane>
                            </children>

@@ -6,7 +6,7 @@
 
 <HBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="150.0" fitWidth="1920.0" pickOnBounds="true" style="-fx-scale-x: 1;">
+      <ImageView fitHeight="200.0" fitWidth="1920.0" pickOnBounds="true">
          <image>
             <Image url="@../../../../../../../../../Pictures/Header_2560x500px-1-1024x200.jpg" />
          </image></ImageView>

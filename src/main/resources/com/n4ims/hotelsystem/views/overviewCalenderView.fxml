@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -47,11 +48,7 @@
   <children>
       <HBox>
          <children>
-            <ImageView fitHeight="214.0" fitWidth="1489.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 2.51;">
-               <image>
-                  <Image url="@../../../../../../../../../Pictures/Header_2560x500px-1-1024x200.jpg" />
-               </image>
-            </ImageView>
+            <fx:include source="imageHeader.fxml" />
          </children>
       </HBox>
       <HBox prefHeight="897.0" prefWidth="1920.0">
@@ -80,6 +77,7 @@
                               <Image url="@assets/booking_calender.png" />
                            </image>
                         </ImageView>
+                  <Button fx:id="createBookingButton" layoutX="1420.0" layoutY="72.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="%bookingCreationButtonLabel" textFill="#130d5c" />
               </children>
             </AnchorPane>
          </children>
