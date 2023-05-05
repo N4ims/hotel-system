@@ -51,7 +51,7 @@ public class BookingCreationController extends BasicController{
     @FXML
     private ChoiceBox<CateringTypeEntity> cateringTypePicker;
     @FXML
-    private ChoiceBox packageTypePicker;
+    private TextArea notesTextArea;
     @FXML
     private TextField firstNameTextField;
     @FXML
@@ -63,8 +63,6 @@ public class BookingCreationController extends BasicController{
     @FXML
     private TextField birthYearTextField;
     @FXML
-    private ChoiceBox countryCodePicker;
-    @FXML
     private TextField telephoneNumberTextField;
     @FXML
     private TextField emailTextField;
@@ -72,6 +70,8 @@ public class BookingCreationController extends BasicController{
     private TextField postcodeTextField;
     @FXML
     private TextField placeTextField;
+    @FXML
+    private TextField countryTextField;
     @FXML
     private TextField streetNameTextField;
     @FXML

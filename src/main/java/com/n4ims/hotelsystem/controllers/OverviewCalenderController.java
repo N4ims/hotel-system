@@ -2,6 +2,7 @@ package com.n4ims.hotelsystem.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 public class OverviewCalenderController extends BasicController{
 
     @FXML
-    private ChoiceBox occupationStatusPicker;
+    private Button createBookingButton;
     @FXML
     private DatePicker fromDatePicker;
     private final LocalDate startMinDate = LocalDate.now();
@@ -32,7 +33,7 @@ public class OverviewCalenderController extends BasicController{
         // Avoid useless reloading of view
         getNavigationBarController().disableNavigationItem(0);
 
-        occupationStatusPicker.setOnMouseClicked(this::handleOnMouseClicked);
+        createBookingButton.setOnMouseClicked(this::handleOnCreateButtonClicked);
 
         // Allow only certain fields of the datePickers to be picked
         Callback<DatePicker, DateCell> startDayCellFactory = getDayCellFactory(startMinDate, startMaxDate);
@@ -43,12 +44,10 @@ public class OverviewCalenderController extends BasicController{
     }
 
     @FXML
-    private void handleOnMouseClicked(MouseEvent event){
-        if (event.getSource().equals(occupationStatusPicker)) {
-            Scene scene = occupationStatusPicker.getScene();
-
-            super.navigate(scene, ResourcePaths.BOOKING_CREATION_VIEW);
-        }
+    private void handleOnCreateButtonClicked(MouseEvent event){
+        Button button = (Button) event.getSource();
+        Scene scene = button.getScene();
+        System.out.println("Button pressed");
+        navigate(scene, ResourcePaths.BOOKING_CREATION_VIEW);
     }
-
 }
