@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Remove some entities.">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CleaningPersonnelEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CleaningTypeEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/RoomCleaningEntity.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2NSBJK4lsEOavb7rPOLWDZ181Kt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "C:/Users/I551386/IdeaProjects/hotel-systems/src/main/resources/com/n4ims/hotelsystem/views/assets",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.JavaFX"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\I551386\IdeaProjects\hotel-systems\src\main\resources\com\n4ims\hotelsystem\views\assets" />
+      <recent name="C:\Users\I551386\IdeaProjects\hotel-systems\src\main\java\com\n4ims\hotelsystem\views" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\I551386\IdeaProjects\hotel-systems\src\main\java\com\n4ims\hotelsystem\views" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.n4ims.hotelsystem.persistence" />
+      <recent name="utils" />
+      <recent name="com.n4ims.hotelsystem.controllers.loaders" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.All in hotel-systems">
+    <configuration name="All in hotel-systems" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hotel-systems" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DateUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hotel-systems" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="utils" />
+      <option name="MAIN_CLASS_NAME" value="utils.DateUtilsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.DateUtilsTest" />
+        <item itemvalue="JUnit.All in hotel-systems" />
+        <item itemvalue="JUnit.DateUtilsTest" />
+        <item itemvalue="JUnit.All in hotel-systems" />
+        <item itemvalue="JUnit.DateUtilsTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="" />
+      <created>1679647530054</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679647530054</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Init maven project">
+      <created>1679651344818</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1679651344819</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Remove JPA entities and add BookingDataService">
+      <created>1682263980434</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682263980434</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update BookingDataService">
+      <created>1682265200386</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682265200386</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update pom.xml">
+      <created>1682439955377</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682439955379</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update mvnw.sh">
+      <created>1682442529459</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682442529459</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add .mvn folder">
+      <created>1682444480079</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682444480079</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add .mvn folder">
+      <created>1682444819886</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682444819886</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add overviewCalenderView.fxml">
+      <created>1682452960572</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682452960572</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add bookingCreationView.fxml&#10;Add i18n">
+      <created>1682529701268</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682529701268</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Outsource shared fxml elements.">
+      <created>1682880384369</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682880384369</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Remove unneeded DateUtils methods.&#10;Add unit test for DateUtils.">
+      <created>1683184079601</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1683184079601</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add alerts.&#10;Add localization buttons.">
+      <created>1683194134720</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1683194134720</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix localization.&#10;Add checks for user inputs.">
+      <created>1683227713073</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683227713073</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Update user input checks.&#10;Fix duplicate entity persistence for User and Address entities.">
+      <created>1683279866260</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1683279866260</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Update BookingDataServiceImpl.java">
+      <created>1683284320121</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1683284320121</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add files to versioning">
+      <created>1683285961581</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1683285961581</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Revert to commit cc122815b5483835e9abda7e1cbe143eba868168">
+      <created>1683287218529</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1683287218529</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Fix UI">
+      <created>1683293117908</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1683293117910</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Link fxml components to Controllers.">
+      <created>1683303216150</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1683303216150</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Resize view components.">
+      <created>1683303842689</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1683303842689</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Remove some entities.">
+      <created>1683304231810</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1683304231810</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init maven project" />
+    <MESSAGE value="Remove JPA entities and add BookingDataService" />
+    <MESSAGE value="Updated BookingDataService" />
+    <MESSAGE value="Update BookingDataService" />
+    <MESSAGE value="Update pom.xml" />
+    <MESSAGE value="Update mvnw.sh" />
+    <MESSAGE value="Add .mvn folder" />
+    <MESSAGE value="Add overviewCalenderView.fxml" />
+    <MESSAGE value="Add bookingCreationView.fxml&#10;Add i18n" />
+    <MESSAGE value="Outsource shared fxml elements." />
+    <MESSAGE value="Remove unneeded DateUtils methods.&#10;Add unit test for DateUtils." />
+    <MESSAGE value="Add alerts.&#10;Add localization buttons." />
+    <MESSAGE value="Fix localization.&#10;Add checks for user inputs." />
+    <MESSAGE value="Update user input checks.&#10;Fix duplicate entity persistence for User and Address entities." />
+    <MESSAGE value="Update BookingDataServiceImpl.java" />
+    <MESSAGE value="Add files to versioning" />
+    <MESSAGE value="Revert to commit 9349b07730b1376e3b9ec0b54e7dec79a3f0a92e" />
+    <MESSAGE value="Revert to commit cc122815b5483835e9abda7e1cbe143eba868168" />
+    <MESSAGE value="Fix UI" />
+    <MESSAGE value="Link fxml components to Controllers." />
+    <MESSAGE value="Resize view components." />
+    <MESSAGE value="Remove some entities." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove some entities." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
