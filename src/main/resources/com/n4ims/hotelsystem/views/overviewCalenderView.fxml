@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -43,19 +44,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.OverviewCalenderController">
+<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.OverviewCalenderController">
   <children>
       <HBox prefHeight="150.0" prefWidth="1490.0">
          <children>
             <fx:include fx:id="imageHeader" source="imageHeader.fxml" />
          </children>
       </HBox>
-      <HBox>
+      <HBox prefHeight="897.0" prefWidth="1920.0">
          <children>
             <fx:include fx:id="navigationBar" source="navigationBar.fxml" />
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="1565.0" style="-fx-border-color: #130D5C; -fx-background-color: #130D5C;">
               <children>
-                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Übersicht" textAlignment="CENTER" wrapText="false">
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Übersicht" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                      <font>
                 <Font size="18.0" fx:id="x1" />
                      </font></Label>
@@ -71,11 +72,12 @@
                               </ChoiceBox>
                            </children>
                         </HBox>
-                        <ImageView fitHeight="621.0" fitWidth="1145.0" layoutX="14.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="680.0" fitWidth="1282.0" layoutX="168.0" layoutY="150.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 1.25;">
                            <image>
                               <Image url="@assets/booking_calender.png" />
                            </image>
                         </ImageView>
+                  <Button fx:id="createBookingButton" layoutX="1420.0" layoutY="72.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="%bookingCreationButtonLabel" textFill="#130d5c" />
               </children>
             </AnchorPane>
          </children>
