@@ -193,14 +193,12 @@ public class BookingDataServiceImpl implements BookingDataService{
                 return true;
             }
         } catch (NoResultException e) {
-            log.info("No catering types in database");
             return false;
         } catch (PersistenceException e) {
             // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
-
     }
 
     private boolean ifGuestInDbUpdateId(GuestEntity guest){
@@ -248,6 +246,12 @@ public class BookingDataServiceImpl implements BookingDataService{
         }
     }
 
+    /**
+     *
+     * @param query
+     * @return null if NoResultException, List<T> if results available
+     * @param <T> Entity type of the query
+     */
     private <T> List<T> executeTypedQuery(TypedQuery<T> query) {
         try {
             List<T> queryResultList = query.getResultList();
