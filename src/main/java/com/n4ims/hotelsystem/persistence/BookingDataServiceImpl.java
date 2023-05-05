@@ -96,21 +96,6 @@ public class BookingDataServiceImpl implements BookingDataService{
         }
     }
 
-    private <T> List<T> executeTypedQuery(TypedQuery<T> query) {
-        try {
-            List<T> queryResultList = query.getResultList();
-
-            return queryResultList;
-        } catch (NoResultException e) {
-            log.error(e.toString(), e);
-            return new ArrayList<T>();
-        } catch (PersistenceException e) {
-            // TODO show user error message: database down
-            log.error(e.toString(), e);
-            throw e;
-        }
-    }
-
     private <T> void persistSingleEntity(T entity) throws PersistenceException{
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager em = factory.createEntityManager();
@@ -136,12 +121,16 @@ public class BookingDataServiceImpl implements BookingDataService{
 
     @Override
     public void persistAddress(AddressEntity address) throws PersistenceException{
-        persistSingleEntity(address);
+        boolean inDb = ifAddressInDbUpdateId(address);
+
+        persistAddress(address);
     }
 
     @Override
     public void persistGuest(GuestEntity guest) throws PersistenceException{
-        persistSingleEntity(guest);
+        boolean inDb = ifGuestInDbUpdateId(guest);
+
+        persistGuest(guest);
     }
 
     @Override
@@ -164,6 +153,113 @@ public class BookingDataServiceImpl implements BookingDataService{
         } finally {
             factory.close();
             em.close();
+        }
+    }
+
+    public boolean ifAddressInDbUpdateId(AddressEntity address){
+        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+             EntityManager em = factory.createEntityManager();) {
+
+
+            //check if entity already exists in DB
+            if (address.getId() == null){
+                TypedQuery<AddressEntity> query = em.createQuery("""
+                        SELECT a FROM AddressEntity a 
+                        WHERE a.streetName = :streetName
+                            AND a.streetNumber = :streetNr
+                            AND a.place = :place
+                            AND a.postcode = :postcode
+                            AND a.country = :country
+                        """, AddressEntity.class);
+
+                query.setParameter("streetName", address.getStreetName());
+                query.setParameter("streetNr", address.getStreetNumber());
+                query.setParameter("place", address.getPlace());
+                query.setParameter("postcode", address.getPostcode());
+                query.setParameter("country", address.getCountry());
+
+                List<AddressEntity> guests = executeTypedQuery(query);
+
+                if (guests.isEmpty()){
+                    return false;
+                } else{
+                    Integer id = guests.get(0).getId();
+                    address.setId(id);
+                    return true;
+                }
+            } else {
+                AddressEntity g = em.find(AddressEntity.class, address.getId());
+                address.setId(g.getId());
+                return true;
+            }
+        } catch (NoResultException e) {
+            log.info("No catering types in database");
+            return false;
+        } catch (PersistenceException e) {
+            // TODO show user error message: database down
+            log.error(e.toString(), e);
+            throw e;
+        }
+
+    }
+
+    private boolean ifGuestInDbUpdateId(GuestEntity guest){
+        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+             EntityManager em = factory.createEntityManager();) {
+
+
+            //check if entity already exists in DB
+            if (guest.getId() == null){
+                TypedQuery<GuestEntity> query = em.createQuery("""
+                        SELECT g FROM GuestEntity g 
+                        WHERE g.firstName = :firstName
+                            AND g.lastName = :lastName 
+                            AND g.birthDate = :birthDate
+                            AND (g.telephoneNumber = :telNr OR g.email = :email)
+                        """, GuestEntity.class);
+
+                query.setParameter("firstName", guest.getFirstName());
+                query.setParameter("lastName", guest.getLastName());
+                query.setParameter("birthDate", guest.getBirthdate());
+                query.setParameter("telNr", guest.getTelephoneNumber());
+                query.setParameter("email", guest.getEmailAddress());
+
+                List<GuestEntity> guests = executeTypedQuery(query);
+
+                if (guests.isEmpty()){
+                    return false;
+                } else{
+                    Integer id = guests.get(0).getId();
+                    guest.setId(id);
+                    return true;
+                }
+            } else {
+                GuestEntity g = em.find(GuestEntity.class, guest.getId());
+                guest.setId(g.getId());
+                return true;
+            }
+        } catch (NoResultException e) {
+            log.info("No catering types in database");
+            return false;
+        } catch (PersistenceException e) {
+            // TODO show user error message: database down
+            log.error(e.toString(), e);
+            throw e;
+        }
+    }
+
+    private <T> List<T> executeTypedQuery(TypedQuery<T> query) {
+        try {
+            List<T> queryResultList = query.getResultList();
+
+            return queryResultList;
+        } catch (NoResultException e) {
+            log.error(e.toString(), e);
+            return new ArrayList<T>();
+        } catch (PersistenceException e) {
+            // TODO show user error message: database down
+            log.error(e.toString(), e);
+            throw e;
         }
     }
 

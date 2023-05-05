@@ -133,7 +133,7 @@ public class BookingCreationController extends BasicController{
         birthYearTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
         postcodeTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
 
-        // To show promptText clear Fields
+        // Clear fields of default TextFormatter value to show promptText
         birthDayTextField.setText("");
         birthMonthTextField.setText("");
         birthYearTextField.setText("");

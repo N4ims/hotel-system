@@ -21,17 +21,19 @@ public class ImageHeaderController extends BasicController{
     }
 
     public void handleOnGermanButtonClicked(ActionEvent e){
+        setLocale(Locale.GERMAN);
+
         Button button = (Button) e.getSource();
         Scene scene = button.getScene();
-        setLocale(Locale.GERMAN);
 
         // to reload the resources
         navigate(scene, sourceViewPath);
     }
     public void handleOnEnglishButtonClicked(ActionEvent e){
+        setLocale(Locale.ENGLISH);
+
         Button button = (Button) e.getSource();
         Scene scene = button.getScene();
-        setLocale(Locale.ENGLISH);
 
         // to reload the resources
         navigate(scene, sourceViewPath);
