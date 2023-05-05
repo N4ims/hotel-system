@@ -31,7 +31,7 @@ public class DecimalTextFormatter extends TextFormatter<Number> {
                 if (object == null) {
                     return "";
                 }
-                String format = "0.";
+                String format = "0";
                 for (int i = 0; i < maxDecimals; i++) {
                     if (i < minDecimals) {
                         format = format + "0";

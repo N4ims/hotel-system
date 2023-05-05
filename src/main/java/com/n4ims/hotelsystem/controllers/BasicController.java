@@ -2,6 +2,7 @@ package com.n4ims.hotelsystem.controllers;
 
 import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoader;
 import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoaderImpl;
+import jakarta.persistence.criteria.Root;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,18 +19,22 @@ import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class BasicController extends Application {
-    public static final Logger log = LoggerFactory.getLogger( MethodHandles.lookup().lookupClass() );
+    public static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+    @FXML
+    protected Parent imageHeader;
+    @FXML
+    protected ImageHeaderController imageHeaderController;
     @FXML
     private Parent navigationBar;
     @FXML
     protected NavigationBarController navigationBarController;
 
     protected ComponentContentLoader componentContentLoader;
-
 
     public BasicController(){
         componentContentLoader = new ComponentContentLoaderImpl();
@@ -52,8 +57,9 @@ public class BasicController extends Application {
         try {
             ResourceBundle resources = ResourceBundle.getBundle("com.n4ims.hotelsystem.i18n.lang");
             URL url = getClass().getClassLoader().getResource(resourcePath);
-            Parent view = FXMLLoader.load(url, resources);
+            System.out.println("Following resource bundle was loaded: " + resources.getBaseBundleName() + " AND: " + resources.getLocale());
 
+            Parent view = FXMLLoader.load(url, resources);
             Scene scene = new Scene(view);
             Stage stage = (Stage) sourceScene.getWindow();
             stage.setScene(scene);
@@ -64,7 +70,6 @@ public class BasicController extends Application {
             // TODO show user error field
         }
     }
-
     protected Callback<DatePicker, DateCell> getDayCellFactory(LocalDate minDate, LocalDate maxDate){
         return new Callback<>() {
             @Override
@@ -85,7 +90,16 @@ public class BasicController extends Application {
         };
     }
 
+    protected void setLocale(Locale locale) {
+        Locale.setDefault(locale);
+    }
+
     public NavigationBarController getNavigationBarController() {
         return navigationBarController;
     }
+
+    public ImageHeaderController getImageHeaderController() {
+        return imageHeaderController;
+    }
+
 }

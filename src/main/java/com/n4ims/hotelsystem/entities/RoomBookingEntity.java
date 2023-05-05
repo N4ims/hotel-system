@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "room_bookings", schema = "hotel_system")
 public class RoomBookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
     @ManyToOne
     @JoinColumn(name = "guest_id")
@@ -31,6 +32,10 @@ public class RoomBookingEntity {
     @Basic
     @Column(name = "number_of_children")
     private Integer numberOfChildren;
+
+    @OneToMany(mappedBy = "roomBooking")
+    private Set<CateringBookingEntity> cateringBookings;
+
     @Basic
     @Column(name = "timestamp")
     private Timestamp timestamp;
@@ -106,6 +111,14 @@ public class RoomBookingEntity {
         this.numberOfChildren = numberOfChildren;
     }
 
+    public Set<CateringBookingEntity> getCateringBookings() {
+        return cateringBookings;
+    }
+
+    public void setCateringBookings(Set<CateringBookingEntity> cateringBookings) {
+        this.cateringBookings = cateringBookings;
+    }
+
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -127,11 +140,11 @@ public class RoomBookingEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomBookingEntity that = (RoomBookingEntity) o;
-        return id == that.id && Objects.equals(guest, that.guest) && Objects.equals(room, that.room) && Objects.equals(fromDate, that.fromDate) && Objects.equals(toDate, that.toDate) && Objects.equals(numberOfAdults, that.numberOfAdults) && Objects.equals(numberOfChildren, that.numberOfChildren) && Objects.equals(timestamp, that.timestamp) && Objects.equals(notes, that.notes);
+        return id == that.id && Objects.equals(guest, that.guest) && Objects.equals(room, that.room) && Objects.equals(fromDate, that.fromDate) && Objects.equals(toDate, that.toDate) && Objects.equals(numberOfAdults, that.numberOfAdults) && Objects.equals(numberOfChildren, that.numberOfChildren) && Objects.equals(cateringBookings, that.cateringBookings) && Objects.equals(timestamp, that.timestamp) && Objects.equals(notes, that.notes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, guest, room, fromDate, toDate, numberOfAdults, numberOfChildren, timestamp, notes);
+        return Objects.hash(id, guest, room, fromDate, toDate, numberOfAdults, numberOfChildren, cateringBookings, timestamp, notes);
     }
 }

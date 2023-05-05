@@ -9,8 +9,8 @@ import java.util.Objects;
 public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id")
-    private int id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
     @Basic
     @Column(name = "street_name")
     private String streetName;
@@ -35,7 +35,9 @@ public class AddressEntity {
         this.country = country;
     }
 
-    public int getId() {
+    public AddressEntity() {}
+
+    public Integer getId() {
         return id;
     }
 

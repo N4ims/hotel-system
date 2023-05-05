@@ -28,7 +28,6 @@ public class NavigationBarController extends BasicController{
 
     public void initialize(){
         navBarItem0.setOnMouseClicked(this::handleNavigation);
-        System.out.println("Navigation Controller initialized");
     }
 
     public void disableNavigationItem(int itemIndex) throws IllegalArgumentException{
