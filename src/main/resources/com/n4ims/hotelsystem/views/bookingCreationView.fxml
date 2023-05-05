@@ -50,17 +50,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="1043.0" prefWidth="1777.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
+<VBox prefHeight="808.0" prefWidth="1549.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
       <children>
-      <HBox prefHeight="274.0" prefWidth="1920.0">
+      <HBox prefHeight="198.0" prefWidth="1778.0">
          <children>
             <fx:include fx:id="imageHeader" source="imageHeader.fxml" />
          </children>
       </HBox>
-          <HBox prefHeight="703.0" prefWidth="1440.0">
+          <HBox prefHeight="703.0" prefWidth="1637.0">
               <children>
                   <fx:include fx:id="navigationBar" source="navigationBar.fxml" />
-                  <AnchorPane fx:id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="674.0" prefWidth="1279.0" style="-fx-border-color: #130D5C;">
+                  <AnchorPane fx:id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="777.0" prefWidth="1202.0" style="-fx-border-color: #130D5C;">
                       <children>
                           <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="%headline4" textAlignment="CENTER" textFill="#130d5c" wrapText="false">
                               <font>
@@ -71,7 +71,7 @@
                               <children>
                                   <DatePicker fx:id="fromDatePicker" promptText="%checkInPromptText" />
                                   <DatePicker fx:id="toDatePicker" promptText="%checkOutPromptText" />
-                                  <ChoiceBox fx:id="roomTypePicker"/>
+                                  <ChoiceBox fx:id="roomTypePicker" />
                               </children>
                           </HBox>
                           <HBox layoutX="14.0" layoutY="131.0" prefHeight="163.0" prefWidth="670.0">
@@ -414,7 +414,7 @@
                                   </GridPane>
                               </children>
                           </GridPane>
-                          <Button fx:id='bookingCreationButton' layoutX="1067.0" layoutY="632.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px; -fx-background-color: #130D5C;" text="%createBookingLabel" textFill="WHITE" />
+                          <Button fx:id="bookingCreationButton" layoutX="1067.0" layoutY="632.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px; -fx-background-color: #130D5C;" text="%createBookingLabel" textFill="WHITE" />
                       </children>
                   </AnchorPane>
               </children>
