@@ -47,9 +47,9 @@
   <children>
       <HBox>
          <children>
-            <ImageView fitHeight="214.0" fitWidth="905.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="214.0" fitWidth="1489.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 2.51;">
                <image>
-                  <Image url="@../../../../../../../../../Pictures/Hotel.png" />
+                  <Image url="@../../../../../../../../../Pictures/Header_2560x500px-1-1024x200.jpg" />
                </image>
             </ImageView>
          </children>
@@ -75,7 +75,7 @@
                               </ChoiceBox>
                            </children>
                         </HBox>
-                        <ImageView fitHeight="680.0" fitWidth="1282.0" layoutX="14.0" layoutY="150.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="680.0" fitWidth="1282.0" layoutX="168.0" layoutY="150.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 1.25;">
                            <image>
                               <Image url="@assets/booking_calender.png" />
                            </image>
