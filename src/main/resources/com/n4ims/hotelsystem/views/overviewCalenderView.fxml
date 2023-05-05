@@ -32,17 +32,22 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.OverviewCalenderController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.OverviewCalenderController">
   <children>
-      <HBox>
+      <HBox prefHeight="150.0" prefWidth="1490.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" />
+            <fx:include fx:id="imageHeader" source="imageHeader.fxml" />
          </children>
       </HBox>
       <HBox>

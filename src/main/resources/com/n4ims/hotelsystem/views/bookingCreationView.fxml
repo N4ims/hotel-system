@@ -37,11 +37,10 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -49,33 +48,34 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<FlowPane prefHeight="496.0" prefWidth="1554.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
-   <children>
-      <VBox prefHeight="864.0" prefWidth="1646.0">
-        <children>
-            <HBox prefHeight="150.0" prefWidth="1920.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
-            <HBox prefHeight="703.0" prefWidth="1440.0">
-               <children>
-                  <fx:include fx:id="navigationBar" source="navigationBar.fxml" />
-                  <AnchorPane fx:id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+
+<VBox prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
+  <children>
+      <HBox prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <fx:include fx:id="imageHeader" source="imageHeader.fxml" />
+         </children>
+      </HBox>
+      <HBox prefHeight="703.0" prefWidth="1440.0">
+         <children>
+            <fx:include fx:id="navigationBar" source="navigationBar.fxml" />
+            <ScrollPane prefHeight="703.0">
+               <content>
+                  <AnchorPane fx:id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="626.0" prefWidth="1074.0">
                     <children>
                       <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="%headline4" textAlignment="CENTER" wrapText="false">
                            <font>
                       <Font size="18.0" fx:id="x1" />
                            </font>
                         </Label>
-                              <HBox layoutX="14.0" layoutY="81.0" prefHeight="28.0" prefWidth="857.0" spacing="30.0">
+                              <HBox layoutX="14.0" layoutY="81.0" prefHeight="28.0" prefWidth="1059.0" spacing="30.0">
                                  <children>
                                     <DatePicker fx:id="fromDatePicker" promptText="%checkInPromptText" />
                                     <DatePicker fx:id="toDatePicker" promptText="%checkOutPromptText" />
-                              <TextField promptText="%roomTypePromptText" />
+                              <ChoiceBox fx:id="roomTypePicker" prefWidth="150.0" />
                                  </children>
                               </HBox>
-                        <HBox layoutX="14.0" layoutY="131.0" prefHeight="163.0" prefWidth="983.0">
+                        <HBox layoutX="14.0" layoutY="131.0" prefHeight="163.0" prefWidth="1059.0">
                            <children>
                               <GridPane prefHeight="270.0" prefWidth="984.0">
                                 <columnConstraints>
@@ -209,7 +209,7 @@
                               </GridPane>
                            </children>
                         </HBox>
-                        <HBox layoutX="14.0" layoutY="303.0" prefHeight="323.0" prefWidth="907.0">
+                        <HBox layoutX="14.0" layoutY="303.0" prefHeight="323.0" prefWidth="1058.0">
                            <children>
                               <GridPane prefHeight="323.0" prefWidth="1392.0">
                                 <columnConstraints>
@@ -390,23 +390,23 @@
                                                       <Insets />
                                                    </GridPane.margin>
                                                 </Text>
-                                                <TextField id="streetNameTextField" fx:id="streetNameTextField" prefHeight="30.0" prefWidth="317.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
+                                                <TextField fx:id="streetNameTextField" prefHeight="30.0" prefWidth="317.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%streetNumberLabel" GridPane.columnIndex="1" />
-                                                <TextField id="streetNumberTextField" fx:id="streetNameTextField1" prefHeight="30.0" prefWidth="317.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <TextField fx:id="streetNumberTextField" prefHeight="30.0" prefWidth="317.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
                                        </children>
                                     </GridPane>
+                                    <Button fx:id="bookingCreationButton" mnemonicParsing="false" onAction="#handleOnBookingCreationButtonClicked" text="%bookingCreationButtonLabel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
                                  </children>
                               </GridPane>
                            </children>
                         </HBox>
-                        <Button layoutX="742.0" layoutY="620.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px;" text="%createBookingLabel" />
                     </children>
                   </AnchorPane>
-               </children>
-            </HBox>
-        </children>
-      </VBox>
-   </children>
-</FlowPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+  </children>
+</VBox>

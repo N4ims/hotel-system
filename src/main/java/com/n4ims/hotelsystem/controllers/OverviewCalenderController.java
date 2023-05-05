@@ -1,7 +1,6 @@
 package com.n4ims.hotelsystem.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
@@ -9,15 +8,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import utils.ResourcePaths;
-
-import java.io.IOException;
 import java.time.LocalDate;
 
 public class OverviewCalenderController extends BasicController{
 
     @FXML
     private ChoiceBox occupationStatusPicker;
-
     @FXML
     private DatePicker fromDatePicker;
     private final LocalDate startMinDate = LocalDate.now();
@@ -30,6 +26,9 @@ public class OverviewCalenderController extends BasicController{
 
 
     public void initialize(){
+        // enable reloading of this view when switching language
+        getImageHeaderController().setSourceViewPath(ResourcePaths.OVERVIEW_CALENDER_VIEW);
+
         // Avoid useless reloading of view
         getNavigationBarController().disableNavigationItem(0);
 
@@ -41,8 +40,6 @@ public class OverviewCalenderController extends BasicController{
 
         Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(endMinDate, endMaxDate);
         toDatePicker.setDayCellFactory(endDayCellFactory);
-
-        System.out.println("OverviewController initialized");
     }
 
     @FXML
