@@ -44,16 +44,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="965.0" prefWidth="1651.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.OverviewCalenderController">
+<VBox prefHeight="950.0" prefWidth="1651.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.OverviewCalenderController">
     <children>
         <HBox maxHeight="200.0" prefHeight="200.0" prefWidth="1700.0">
          <children>
             <fx:include fx:id="imageHeader" source="imageHeader.fxml" />
          </children></HBox>
-        <HBox prefHeight="799.0" prefWidth="1669.0">
+        <HBox prefHeight="750.0" prefWidth="1669.0">
             <children>
                 <fx:include fx:id="navigationBar" source="navigationBar.fxml" />
-                <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="799.0" prefWidth="1282.0" style="-fx-border-color: #130D5C; -fx-background-color: #130D5C;">
+                <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="600.0" prefWidth="1282.0" style="-fx-border-color: #130D5C; -fx-background-color: #130D5C;">
                     <children>
                         <Label alignment="CENTER" layoutX="17.0" layoutY="17.0" style="&#10;" text="Übersicht" textAlignment="CENTER" textFill="WHITE" wrapText="false">
                             <font>
