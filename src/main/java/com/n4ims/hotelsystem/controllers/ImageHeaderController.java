@@ -28,11 +28,7 @@ public class ImageHeaderController extends BasicController{
         englishButton.setOnAction(this::handleOnEnglishButtonClicked);
     }
 
-    /**
-     * Handles the click event of the German language button by setting the locale to German and reloading the resources.
-     * @param e The action event that occurred.
-     */
-    public void handleOnGermanButtonClicked(ActionEvent e){
+    private void handleOnGermanButtonClicked(ActionEvent e){
         setLocale(Locale.GERMAN);
 
         Button button = (Button) e.getSource();
@@ -43,11 +39,7 @@ public class ImageHeaderController extends BasicController{
     }
 
 
-    /**
-     * Handles the click event of the English language button by setting the locale to English and reloading the resources.
-     * @param e The action event that occurred.
-     */
-    public void handleOnEnglishButtonClicked(ActionEvent e){
+    private void handleOnEnglishButtonClicked(ActionEvent e){
         setLocale(Locale.ENGLISH);
 
         Button button = (Button) e.getSource();
