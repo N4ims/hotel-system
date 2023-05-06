@@ -35,7 +35,7 @@ CREATE TABLE `room_bookings` (
 
 CREATE TABLE `room_occupations` (
   `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
-  `booking_id` integer,
+  `room_booking_id` integer,
   `room_id` integer,
   `check_in` timestamp,
   `check_out` timestamp,
@@ -107,7 +107,7 @@ ALTER TABLE `room_bookings` ADD FOREIGN KEY (`guest_id`) REFERENCES `guests` (`i
 
 ALTER TABLE `room_bookings` ADD FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
-ALTER TABLE `room_occupations` ADD FOREIGN KEY (`booking_id`) REFERENCES `room_bookings` (`id`);
+ALTER TABLE `room_occupations` ADD FOREIGN KEY (`room_booking_id`) REFERENCES `room_bookings` (`id`);
 
 ALTER TABLE `room_occupations` ADD FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
@@ -119,7 +119,7 @@ ALTER TABLE `room_type_amenities` ADD FOREIGN KEY (`amenity_id`) REFERENCES `ame
 
 ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`catering_type_id`) REFERENCES `catering_types` (`id`);
 
-ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`booking_id`) REFERENCES `room_bookings` (`id`);
+ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`room_booking_id`) REFERENCES `room_bookings` (`id`);
 
 
 -- Fill tables
