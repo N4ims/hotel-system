@@ -1,4 +1,4 @@
-# Data Architecture
+# Data Architecture 
 
 This branch is for documenting the data architecture of our hotel booking system.
 
