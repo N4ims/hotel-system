@@ -15,11 +15,6 @@ public class BookingDataServiceImpl implements BookingDataService{
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Override
-    public List<RoomBookingEntity> getAllBookingsForPeriod(Date fromDate, Date endDate) {
-        return null;
-    }
-
-    @Override
     public List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity roomType, Date fromDate, Date toDate) {
 
         try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
@@ -156,6 +151,30 @@ public class BookingDataServiceImpl implements BookingDataService{
         }
     }
 
+    @Override
+    public void persistBooking(AddressEntity address, GuestEntity guest, RoomBookingEntity roomBooking, Set<CateringBookingEntity> cateringBookings) throws PersistenceException {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+        EntityManager em = factory.createEntityManager();
+
+        try{
+            em.getTransaction().begin();
+
+            persistAddress(address);
+            persistGuest(guest);
+            persistRoomBooking(roomBooking);
+            persistCateringBookings(cateringBookings);
+
+            em.getTransaction().commit();
+        } catch (PersistenceException e){
+            em.getTransaction().rollback();
+            log.error(e.toString(), e);
+            throw e;
+        } finally {
+            factory.close();
+            em.close();
+        }
+    }
+
     public boolean ifAddressInDbUpdateId(AddressEntity address){
         try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
              EntityManager em = factory.createEntityManager();) {
@@ -261,20 +280,5 @@ public class BookingDataServiceImpl implements BookingDataService{
             log.error(e.toString(), e);
             throw e;
         }
-    }
-
-    private Properties getDbAccessProperties() {
-        Properties dbAccessProperties;
-
-        try(InputStream is = getClass().getClassLoader().getResourceAsStream("db.properties") ) {
-            dbAccessProperties = new Properties();
-            dbAccessProperties.load(is);
-        }
-        catch(IOException | IllegalArgumentException | NullPointerException e ) {
-            final String msg = "Loading database connection properties failed";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
-        }
-        return dbAccessProperties;
     }
 }
