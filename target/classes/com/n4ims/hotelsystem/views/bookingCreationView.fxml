@@ -71,7 +71,7 @@
                               <children>
                                   <DatePicker fx:id="fromDatePicker" promptText="%checkInPromptText" />
                                   <DatePicker fx:id="toDatePicker" promptText="%checkOutPromptText" />
-                                  <ChoiceBox fx:id="roomTypePicker" />
+                                  <ChoiceBox fx:id="roomTypePicker" prefHeight="26.0" prefWidth="151.0" />
                               </children>
                           </HBox>
                           <HBox layoutX="14.0" layoutY="131.0" prefHeight="163.0" prefWidth="670.0">
@@ -322,7 +322,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%mobileNumberLabel" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%telephoneNumberLabel" />
                                           <TextField fx:id="telephoneNumberTextField" prefHeight="26.0" prefWidth="273.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                               <GridPane.margin>
                                                   <Insets right="5.0" />
