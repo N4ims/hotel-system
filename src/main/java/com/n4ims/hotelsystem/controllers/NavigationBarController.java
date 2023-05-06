@@ -9,6 +9,11 @@ import utils.ResourcePaths;
 
 import java.io.IOException;
 
+
+/**
+
+ Controller for the navigation bar.
+ */
 public class NavigationBarController extends BasicController{
 
     @FXML
@@ -26,9 +31,19 @@ public class NavigationBarController extends BasicController{
     @FXML
     private Label navBarItem4;
 
+    /**
+     * Initializes the navigation bar.
+     */
     public void initialize(){
         navBarItem0.setOnMouseClicked(this::handleNavigation);
     }
+
+    /**
+     * Disables a navigation item with the specified index.
+     *
+     * @param itemIndex the index of the navigation item to be disabled
+     * @throws IllegalArgumentException if there is no navigation element with the specified index
+     */
 
     public void disableNavigationItem(int itemIndex) throws IllegalArgumentException{
         Label l = switch(itemIndex){
@@ -43,6 +58,11 @@ public class NavigationBarController extends BasicController{
         l.setDisable(true);
     }
 
+    /**
+     * Handles a navigation event.
+     *
+     * @param event the mouse event that triggered the navigation
+     */
     @FXML
     private void handleNavigation(MouseEvent event){
         if (event.getSource().equals(navBarItem0)){
