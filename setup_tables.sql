@@ -87,37 +87,6 @@ CREATE TABLE `catering_bookings` (
   `end_date` date
 );
 
-CREATE TABLE `package_types` (
-  `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
-  `type` varchar(255),
-  `description` text,
-  `price` integer,
-  `amount` integer
-);
-
-CREATE TABLE `package_bookings` (
-  `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
-  `package_type` integer,
-  `booking_id` integer,
-  `for_date` date COMMENT 'optional',
-  `timestamp` timestamp
-);
-
-CREATE TABLE `room_cleanings` (
-  `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
-  `room_id` integer,
-  `cleaning_personnel_id` integer,
-  `date` date,
-  `time` time,
-  `cleaning_type_id` integer
-);
-
-CREATE TABLE `cleaning_type` (
-  `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
-  `type` varchar(255),
-  `description` text
-);
-
 CREATE TABLE `cleaning_personnel` (
   `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `first_name` varchar(255),
@@ -148,21 +117,9 @@ ALTER TABLE `room_type_amenities` ADD FOREIGN KEY (`room_type_id`) REFERENCES `r
 
 ALTER TABLE `room_type_amenities` ADD FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`id`);
 
-ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`catering_type`) REFERENCES `catering_types` (`id`);
+ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`catering_type_id`) REFERENCES `catering_types` (`id`);
 
 ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`booking_id`) REFERENCES `room_bookings` (`id`);
-
-ALTER TABLE `package_bookings` ADD FOREIGN KEY (`package_type`) REFERENCES `package_types` (`id`);
-
-ALTER TABLE `package_bookings` ADD FOREIGN KEY (`booking_id`) REFERENCES `room_bookings` (`id`);
-
-ALTER TABLE `room_cleanings` ADD FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
-
-ALTER TABLE `room_cleanings` ADD FOREIGN KEY (`cleaning_personnel_id`) REFERENCES `cleaning_personnel` (`id`);
-
-ALTER TABLE `room_cleanings` ADD FOREIGN KEY (`cleaning_type_id`) REFERENCES `cleaning_type` (`id`);
-
-ALTER TABLE `cleaning_personnel` ADD FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`);
 
 
 -- Fill tables
@@ -188,9 +145,6 @@ INSERT INTO room_amenities VALUES (3, 1, 2);
 
 INSERT INTO room_bookings VALUES (1, 2, 1, '2023-05-01', '2023-05-10', 2, 1, '2023-05-01 20:55:20', 'nice customer');
 INSERT INTO room_bookings VALUES (2, 1, 1, '2023-06-01', '2023-06-10', 2, 1, '2023-05-01 20:55:20', 'nice customer');
-
-INSERT INTO package_types VALUES (1, 'Willkommens Weinpaket rot', 'Weinpaket das Gäste zu unserer Sommeraktion bekommen. Besteht aus: 1x Dornfelder trocken 2020 0,75l von Weingut Merlot', '0', '1');
-INSERT INTO package_types VALUES (2, 'Willkommens Weinpaket rot', 'Weinpaket das Gäste zu unserer Sommeraktion bekommen. Besteht aus: 1x Riesling halbtrocken 2021 0,75l von Weingut Merlot', '0', '1');
 
 INSERT INTO catering_types VALUES (1, 'Frühstück', 'Frühstück von unserem wundervollen Frühstücksbuffet. Von 7:00 bis 10:30 Uhr.', 12);
 INSERT INTO catering_types VALUES (2, 'Halbpension', 'Frühstück und Abendessen. Frühstück von 7:00 Uhr bis 10:30 Uhr. Abendessen von 18:00 Uhr bis 21 Uhr.', 30);
