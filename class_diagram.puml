@@ -1,0 +1,172 @@
+@startuml
+class com.n4ims.hotelsystem.controllers.converters.RoomTypeConverter {
++ String toString(RoomTypeEntity)
++ RoomTypeEntity fromString(String)
+}
+class com.n4ims.hotelsystem.entities.RoomEntity {
+- int id
+- RoomTypeEntity type
+- Set<RoomBookingEntity> roomBookings
++ int getId()
++ void setId(int)
++ RoomTypeEntity getType()
++ void setType(RoomTypeEntity)
++ boolean equals(Object)
++ int hashCode()
+}
+class com.n4ims.hotelsystem.MainApplication {
++ void start(Stage)
+}
+interface com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoader {
+}
+class com.n4ims.hotelsystem.controllers.NavigationBarController {
+- Label navBarItem0
+- Label navBarItem1
+- Label navBarItem2
+- Label navBarItem3
+- Label navBarItem4
++ void initialize()
++ void disableNavigationItem(int)
+- void handleNavigation(MouseEvent)
+}
+
+class com.n4ims.hotelsystem.persistence.BookingDataServiceImpl {
+- {static} EntityManager em
+- {static} Logger log
++ List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity,Date,Date)
++ List<CateringTypeEntity> getAllCateringTypes()
++ List<RoomTypeEntity> getAllRoomTypes()
+- void persistSingleEntity(T)
++ void persistRoomBooking(RoomBookingEntity)
++ void persistAddress(AddressEntity)
++ void persistGuest(GuestEntity)
++ void persistCateringBookings(Set<CateringBookingEntity>)
++ void persistBooking(AddressEntity,GuestEntity,RoomBookingEntity,Set<CateringBookingEntity>)
++ boolean ifAddressInDbUpdateId(AddressEntity)
+- boolean ifGuestInDbUpdateId(GuestEntity)
+- List<T> executeTypedQuery(TypedQuery<T>)
+}
+interface com.n4ims.hotelsystem.persistence.BookingDataService {
+~ List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity,Date,Date)
+~ List<CateringTypeEntity> getAllCateringTypes()
+~ List<RoomTypeEntity> getAllRoomTypes()
+~ void persistRoomBooking(RoomBookingEntity)
+~ void persistAddress(AddressEntity)
+~ void persistGuest(GuestEntity)
+~ void persistCateringBookings(Set<CateringBookingEntity>)
+~ void persistBooking(AddressEntity,GuestEntity,RoomBookingEntity,Set<CateringBookingEntity>)
+}
+class com.n4ims.hotelsystem.controllers.converters.RoomEntityConverter {
++ String toString(RoomEntity)
++ RoomEntity fromString(String)
+}
+class com.n4ims.hotelsystem.entities.RoomTypeAmenityEntity {
+}
+class com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoaderImpl {
++ {static} Logger log
+~ BookingDataService bookingDataService
++ void loadRoomTypes(ChoiceBox<RoomTypeEntity>)
++ void loadFreeRooms(ChoiceBox<RoomEntity>,RoomTypeEntity,LocalDate,LocalDate)
++ void loadFreeRooms(ChoiceBox<RoomEntity>,LocalDate,LocalDate)
++ void loadCateringTypes(ChoiceBox<CateringTypeEntity>)
+}
+
+class com.n4ims.hotelsystem.controllers.BasicController {
++ {static} Logger log
+# Parent imageHeader
+# ImageHeaderController imageHeaderController
+- Parent navigationBar
+# NavigationBarController navigationBarController
+# ComponentContentLoader componentContentLoader
++ void start(Stage)
+- void initialize()
+# void navigate(Scene,String)
+# Callback<DatePicker,DateCell> getDayCellFactory(LocalDate,LocalDate)
+# void setLocale(Locale)
+# NavigationBarController getNavigationBarController()
+# ImageHeaderController getImageHeaderController()
+}
+class com.n4ims.hotelsystem.controllers.converters.CateringTypeEntityConverter {
++ String toString(CateringTypeEntity)
++ CateringTypeEntity fromString(String)
+}
+class com.n4ims.hotelsystem.entities.GuestEntity {
+}
+class com.n4ims.hotelsystem.controllers.OverviewCalenderController {
+- Button createBookingButton
+- DatePicker fromDatePicker
+- LocalDate startMinDate
+- LocalDate startMaxDate
+- DatePicker toDatePicker
+- LocalDate endMinDate
+- LocalDate endMaxDate
++ void initialize()
+- void handleOnCreateButtonClicked(MouseEvent)
+}
+class com.n4ims.hotelsystem.entities.RoomOccupationEntity {
+}
+class com.n4ims.hotelsystem.entities.RoomTypeEntity {
+}
+class com.n4ims.hotelsystem.entities.CateringBookingEntity {
+}
+class com.n4ims.hotelsystem.entities.RoomBookingEntity {
+}
+class com.n4ims.hotelsystem.controllers.ImageHeaderController {
+- Button germanButton
+- Button englishButton
+- String sourceViewPath
++ void initialize()
++ void handleOnGermanButtonClicked(ActionEvent)
++ void handleOnEnglishButtonClicked(ActionEvent)
++ void setSourceViewPath(String)
+}
+class com.n4ims.hotelsystem.entities.AmenityEntity {
+}
+class com.n4ims.hotelsystem.controllers.BookingCreationController {
+~ ResourceBundle langBundle
+# BookingDataService bookingDataService
+- DatePicker fromDatePicker
+- DatePicker toDatePicker
+- ChoiceBox<RoomTypeEntity> roomTypePicker
+- ChoiceBox<RoomEntity> roomNumberPicker
+- ChoiceBox<CateringTypeEntity> cateringTypePicker
+- Button bookingCreationButton
++ void initialize()
+- void loadValuesIntoPickers()
+- void setupDatePickers()
+- void setTextFieldFormatters()
+- void setChoiceBoxConverters()
+- Set<CateringBookingEntity> createCateringBookings(int,RoomBookingEntity,CateringTypeEntity,Date,Date)
+- boolean checkNumberOfGuestsValidity(int,int,RoomEntity)
+- boolean checkInputDatesValidity(LocalDate,LocalDate)
+- boolean checkBirthdayValidity(int,int)
+}
+class com.n4ims.hotelsystem.entities.CateringTypeEntity {
+}
+class com.n4ims.hotelsystem.entities.AddressEntity {
+}
+class com.n4ims.hotelsystem.utils.DateUtils {
++ {static} java.sql.Date asDate(LocalDate)
+}
+class com.n4ims.hotelsystem.utils.DecimalTextFormatter {
+}
+class com.n4ims.hotelsystem.utils.ResourcePaths {
++ {static} String BOOKING_CREATION_VIEW
++ {static} String OVERVIEW_CALENDER_VIEW
++ {static} String LANGUAGE_BUNDLE
+}
+
+
+javafx.scene.control.TextFormatter <|-- com.n4ims.hotelsystem.utils.DecimalTextFormatter
+javafx.util.StringConverter <|-- com.n4ims.hotelsystem.controllers.converters.RoomTypeConverter
+com.n4ims.hotelsystem.controllers.BasicController <|-- com.n4ims.hotelsystem.controllers.NavigationBarController
+com.n4ims.hotelsystem.persistence.BookingDataService <|.. com.n4ims.hotelsystem.persistence.BookingDataServiceImpl
+javafx.util.StringConverter <|-- com.n4ims.hotelsystem.controllers.converters.RoomEntityConverter
+com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoader <|.. com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoaderImpl
+javafx.application.Application <|-- com.n4ims.hotelsystem.controllers.BasicController
+javafx.application.Application <|-- com.n4ims.hotelsystem.MainApplication
+javafx.util.StringConverter <|-- com.n4ims.hotelsystem.controllers.converters.CateringTypeEntityConverter
+com.n4ims.hotelsystem.controllers.BasicController <|-- com.n4ims.hotelsystem.controllers.OverviewCalenderController
+com.n4ims.hotelsystem.controllers.BasicController <|-- com.n4ims.hotelsystem.controllers.ImageHeaderController
+com.n4ims.hotelsystem.controllers.BasicController <|-- com.n4ims.hotelsystem.controllers.BookingCreationController
+@enduml
