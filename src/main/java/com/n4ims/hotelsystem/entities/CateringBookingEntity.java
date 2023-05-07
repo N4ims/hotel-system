@@ -89,6 +89,13 @@ public class CateringBookingEntity {
         return Objects.hash(id, cateringType, roomBooking, startDate, endDate);
     }
 
+    /**
+     Checks the validity of the number of guests for the selected room.
+     @param adultsNumber the number of adults entered by the user
+     @param childrenNumber the number of children entered by the user
+     @param room the room selected by the user
+     @return true if the number of guests is valid for the selected room, false otherwise
+    */
     public static Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
         Set<CateringBookingEntity> cateringBookings = new HashSet<>();
         CateringBookingEntity tmp;
