@@ -3,12 +3,11 @@ package com.n4ims.hotelsystem.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import utils.ResourcePaths;
+import com.n4ims.hotelsystem.utils.ResourcePaths;
 import java.time.LocalDate;
 
 /**

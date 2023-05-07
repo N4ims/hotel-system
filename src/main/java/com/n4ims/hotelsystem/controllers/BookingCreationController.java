@@ -13,10 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import utils.DateUtils;
-import utils.DecimalTextFormatter;
+import com.n4ims.hotelsystem.utils.DateUtils;
+import com.n4ims.hotelsystem.utils.DecimalTextFormatter;
 import javafx.scene.control.Button;
-import utils.ResourcePaths;
+import com.n4ims.hotelsystem.utils.ResourcePaths;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -283,8 +283,6 @@ public class BookingCreationController extends BasicController{
         childrenNumber = Integer.parseInt(childNumberString);
 
 
-
-
         if (!checkInputDatesValidity(selectedFromDate, selectedToDate)){
             return;
         }
@@ -322,7 +320,7 @@ public class BookingCreationController extends BasicController{
         AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, county);
         GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress);
         RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, notes);
-        Set<CateringBookingEntity> cateringBookings = createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
+        Set<CateringBookingEntity> cateringBookings = CateringBookingEntity.createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
 
         try{
             bookingDataService.persistBooking(address, guest, roomBooking, cateringBookings);
@@ -334,8 +332,8 @@ public class BookingCreationController extends BasicController{
         }
     }
 
-    /**
 
+    /**
      Creates a set of {@code CateringBookingEntity} objects based on the specified parameters.
 
      @param number the number of catering bookings to create
