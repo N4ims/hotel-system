@@ -38,17 +38,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="808.0" prefWidth="1549.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
+<VBox prefHeight="950.0" prefWidth="1651.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
       <children>
-      <HBox prefHeight="198.0" prefWidth="1778.0">
-         <children>
-            <fx:include fx:id="imageHeader" source="imageHeader.fxml" />
-         </children>
-      </HBox>
-          <HBox prefHeight="703.0" prefWidth="1637.0">
+          <HBox prefHeight="200.0" prefWidth="1700.0">
               <children>
-                  <fx:include fx:id="navigationBar" source="navigationBar.fxml" />
-                  <AnchorPane fx:id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="777.0" prefWidth="1202.0" style="-fx-border-color: #130D5C;">
+            <fx:include fx:id="imageHeader" source="imageHeader.fxml" />
+              </children>
+          </HBox>
+      <HBox prefHeight="750.0" prefWidth="1669.0">
+         <children>
+            <fx:include source="navigationBar.fxml" />
+                  <AnchorPane fx:id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="698.0" prefWidth="1282.0" style="-fx-border-color: #130D5C;">
                       <children>
                           <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="%headline4" textAlignment="CENTER" textFill="#130d5c" wrapText="false">
                               <font>
@@ -64,10 +64,10 @@
                           </HBox>
                           <HBox layoutX="14.0" layoutY="131.0" prefHeight="163.0" prefWidth="670.0">
                               <children>
-                                  <GridPane prefHeight="163.0" prefWidth="595.0">
+                                  <GridPane prefHeight="163.0" prefWidth="499.0">
                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="513.2000122070312" minWidth="10.0" prefWidth="362.2222493489583" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.79998779296875" minWidth="10.0" prefWidth="233.11108398437494" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="513.2000122070312" minWidth="10.0" prefWidth="269.33333333333337" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.79998779296875" minWidth="10.0" prefWidth="230.66666666666663" />
                                       </columnConstraints>
                                       <rowConstraints>
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -110,14 +110,14 @@
                                                       </rowConstraints>
                                                       <children>
                                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%adultsLabel" GridPane.valignment="BOTTOM" />
-                                                          <TextField fx:id="adultsNumberPicker" prefHeight="0.0" prefWidth="110.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                          <TextField fx:id="adultsNumberPicker" prefHeight="25.0" prefWidth="131.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                               <GridPane.margin>
                                                                   <Insets right="250.0" top="5.0" />
                                                               </GridPane.margin>
                                                           </TextField>
                                                       </children>
                                                   </GridPane>
-                                                  <GridPane GridPane.rowIndex="2">
+                                                  <GridPane prefHeight="55.0" prefWidth="282.0" GridPane.rowIndex="2">
                                                       <columnConstraints>
                                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                                                       </columnConstraints>
@@ -127,7 +127,7 @@
                                                       </rowConstraints>
                                                       <children>
                                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%childrenLabel" GridPane.valignment="BOTTOM" />
-                                                          <TextField fx:id="childrenNumberPicker" prefHeight="3.0" prefWidth="87.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                          <TextField fx:id="childrenNumberPicker" prefHeight="25.0" prefWidth="46.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                               <GridPane.margin>
                                                                   <Insets right="250.0" top="5.0" />
                                                               </GridPane.margin>
@@ -168,7 +168,7 @@
                                                       </rowConstraints>
                                                       <children>
                                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%notesLabel" GridPane.valignment="BOTTOM" />
-                                                            <TextArea fx:id="notesTextArea" prefHeight="82.0" prefWidth="234.0" GridPane.rowIndex="1" />
+                                                            <TextArea fx:id="notesTextArea" prefHeight="5.0" prefWidth="293.0" GridPane.rowIndex="1" />
                                                       </children>
                                                   </GridPane>
                                               </children>
@@ -177,30 +177,7 @@
                                   </GridPane>
                               </children>
                           </HBox>
-                          <HBox layoutX="14.0" layoutY="303.0" prefHeight="323.0" prefWidth="907.0">
-                              <children>
-                                  <GridPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="323.0" prefWidth="1392.0">
-                                      <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="590.5556131998699" minWidth="10.0" prefWidth="390.888916015625" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                          <RowConstraints maxHeight="155.77777099609375" minHeight="10.0" prefHeight="67.77777099609375" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="269.5555419921875" minHeight="10.0" prefHeight="256.22222900390625" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                      <children>
-                                          <ImageView fitHeight="333.0" fitWidth="399.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                              <image>
-                                                  <Image url="@assets/picture_calendar.PNG" />
-                                              </image>
-                                              <GridPane.margin>
-                                                  <Insets />
-                                              </GridPane.margin>
-                                          </ImageView>
-                                      </children>
-                                  </GridPane>
-                              </children>
-                          </HBox>
-                          <GridPane layoutX="766.0" layoutY="143.0" prefHeight="360.0" prefWidth="435.0">
+                          <GridPane layoutX="722.0" layoutY="131.0" prefHeight="360.0" prefWidth="445.0">
                               <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               </columnConstraints>
@@ -402,10 +379,16 @@
                                   </GridPane>
                               </children>
                           </GridPane>
-                          <Button fx:id="bookingCreationButton" layoutX="1067.0" layoutY="632.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 10px; -fx-background-color: #130D5C;" text="%createBookingLabel" textFill="WHITE" />
+                          <Button fx:id="bookingCreationButton" layoutX="1015.0" layoutY="630.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px; -fx-background-color: #130D5C;" text="%createBookingLabel" textFill="WHITE" />
+                  <HBox layoutX="164.0" layoutY="420.0" prefHeight="100.0" prefWidth="200.0" />
+                  <ImageView fitHeight="320.0" fitWidth="452.0" layoutX="65.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/picture_calendar.PNG" />
+                     </image>
+                  </ImageView>
                       </children>
                   </AnchorPane>
-              </children>
-          </HBox>
+         </children>
+      </HBox>
       </children>
   </VBox>

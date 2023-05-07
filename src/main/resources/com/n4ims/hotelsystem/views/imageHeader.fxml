@@ -6,20 +6,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane prefHeight="198.0" prefWidth="1920.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.n4ims.hotelsystem.controllers.ImageHeaderController">
+<Pane prefHeight="198.0" prefWidth="1920.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.n4ims.hotelsystem.controllers.ImageHeaderController">
    <children>
-      <ImageView fitHeight="198.0" fitWidth="1028.0" layoutX="447.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="200.0" fitWidth="1655.0" pickOnBounds="true">
          <image>
             <Image url="@assets/header_vineyard.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="germanButton" alignment="CENTER_RIGHT" layoutX="844.0" layoutY="147.0" mnemonicParsing="false" text="German">
+      <Button fx:id="germanButton" alignment="CENTER_RIGHT" layoutX="1507.0" layoutY="141.0" mnemonicParsing="false" style="-fx-background-color: #130D5C;" text="German" textFill="WHITE">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="englishButton" layoutX="918.0" layoutY="147.0" mnemonicParsing="false" text="English">
+      <Button fx:id="englishButton" layoutX="1571.0" layoutY="141.0" mnemonicParsing="false" style="-fx-background-color: #130D5C;" text="English" textFill="WHITE">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
