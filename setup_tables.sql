@@ -83,8 +83,8 @@ CREATE TABLE `catering_bookings` (
   `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `catering_type_id` integer,
   `room_booking_id` integer,
-  `start_date` date,
-  `end_date` date
+  `from_date` date,
+  `to_date` date
 );
 
 CREATE TABLE `cleaning_personnel` (
