@@ -87,16 +87,6 @@ CREATE TABLE `catering_bookings` (
   `to_date` date
 );
 
-CREATE TABLE `cleaning_personnel` (
-  `id` integer UNIQUE PRIMARY KEY AUTO_INCREMENT,
-  `first_name` varchar(255),
-  `last_name` varchar(255),
-  `birthdate` date COMMENT 'optional',
-  `address_id` integer,
-  `telephone_number` varchar(255),
-  `mobile_number` varchar(255),
-  `email_address` varchar(255)
-);
 
 
 -- Create foreign key references
@@ -120,6 +110,7 @@ ALTER TABLE `room_type_amenities` ADD FOREIGN KEY (`amenity_id`) REFERENCES `ame
 ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`catering_type_id`) REFERENCES `catering_types` (`id`);
 
 ALTER TABLE `catering_bookings` ADD FOREIGN KEY (`room_booking_id`) REFERENCES `room_bookings` (`id`);
+
 
 
 -- Fill tables
