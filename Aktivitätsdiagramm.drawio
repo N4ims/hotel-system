@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-05-07T07:01:28.564Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15" etag="EACmdnNbZb18kubGDgwB" version="21.2.6" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-07T07:03:10.753Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15" etag="m_6_kZDMkc_P1x0bMAn0" version="21.2.6" type="github">
   <diagram name="Page-1" id="0783ab3e-0a74-02c8-0abd-f7b4e66b4bec">
-    <mxGraphModel dx="1854" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2318" dy="829" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -13,19 +13,19 @@
             <mxPoint x="500" y="230" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Yh1rhXzA50dwjJJRKIVV-25" value="Aktivitätsdiagramm: &amp;nbsp;add a new reservation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="285" y="43" width="280" height="30" as="geometry" />
+        <mxCell id="Yh1rhXzA50dwjJJRKIVV-25" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Aktivitätsdiagramm: &amp;nbsp;eine neue Buchung hinzufügen&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="183" y="30" width="485" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Yh1rhXzA50dwjJJRKIVV-26" value="" style="endArrow=none;html=1;rounded=0;exitX=1.001;exitY=0.663;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="Yh1rhXzA50dwjJJRKIVV-23" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="450" y="320" as="sourcePoint" />
-            <mxPoint x="280" y="80" as="targetPoint" />
+            <mxPoint x="280" y="70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Yh1rhXzA50dwjJJRKIVV-27" value="" style="endArrow=none;html=1;rounded=0;exitX=1.001;exitY=0.283;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="Yh1rhXzA50dwjJJRKIVV-23" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="550" y="123" as="sourcePoint" />
-            <mxPoint x="600" y="80" as="targetPoint" />
+            <mxPoint x="600" y="70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Yh1rhXzA50dwjJJRKIVV-28" value="" style="endArrow=none;html=1;rounded=0;exitX=0.041;exitY=1.001;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.041;entryY=-0.001;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
@@ -34,13 +34,13 @@
             <mxPoint x="838.32" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Yh1rhXzA50dwjJJRKIVV-29" value="User/ Admin" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="90" y="80.32" width="110" height="30" as="geometry" />
+        <mxCell id="Yh1rhXzA50dwjJJRKIVV-29" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Benutzer (Mitarbeiter, Admin)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="10" y="80.32" width="250" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Yh1rhXzA50dwjJJRKIVV-30" value="Hotelsystem" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="Yh1rhXzA50dwjJJRKIVV-30" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Hotelsystem&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="362.82" y="80.32" width="110" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Yh1rhXzA50dwjJJRKIVV-31" value="Customer" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="Yh1rhXzA50dwjJJRKIVV-31" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Kunde&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="640" y="80.32" width="110" height="30" as="geometry" />
         </mxCell>
         <mxCell id="Yh1rhXzA50dwjJJRKIVV-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" source="Yh1rhXzA50dwjJJRKIVV-35" target="Yh1rhXzA50dwjJJRKIVV-42" edge="1">
