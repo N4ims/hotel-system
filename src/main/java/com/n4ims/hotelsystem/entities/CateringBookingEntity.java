@@ -3,7 +3,9 @@ package com.n4ims.hotelsystem.entities;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "catering_bookings", schema = "hotel_system")
@@ -85,5 +87,21 @@ public class CateringBookingEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, cateringType, roomBooking, startDate, endDate);
+    }
+
+    public static Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
+        Set<CateringBookingEntity> cateringBookings = new HashSet<>();
+        CateringBookingEntity tmp;
+
+        for (int i = 0; i < number; i++){
+            tmp = new CateringBookingEntity();
+            tmp.setCateringType(cateringType);
+            tmp.setRoomBooking(roomBooking);
+            tmp.setStartDate(startDate);
+            tmp.setEndDate(endDate);
+            cateringBookings.add(tmp);
+        }
+
+        return cateringBookings;
     }
 }

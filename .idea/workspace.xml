@@ -4,9 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Add english translation.&#10;Refactor booking persistence.">
+    <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Move utils package.&#10;Outsource CateringBooking creation into entity class.">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_05_2023_12_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_05_2023_12_57__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/NavigationBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/NavigationBarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/OverviewCalenderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/OverviewCalenderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/loaders/ComponentContentLoaderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/loaders/ComponentContentLoaderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/DecimalTextFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/utils/DecimalTextFormatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ResourcePaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/utils/ResourcePaths.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/utils/DateUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/DateUtilsTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +89,7 @@
       <recent name="C:\Users\I551386\IdeaProjects\hotel-systems\src\main\java\com\n4ims\hotelsystem\views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\I551386\IdeaProjects\hotel-systems\.class_diagrams" />
       <recent name="C:\Users\I551386\IdeaProjects\hotel-systems\src\main\java\com\n4ims\hotelsystem\views" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -125,8 +138,8 @@
         <item itemvalue="JUnit.DateUtilsTest" />
         <item itemvalue="JUnit.All in hotelsystem" />
         <item itemvalue="JUnit.All in hotel-systems" />
+        <item itemvalue="JUnit.All in hotelsystem" />
         <item itemvalue="JUnit.DateUtilsTest" />
-        <item itemvalue="JUnit.All in hotel-systems" />
       </list>
     </recent_temporary>
   </component>
@@ -338,8 +351,8 @@
     <MESSAGE value="Resize view components." />
     <MESSAGE value="Remove some entities." />
     <MESSAGE value="Commit unversioned files." />
-    <MESSAGE value="Add english translation.&#10;Refactor booking persistence." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add english translation.&#10;Refactor booking persistence." />
+    <MESSAGE value="Move utils package.&#10;Outsource CateringBooking creation into entity class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Move utils package.&#10;Outsource CateringBooking creation into entity class." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
