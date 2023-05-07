@@ -130,9 +130,9 @@ INSERT INTO rooms VALUES (3, 2);
 INSERT INTO amenities VALUES (1, 'Klimaanlage', '');
 INSERT INTO amenities VALUES (2, 'Fußbodebheizung', '');
 
-INSERT INTO room_amenities VALUES (1, 2, 1);
-INSERT INTO room_amenities VALUES (2, 2, 2);
-INSERT INTO room_amenities VALUES (3, 1, 2);
+INSERT INTO room_type_amenities VALUES (1, 2, 1);
+INSERT INTO room_type_amenities VALUES (2, 2, 2);
+INSERT INTO room_type_amenities VALUES (3, 1, 2);
 
 INSERT INTO room_bookings VALUES (1, 2, 1, '2023-05-01', '2023-05-10', 2, 1, '2023-05-01 20:55:20', 'nice customer');
 INSERT INTO room_bookings VALUES (2, 1, 1, '2023-06-01', '2023-06-10', 2, 1, '2023-05-01 20:55:20', 'nice customer');
