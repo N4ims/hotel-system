@@ -2,6 +2,7 @@
 package com.n4ims.hotelsystem.persistence;
 
 import com.n4ims.hotelsystem.entities.*;
+import com.n4ims.hotelsystem.utils.ResourcePaths;
 import jakarta.persistence.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +20,13 @@ import java.util.*;
  @author
  */
 public class BookingDataServiceImpl implements BookingDataService{
-    private static final String PERSISTENCE_UNIT = "HOTEL_SYSTEM";
+    private static final String PERSISTENCE_UNIT = ResourcePaths.PERSISTENCE_UNIT_NAME;
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * This method retrieves all the RoomBookingEntity objects within a specified time period
      * @param fromDate the start date of the period
-     * @param endDate the end date of the period
+     * @param toDate the end date of the period
      * @return a List of RoomBookingEntity objects within the specified period
      */
     @Override
@@ -43,10 +44,10 @@ public class BookingDataServiceImpl implements BookingDataService{
                                     AND (
                                         (b.fromDate >= ?1 AND b.toDate <= ?2)
                                         OR (b.fromDate <= ?1 AND b.toDate > ?1)
-                                        OR (b.fromDate >= ?1 AND b.toDate > ?1)
+                                        OR ( (b.fromDate >= ?1 AND b.fromDate <= ?2) AND b.toDate > ?1)
                                     )
                                 )
-                    AND ( e.type = ?3 OR ?3 = null)
+                    AND e.type = ?3
             """, RoomEntity.class);
 
             query.setParameter(1, fromDate);
@@ -55,7 +56,7 @@ public class BookingDataServiceImpl implements BookingDataService{
 
             try {
                 log.debug("Fetching free rooms from database", fromDate, toDate);
-                List<RoomEntity> freeRooms = query.getResultList();
+                List<RoomEntity> freeRooms = executeTypedQuery(query);
                 return freeRooms;
             } catch (NoResultException e) {
                 log.info("No rooms for period " + fromDate + "-" + toDate);

@@ -14,7 +14,7 @@
    <children>
       <HBox>
          <children>
-            <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="NavBar" textAlignment="CENTER" wrapText="false">
+            <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" textAlignment="CENTER" wrapText="false">
                <font>
                   <Font size="18.0" fx:id="x1" />
                </font>

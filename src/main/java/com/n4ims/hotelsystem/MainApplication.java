@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import com.n4ims.hotelsystem.utils.ResourcePaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.ResourcePaths;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.MissingResourceException;
@@ -24,7 +23,6 @@ public class MainApplication extends Application {
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Techlodge");
             stage.setScene(scene);
-            stage.setMaximized(true);
             stage.show();
         } catch (MissingResourceException e){
             log.error("Cannot find resource and thus not run app.", e);
