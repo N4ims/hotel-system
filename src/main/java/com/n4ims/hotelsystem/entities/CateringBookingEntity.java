@@ -3,7 +3,9 @@ package com.n4ims.hotelsystem.entities;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "catering_bookings", schema = "hotel_system")
@@ -85,5 +87,28 @@ public class CateringBookingEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, cateringType, roomBooking, startDate, endDate);
+    }
+
+    /**
+     Checks the validity of the number of guests for the selected room.
+     @param adultsNumber the number of adults entered by the user
+     @param childrenNumber the number of children entered by the user
+     @param room the room selected by the user
+     @return true if the number of guests is valid for the selected room, false otherwise
+    */
+    public static Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
+        Set<CateringBookingEntity> cateringBookings = new HashSet<>();
+        CateringBookingEntity tmp;
+
+        for (int i = 0; i < number; i++){
+            tmp = new CateringBookingEntity();
+            tmp.setCateringType(cateringType);
+            tmp.setRoomBooking(roomBooking);
+            tmp.setStartDate(startDate);
+            tmp.setEndDate(endDate);
+            cateringBookings.add(tmp);
+        }
+
+        return cateringBookings;
     }
 }

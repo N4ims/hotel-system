@@ -32,25 +32,13 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="808.0" prefWidth="1549.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
+<VBox prefHeight="808.0" prefWidth="1549.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.n4ims.hotelsystem.controllers.BookingCreationController">
       <children>
       <HBox prefHeight="198.0" prefWidth="1778.0">
          <children>
@@ -71,7 +59,7 @@
                               <children>
                                   <DatePicker fx:id="fromDatePicker" promptText="%checkInPromptText" />
                                   <DatePicker fx:id="toDatePicker" promptText="%checkOutPromptText" />
-                                  <ChoiceBox fx:id="roomTypePicker" />
+                                  <ChoiceBox fx:id="roomTypePicker" prefHeight="26.0" prefWidth="151.0" />
                               </children>
                           </HBox>
                           <HBox layoutX="14.0" layoutY="131.0" prefHeight="163.0" prefWidth="670.0">
@@ -322,7 +310,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%mobileNumberLabel" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%telephoneNumberLabel" />
                                           <TextField fx:id="telephoneNumberTextField" prefHeight="26.0" prefWidth="273.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5px;" styleClass="textfield1" GridPane.rowIndex="1">
                                               <GridPane.margin>
                                                   <Insets right="5.0" />
@@ -414,7 +402,7 @@
                                   </GridPane>
                               </children>
                           </GridPane>
-                          <Button fx:id="bookingCreationButton" layoutX="1067.0" layoutY="632.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 12px; -fx-background-color: #130D5C;" text="%createBookingLabel" textFill="WHITE" />
+                          <Button fx:id="bookingCreationButton" layoutX="1067.0" layoutY="632.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="150.0" style="-fx-background-radius: 10px; -fx-background-color: #130D5C;" text="%createBookingLabel" textFill="WHITE" />
                       </children>
                   </AnchorPane>
               </children>

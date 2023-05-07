@@ -1,4 +1,4 @@
-package utils;
+package com.n4ims.hotelsystem.utils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
