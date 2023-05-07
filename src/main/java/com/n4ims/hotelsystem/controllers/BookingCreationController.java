@@ -23,8 +23,12 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * This controller handles the creation of new bookings.
+ */
 public class BookingCreationController extends BasicController{
 
+    //
     ResourceBundle langBundle;
     protected BookingDataService bookingDataService;
 
@@ -79,12 +83,17 @@ public class BookingCreationController extends BasicController{
     @FXML
     private Button bookingCreationButton;
 
-
+    /**
+     * Constructs a new BookingCreationController object.
+     */
     public BookingCreationController(){
         this.bookingDataService = new BookingDataServiceImpl();
         langBundle = ResourceBundle.getBundle(ResourcePaths.LANGUAGE_BUNDLE);
     }
 
+    /**
+     * Initializes the BookingCreationController object.
+     */
     public void initialize(){
         // enable reloading of this view when switching language
         imageHeaderController.setSourceViewPath(ResourcePaths.BOOKING_CREATION_VIEW);
@@ -99,14 +108,23 @@ public class BookingCreationController extends BasicController{
         setupDatePickers();
     }
 
+    /**
+     Loads values into pickers based on selected room type, selected from and to dates, and catering types.
+     */
     private void loadValuesIntoPickers(){
+
+        // Retrieve the currently selected room type
         RoomTypeEntity roomType= roomTypePicker.getValue();
 
         try{
+            // Load available room types into the room type picker
             componentContentLoader.loadRoomTypes(roomTypePicker);
+            // Load available rooms of the selected type and within the selected date range into the room number picker
             componentContentLoader.loadFreeRooms(roomNumberPicker, roomType, selectedFromDate, selectedToDate);
+            // Load available catering types into the catering type picker
             componentContentLoader.loadCateringTypes(cateringTypePicker);
         } catch (PersistenceException e){
+            // Log the error and show an error alert if there was a problem accessing the database
             log.error("Error while trying to access database", e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.getDialogPane().setContent(new Text(langBundle.getString("databaseErrorMessage")));
@@ -114,8 +132,8 @@ public class BookingCreationController extends BasicController{
         }
     }
 
+
     private void setupDatePickers(){
-        // Allow only certain fields of the datePickers to be picked
         Callback<DatePicker, DateCell> startDayCellFactory = getDayCellFactory(fromDateMin, fromDateMax);
         Callback<DatePicker, DateCell> endDayCellFactory = getDayCellFactory(toDateMin, toDateMax);
         fromDatePicker.setDayCellFactory(startDayCellFactory);
@@ -125,6 +143,15 @@ public class BookingCreationController extends BasicController{
         toDatePicker.setOnAction(this::handleOnToDatePicked);
     }
 
+
+    /**
+
+     Sets up text field formatters for certain text fields to restrict user input to integer values only.
+     Specifically, sets DecimalTextFormatter with no decimal places, minimum and maximum integer value of 0,
+     and disallows negative values for the following text fields: adultsNumberPicker, childrenNumberPicker,
+     birthDayTextField, birthMonthTextField, birthYearTextField, postcodeTextField.
+     Also clears the fields of their default TextFormatter value to show promptText.
+     */
     private void setTextFieldFormatters(){
         adultsNumberPicker.setTextFormatter(new DecimalTextFormatter(0, 0, false));
         childrenNumberPicker.setTextFormatter(new DecimalTextFormatter(0, 0, false));
@@ -140,12 +167,28 @@ public class BookingCreationController extends BasicController{
         postcodeTextField.setText("");
     }
 
+    /**
+
+     Sets the converters for the choice box pickers.
+     The converters are used to convert between the displayed value and the actual object value in the choice box.
+     For example, the RoomTypeConverter converts between RoomTypeEntity objects and their String representation.
+     */
     private void setChoiceBoxConverters(){
         roomTypePicker.setConverter(new RoomTypeConverter());
         cateringTypePicker.setConverter(new CateringTypeEntityConverter());
         roomNumberPicker.setConverter(new RoomEntityConverter());
     }
 
+    /**
+
+     Handles the event when a new room type is selected from the roomTypePicker.
+
+     Loads the available free rooms of the selected type into the roomNumberPicker.
+
+     Clears the value of the roomNumberPicker if the already selected room has a different type.
+
+     @param event The event triggered by selecting a new room type from the roomTypePicker.
+     */
     @FXML
     private void handleOnRoomTypePicked(ActionEvent event){
         RoomTypeEntity roomType= roomTypePicker.getValue();
@@ -160,6 +203,12 @@ public class BookingCreationController extends BasicController{
         componentContentLoader.loadFreeRooms(roomNumberPicker, roomType, selectedFromDate, selectedToDate);
     }
 
+    /**
+
+     Handles the event when the user picks a date from the "from" date picker.
+
+     @param event the event triggered by the user picking a date
+     */
     @FXML
     private void handleOnFromDatePicked(ActionEvent event){
         DatePicker picker = (DatePicker) event.getSource();
@@ -172,6 +221,17 @@ public class BookingCreationController extends BasicController{
         loadValuesIntoPickers();
     }
 
+    /**
+     *
+     Handles the event when a date is picked in the toDatePicker.
+
+     Sets the selectedToDate field and updates the fromDateMax field to ensure that the selectedFromDate is always before the selectedToDate.
+
+     Also clears the selected room number and reloads the room number picker and other pickers with new values based on the updated date range.
+
+     @param event the event triggered by picking a date in the toDatePicker
+
+     */
     @FXML
     private void handleOnToDatePicked(ActionEvent event){
         DatePicker picker = (DatePicker) event.getSource();
@@ -184,6 +244,15 @@ public class BookingCreationController extends BasicController{
         loadValuesIntoPickers();
     }
 
+
+    /**
+
+     Handles the event when the "Create booking" button is clicked. Collects all necessary data from the input fields,
+
+     validates it and creates a new booking entity in the database. Displays warning messages if input is invalid.
+
+     @param event the ActionEvent triggered by clicking the "Create booking" button
+     */
     @FXML
     private void handleOnBookingCreationButtonClicked(ActionEvent event){
         String adultNumberString = adultsNumberPicker.getText();
@@ -263,6 +332,51 @@ public class BookingCreationController extends BasicController{
         }
     }
 
+
+    /**
+     Creates a set of {@code CateringBookingEntity} objects based on the specified parameters.
+
+     @param number the number of catering bookings to create
+
+     @param roomBooking the {@code RoomBookingEntity} associated with the catering bookings
+
+     @param cateringType the {@code CateringTypeEntity} for the catering bookings
+
+     @param startDate the start date for the catering bookings
+
+     @param endDate the end date for the catering bookings
+
+     @return a set of {@code CateringBookingEntity} objects
+     */
+    private Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
+        Set<CateringBookingEntity> cateringBookings = new HashSet<>();
+        CateringBookingEntity tmp;
+
+        for (int i = 0; i < number; i++){
+            tmp = new CateringBookingEntity();
+            tmp.setCateringType(cateringType);
+            tmp.setRoomBooking(roomBooking);
+            tmp.setStartDate(startDate);
+            tmp.setEndDate(endDate);
+            cateringBookings.add(tmp);
+        }
+
+        return cateringBookings;
+    }
+
+
+    /**
+
+     Checks the validity of the number of guests for the selected room.
+
+     @param adultsNumber the number of adults entered by the user
+
+     @param childrenNumber the number of children entered by the user
+
+     @param room the room selected by the user
+
+     @return true if the number of guests is valid for the selected room, false otherwise
+     */
     private boolean checkNumberOfGuestsValidity(int adultsNumber, int childrenNumber, RoomEntity room){
         int personNumber = adultsNumber + childrenNumber;
 
@@ -283,6 +397,16 @@ public class BookingCreationController extends BasicController{
         return true;
     }
 
+    /**
+
+     Checks the validity of the selected booking dates.
+
+     @param fromLocalDate the starting date of the booking, as a LocalDate object.
+
+     @param toLocalDate the ending date of the booking, as a LocalDate object.
+
+     @return true if the booking dates are valid, false otherwise.
+     */
     private boolean checkInputDatesValidity(LocalDate fromLocalDate, LocalDate toLocalDate){
         Date fromDate;
         Date toDate;
@@ -304,6 +428,16 @@ public class BookingCreationController extends BasicController{
         return true;
     }
 
+    /**
+
+     Checks the validity of the given birth month and day.
+
+     @param birthMonth the birth month to be checked
+
+     @param birthDay the birth day to be checked
+
+     @return true if the birth month and day are valid, false otherwise
+     */
     private boolean checkBirthdayValidity(int birthMonth, int birthDay){
         //check if date is valid
         if (birthMonth > 12 || birthDay > 31) {

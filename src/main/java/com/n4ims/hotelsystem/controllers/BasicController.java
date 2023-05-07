@@ -22,6 +22,10 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The BasicController class is the base class for all controllers in the hotel system.
+ * It provides basic functionality such as loading views and navigating between them.
+ */
 public class BasicController extends Application {
     public static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -36,9 +40,13 @@ public class BasicController extends Application {
 
     protected ComponentContentLoader componentContentLoader;
 
+    /**
+     * Creates a new BasicController object.
+     */
     public BasicController(){
         componentContentLoader = new ComponentContentLoaderImpl();
     }
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -71,6 +79,12 @@ public class BasicController extends Application {
             // TODO show user error field
         }
     }
+    /**
+     * Returns a factory for creating date cells that are disabled if they fall outside the minDate and maxDate range.
+     * @param minDate The minimum date allowed.
+     * @param maxDate The maximum date allowed.
+     * @return A callback that creates a new date cell.
+     */
     protected Callback<DatePicker, DateCell> getDayCellFactory(LocalDate minDate, LocalDate maxDate){
         return new Callback<>() {
             @Override
