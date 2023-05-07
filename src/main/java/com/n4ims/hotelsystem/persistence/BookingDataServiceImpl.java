@@ -29,18 +29,7 @@ public class BookingDataServiceImpl implements BookingDataService{
      * @return a List of RoomBookingEntity objects within the specified period
      */
     @Override
-    public List<RoomBookingEntity> getAllBookingsForPeriod(Date fromDate, Date endDate) {
-        return null;
-    }
 
-    /**
-     * This method retrieves all the RoomEntity objects of a specific type that are not booked during a specified time period
-     * @param roomType the type of RoomEntity object to retrieve
-     * @param fromDate the start date of the period
-     * @param toDate the end date of the period
-     * @return a List of RoomEntity objects that are not booked during the specified period
-     */
-    @Override
     public List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity roomType, Date fromDate, Date toDate) {
 
         try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
@@ -224,18 +213,49 @@ public class BookingDataServiceImpl implements BookingDataService{
         }
     }
 
-    /**
 
-     Checks if an AddressEntity already exists in the database and updates its id accordingly.
-     If the entity already exists in the database, its id is updated to match the existing entity's id.
-     If it does not exist, the method returns false and the entity's id remains null.
-     @param address the AddressEntity to be checked and updated
-     @return true if the AddressEntity already exists in the database and its id has been updated,
-     bash
-     Copy code
-     false if it does not exist in the database and its id remains null.
-     @throws PersistenceException if there is an error accessing the database
+    /**
+     * Persists the given entities, which are needed to create a booking, to the database.
+     *
+     * @param address the address entity to persist
+     * @param guest the guest entity to persist
+     * @param roomBooking the room entity to persist
+     * @param cateringBookings the catering booking entities to persist
+     * @throws PersistenceException if an error occurs while accessing the database
      */
+    @Override
+    public void persistBooking(AddressEntity address, GuestEntity guest, RoomBookingEntity roomBooking, Set<CateringBookingEntity> cateringBookings) throws PersistenceException {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+        EntityManager em = factory.createEntityManager();
+
+        try{
+            em.getTransaction().begin();
+
+            persistAddress(address);
+            persistGuest(guest);
+            persistRoomBooking(roomBooking);
+            persistCateringBookings(cateringBookings);
+
+            em.getTransaction().commit();
+        } catch (PersistenceException e){
+            em.getTransaction().rollback();
+            log.error(e.toString(), e);
+            throw e;
+        } finally {
+            factory.close();
+            em.close();
+        }
+    }
+
+    /**
+     *Checks if an AddressEntity already exists in the database and updates its id accordingly.
+     *If the entity already exists in the database, its id is updated to match the existing entity's id.
+     *If it does not exist, the method returns false and the entity's id remains null.
+     *@param address the AddressEntity to be checked and updated
+     *@return true if the AddressEntity already exists in the database and its id has been updated,
+     *false if it does not exist in the database and its id remains null.
+     *@throws PersistenceException if there is an error accessing the database
+   */
     public boolean ifAddressInDbUpdateId(AddressEntity address){
         try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
              EntityManager em = factory.createEntityManager();) {
@@ -366,29 +386,5 @@ public class BookingDataServiceImpl implements BookingDataService{
             log.error(e.toString(), e);
             throw e;
         }
-    }
-
-
-    /**
-
-     Retrieves the database access properties from a "db.properties" file located in the classpath.
-
-     @return A {@link Properties} object containing the database access properties.
-
-     @throws RuntimeException if loading the properties file fails for any reason.
-     */
-    private Properties getDbAccessProperties() {
-        Properties dbAccessProperties;
-
-        try(InputStream is = getClass().getClassLoader().getResourceAsStream("db.properties") ) {
-            dbAccessProperties = new Properties();
-            dbAccessProperties.load(is);
-        }
-        catch(IOException | IllegalArgumentException | NullPointerException e ) {
-            final String msg = "Loading database connection properties failed";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
-        }
-        return dbAccessProperties;
     }
 }

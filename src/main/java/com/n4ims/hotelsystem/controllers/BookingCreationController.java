@@ -267,8 +267,9 @@ public class BookingCreationController extends BasicController{
         String emailAddress = emailTextField.getText();
         String postcode = postcodeTextField.getText();
         String place = placeTextField.getText();
-
+        String county = countryTextField.getText();
         RoomEntity room = roomNumberPicker.getValue();
+        String notes = notesTextArea.getText();
 
         int adultsNumber;
         int childrenNumber;
@@ -313,23 +314,24 @@ public class BookingCreationController extends BasicController{
             return;
         }
 
-
-        // TODO implement country
-
         Date birthDate = new Date(birthYear-1900, birthMonth, birthDay);
         Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
         int totalGuestNumber = childrenNumber + adultsNumber;
 
         // TODO check if guest already existing and replace dateString
-        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, "Germany");
+        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, county);
         GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress);
-        RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, "");
+        RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, notes);
         Set<CateringBookingEntity> cateringBookings = createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
 
-        bookingDataService.persistAddress(address);
-        bookingDataService.persistGuest(guest);
-        bookingDataService.persistRoomBooking(roomBooking);
-        bookingDataService.persistCateringBookings(cateringBookings);
+        try{
+            bookingDataService.persistBooking(address, guest, roomBooking, cateringBookings);
+        } catch (PersistenceException e){
+            log.error("Error when trying to persist booking.", e);
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("bookingCreationErrorMessage")
+            ).showAndWait();
+        }
     }
 
     /**
@@ -411,8 +413,8 @@ public class BookingCreationController extends BasicController{
         Date fromDate;
         Date toDate;
         try{
-            fromDate = DateUtils.asDate(selectedFromDate);
-            toDate = DateUtils.asDate(selectedToDate);
+            fromDate = DateUtils.asDate(fromLocalDate);
+            toDate = DateUtils.asDate(toLocalDate);
         } catch (NullPointerException e){
             new Alert(Alert.AlertType.WARNING, langBundle.getString("selectBothDates")).showAndWait();
             return false;
