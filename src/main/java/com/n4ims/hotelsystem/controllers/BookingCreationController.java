@@ -13,10 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import utils.DateUtils;
-import utils.DecimalTextFormatter;
+import com.n4ims.hotelsystem.utils.DateUtils;
+import com.n4ims.hotelsystem.utils.DecimalTextFormatter;
 import javafx.scene.control.Button;
-import utils.ResourcePaths;
+import com.n4ims.hotelsystem.utils.ResourcePaths;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -214,8 +214,6 @@ public class BookingCreationController extends BasicController{
         childrenNumber = Integer.parseInt(childNumberString);
 
 
-
-
         if (!checkInputDatesValidity(selectedFromDate, selectedToDate)){
             return;
         }
@@ -253,7 +251,7 @@ public class BookingCreationController extends BasicController{
         AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, county);
         GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress);
         RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, notes);
-        Set<CateringBookingEntity> cateringBookings = createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
+        Set<CateringBookingEntity> cateringBookings = CateringBookingEntity.createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
 
         try{
             bookingDataService.persistBooking(address, guest, roomBooking, cateringBookings);
@@ -263,22 +261,6 @@ public class BookingCreationController extends BasicController{
                     langBundle.getString("bookingCreationErrorMessage")
             ).showAndWait();
         }
-    }
-
-    private Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
-        Set<CateringBookingEntity> cateringBookings = new HashSet<>();
-        CateringBookingEntity tmp;
-
-        for (int i = 0; i < number; i++){
-            tmp = new CateringBookingEntity();
-            tmp.setCateringType(cateringType);
-            tmp.setRoomBooking(roomBooking);
-            tmp.setStartDate(startDate);
-            tmp.setEndDate(endDate);
-            cateringBookings.add(tmp);
-        }
-
-        return cateringBookings;
     }
 
     private boolean checkNumberOfGuestsValidity(int adultsNumber, int childrenNumber, RoomEntity room){

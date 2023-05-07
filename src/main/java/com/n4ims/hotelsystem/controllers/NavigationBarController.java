@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import utils.ResourcePaths;
-
-import java.io.IOException;
+import com.n4ims.hotelsystem.utils.ResourcePaths;
 
 public class NavigationBarController extends BasicController{
 
