@@ -332,49 +332,11 @@ public class BookingCreationController extends BasicController{
         }
     }
 
-
     /**
-     Creates a set of {@code CateringBookingEntity} objects based on the specified parameters.
-
-     @param number the number of catering bookings to create
-
-     @param roomBooking the {@code RoomBookingEntity} associated with the catering bookings
-
-     @param cateringType the {@code CateringTypeEntity} for the catering bookings
-
-     @param startDate the start date for the catering bookings
-
-     @param endDate the end date for the catering bookings
-
-     @return a set of {@code CateringBookingEntity} objects
-     */
-    private Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
-        Set<CateringBookingEntity> cateringBookings = new HashSet<>();
-        CateringBookingEntity tmp;
-
-        for (int i = 0; i < number; i++){
-            tmp = new CateringBookingEntity();
-            tmp.setCateringType(cateringType);
-            tmp.setRoomBooking(roomBooking);
-            tmp.setStartDate(startDate);
-            tmp.setEndDate(endDate);
-            cateringBookings.add(tmp);
-        }
-
-        return cateringBookings;
-    }
-
-
-    /**
-
      Checks the validity of the number of guests for the selected room.
-
      @param adultsNumber the number of adults entered by the user
-
      @param childrenNumber the number of children entered by the user
-
      @param room the room selected by the user
-
      @return true if the number of guests is valid for the selected room, false otherwise
      */
     private boolean checkNumberOfGuestsValidity(int adultsNumber, int childrenNumber, RoomEntity room){
