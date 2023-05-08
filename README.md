@@ -1,6 +1,6 @@
 # Data Architecture 
 
-This branch is for documenting the data architecture of our hotel booking system.
+Dieser Branch dient zur Ablage von Inhalten bezüglich der Datenarchitektur und Datenbank
 
 
 ## Data Scheme
