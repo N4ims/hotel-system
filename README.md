@@ -1,2 +1,3 @@
 # hotel-system
-Our ATdIT project. It is a system for a hotel in a small town in the Weinstraße.
+
+[Figma UI Mockup](https://www.figma.com/file/BJrwWyqqZSeGQ480g8mPsx/UI-f%C3%BCr-das-Hotel?type=design&node-id=0%3A1&t=3gQKolOmsJVTopwV-1)
