@@ -2,7 +2,7 @@
 *.class
 
 # DB Settings
-persistence.xml
+# persistence.xml
 orm.xml
 
 # Log file

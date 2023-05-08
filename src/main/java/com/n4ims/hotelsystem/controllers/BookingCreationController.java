@@ -13,10 +13,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import utils.DateUtils;
-import utils.DecimalTextFormatter;
+import com.n4ims.hotelsystem.utils.DateUtils;
+import com.n4ims.hotelsystem.utils.DecimalTextFormatter;
 import javafx.scene.control.Button;
-import utils.ResourcePaths;
+import com.n4ims.hotelsystem.utils.ResourcePaths;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -191,9 +191,10 @@ public class BookingCreationController extends BasicController{
      */
     @FXML
     private void handleOnRoomTypePicked(ActionEvent event){
-        RoomTypeEntity roomType= roomTypePicker.getValue();
+        RoomTypeEntity roomType = roomTypePicker.getValue();
         RoomEntity alreadySelectedRoom = roomNumberPicker.getValue();
 
+        // deselect picked room number if room type has changed
         if(alreadySelectedRoom != null){
             if (alreadySelectedRoom.getType() != roomType) {
                 roomNumberPicker.setValue(null);
@@ -267,8 +268,9 @@ public class BookingCreationController extends BasicController{
         String emailAddress = emailTextField.getText();
         String postcode = postcodeTextField.getText();
         String place = placeTextField.getText();
-
+        String country = countryTextField.getText();
         RoomEntity room = roomNumberPicker.getValue();
+        String notes = notesTextArea.getText();
 
         int adultsNumber;
         int childrenNumber;
@@ -276,13 +278,14 @@ public class BookingCreationController extends BasicController{
         int birthMonth;
         int birthYear;
 
-
         // No try and catch needed as formatter only allows numbers
-        adultsNumber = Integer.parseInt(adultNumberString);
-        childrenNumber = Integer.parseInt(childNumberString);
-
-
-
+        try{
+            adultsNumber = Integer.parseInt(adultNumberString);
+            childrenNumber = Integer.parseInt(childNumberString);
+        } catch (NumberFormatException e){
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("selectNumberOfGuestsMessage")).showAndWait();
+            return;
+        }
 
         if (!checkInputDatesValidity(selectedFromDate, selectedToDate)){
             return;
@@ -309,72 +312,57 @@ public class BookingCreationController extends BasicController{
             return;
         }
 
-        if (!checkBirthdayValidity(birthMonth, birthDay)){
+        if (firstName.isEmpty() || lastName.isEmpty() || postcode.isEmpty() || place.isEmpty()
+                || country.isEmpty() || streetName.isEmpty() || streetNumber .isEmpty())
+        {
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("enterAllGuestInformationFieldsMessage")
+            ).showAndWait();
             return;
         }
 
+        // only one of both is needed
+        if (telephoneNumber.isEmpty() && emailAddress.isEmpty()){
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("enterPhoneNumberOrEmailMessage")
+            ).showAndWait();
+            return;
+        }
 
-        // TODO implement country
+        if (!checkBirthdayValidity(birthMonth, birthDay)){
+            return;
+        }
 
         Date birthDate = new Date(birthYear-1900, birthMonth, birthDay);
         Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
         int totalGuestNumber = childrenNumber + adultsNumber;
 
-        // TODO check if guest already existing and replace dateString
-        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, "Germany");
+
+        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, country);
         GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress);
-        RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, "");
-        Set<CateringBookingEntity> cateringBookings = createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
+        RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, notes);
+        Set<CateringBookingEntity> cateringBookings = CateringBookingEntity.createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
 
-        bookingDataService.persistAddress(address);
-        bookingDataService.persistGuest(guest);
-        bookingDataService.persistRoomBooking(roomBooking);
-        bookingDataService.persistCateringBookings(cateringBookings);
-    }
-
-    /**
-
-     Creates a set of {@code CateringBookingEntity} objects based on the specified parameters.
-
-     @param number the number of catering bookings to create
-
-     @param roomBooking the {@code RoomBookingEntity} associated with the catering bookings
-
-     @param cateringType the {@code CateringTypeEntity} for the catering bookings
-
-     @param startDate the start date for the catering bookings
-
-     @param endDate the end date for the catering bookings
-
-     @return a set of {@code CateringBookingEntity} objects
-     */
-    private Set<CateringBookingEntity> createCateringBookings(int number, RoomBookingEntity roomBooking, CateringTypeEntity cateringType, Date startDate, Date endDate){
-        Set<CateringBookingEntity> cateringBookings = new HashSet<>();
-        CateringBookingEntity tmp;
-
-        for (int i = 0; i < number; i++){
-            tmp = new CateringBookingEntity();
-            tmp.setCateringType(cateringType);
-            tmp.setRoomBooking(roomBooking);
-            tmp.setStartDate(startDate);
-            tmp.setEndDate(endDate);
-            cateringBookings.add(tmp);
+        try{
+            bookingDataService.persistBooking(address, guest, roomBooking, cateringBookings);
+            new Alert(Alert.AlertType.CONFIRMATION,
+                    langBundle.getString("bookingCreatedMessage")
+            ).showAndWait();
+            return;
+        } catch (PersistenceException e){
+            log.error("Error when trying to persist booking.", e);
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("bookingCreationErrorMessage")
+            ).showAndWait();
+            return;
         }
-
-        return cateringBookings;
     }
 
-
     /**
-
      Checks the validity of the number of guests for the selected room.
-
      @param adultsNumber the number of adults entered by the user
-
      @param childrenNumber the number of children entered by the user
-
      @param room the room selected by the user
-
      @return true if the number of guests is valid for the selected room, false otherwise
      */
     private boolean checkNumberOfGuestsValidity(int adultsNumber, int childrenNumber, RoomEntity room){
@@ -411,8 +399,8 @@ public class BookingCreationController extends BasicController{
         Date fromDate;
         Date toDate;
         try{
-            fromDate = DateUtils.asDate(selectedFromDate);
-            toDate = DateUtils.asDate(selectedToDate);
+            fromDate = DateUtils.asDate(fromLocalDate);
+            toDate = DateUtils.asDate(toLocalDate);
         } catch (NullPointerException e){
             new Alert(Alert.AlertType.WARNING, langBundle.getString("selectBothDates")).showAndWait();
             return false;

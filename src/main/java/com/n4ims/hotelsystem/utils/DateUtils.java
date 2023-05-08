@@ -1,4 +1,4 @@
-package utils;
+package com.n4ims.hotelsystem.utils;
 
 import java.time.LocalDate;;
 import java.sql.Date;

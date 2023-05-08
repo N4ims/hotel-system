@@ -20,6 +20,8 @@ import java.util.*;
  */
 public class BookingDataServiceImpl implements BookingDataService{
 
+    public static final String PERSISTENCE_UNIT = ResourcePaths.PERSISTENCE_UNIT_NAME;
+    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private final EntityManager EM;
 
     public BookingDataServiceImpl() {
@@ -28,24 +30,6 @@ public class BookingDataServiceImpl implements BookingDataService{
 
     public BookingDataServiceImpl(EntityManager em){
         this.EM = em;
-    }
-
-    public static final String PERSISTENCE_UNIT = "HOTEL_SYSTEM";
-
-    private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-    /**
-     * This method retrieves all the RoomBookingEntity objects within a specified time period
-     * @param fromDate the start date of the period
-     * @param endDate the end date of the period
-     * @return a List of RoomBookingEntity objects within the specified period
-     */
-    @Override
-    public List<RoomBookingEntity> getAllBookingsForPeriod(Date fromDate, Date endDate) {
-
-        //To be changed
-        return null;
-
     }
 
     /**
@@ -59,7 +43,6 @@ public class BookingDataServiceImpl implements BookingDataService{
     public List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity roomType, Date fromDate, Date toDate) {
 
         try {
-
             TypedQuery<RoomEntity> query = EM.createQuery("""
                 SELECT e FROM RoomEntity e
                     WHERE e NOT IN (SELECT DISTINCT r FROM RoomEntity r
@@ -68,7 +51,7 @@ public class BookingDataServiceImpl implements BookingDataService{
                                     AND (
                                         (b.fromDate >= ?1 AND b.toDate <= ?2)
                                         OR (b.fromDate <= ?1 AND b.toDate > ?1)
-                                        OR (b.fromDate >= ?1 AND b.toDate > ?1)
+                                        OR ( (b.fromDate >= ?1 AND b.fromDate <= ?2) AND b.toDate > ?1)
                                     )
                                 )
                     AND ( e.type = ?3 OR ?3 = null)
@@ -78,17 +61,10 @@ public class BookingDataServiceImpl implements BookingDataService{
             query.setParameter(2, toDate);
             query.setParameter(3, roomType);
 
-            try {
-                log.debug("Fetching free rooms from database", fromDate, toDate);
-                List<RoomEntity> freeRooms = query.getResultList();
-                return freeRooms;
-            } catch (NoResultException e) {
-                log.info("No rooms for period " + fromDate + "-" + toDate);
-                return new ArrayList<RoomEntity>();
-            } catch (PersistenceException e) {
-                log.error(e.toString(), e);
-                throw e;
-            }
+            log.debug("Fetching free rooms from database", fromDate, toDate);
+            List<RoomEntity> freeRooms = executeTypedQuery(query);
+            return freeRooms;
+
         } catch (PersistenceException e){
             log.error(e.toString(), e);
             throw e;
@@ -182,9 +158,9 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public void persistAddress(AddressEntity address) throws PersistenceException{
-        boolean inDb = ifAddressInDbUpdateId(address);
+        ifAddressInDbUpdateId(address);
 
-        persistAddress(address);
+        persistSingleEntity(address);
     }
 
     /**
@@ -196,16 +172,14 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public void persistGuest(GuestEntity guest) throws PersistenceException{
-        boolean inDb = ifGuestInDbUpdateId(guest);
+        ifGuestInDbUpdateId(guest);
 
-        persistGuest(guest);
+        persistSingleEntity(guest);
     }
 
     /**
-     * Retrieves a list of all RoomTypeEntity objects stored in the database.
-     *
-     * @return A list of all RoomTypeEntity objects stored in the database.
-     * @throws PersistenceException If an error occurs while retrieving the RoomTypeEntity objects from the database.
+     * Stores all CateringBookingEntities of the given Set in the Database
+     * @param cateringBookings Set of CateringBookingEntities that shall be stored in the database
      */
     @Override
     public void persistCateringBookings(Set<CateringBookingEntity> cateringBookings) {
@@ -214,7 +188,7 @@ public class BookingDataServiceImpl implements BookingDataService{
             EM.getTransaction().begin();
 
             for(CateringBookingEntity cb: cateringBookings){
-                EM.persist(cb);
+                persistSingleEntity(cb);
             }
 
             EM.getTransaction().commit();
@@ -226,21 +200,16 @@ public class BookingDataServiceImpl implements BookingDataService{
     }
 
     /**
-
-     Checks if an AddressEntity already exists in the database and updates its id accordingly.
-     If the entity already exists in the database, its id is updated to match the existing entity's id.
-     If it does not exist, the method returns false and the entity's id remains null.
-     @param address the AddressEntity to be checked and updated
-     @return true if the AddressEntity already exists in the database and its id has been updated,
-     bash
-     Copy code
-     false if it does not exist in the database and its id remains null.
-     @throws PersistenceException if there is an error accessing the database
-     */
+     *Checks if an AddressEntity already exists in the database and updates its id accordingly.
+     *If the entity already exists in the database, its id is updated to match the existing entity's id.
+     *If it does not exist, the method returns false and the entity's id remains null.
+     *@param address the AddressEntity to be checked and updated
+     *@return true if the AddressEntity already exists in the database and its id has been updated,
+     *false if it does not exist in the database and its id remains null.
+     *@throws PersistenceException if there is an error accessing the database
+   */
     public boolean ifAddressInDbUpdateId(AddressEntity address){
         try {
-
-
             //check if entity already exists in DB
             if (address.getId() == null){
                 TypedQuery<AddressEntity> query = EM.createQuery("""
@@ -260,23 +229,17 @@ public class BookingDataServiceImpl implements BookingDataService{
 
                 List<AddressEntity> guests = executeTypedQuery(query);
 
-                if (guests.isEmpty()){
-                    return false;
-                } else{
-                    Integer id = guests.get(0).getId();
-                    address.setId(id);
-                    return true;
-                }
-            } else {
-                AddressEntity g = EM.find(AddressEntity.class, address.getId());
-                address.setId(g.getId());
+            if (guests.isEmpty()){
+                return false;
+            } else{
+                Integer id = guests.get(0).getId();
+                address.setId(id);
                 return true;
             }
         } catch (NoResultException e) {
             log.info("No catering types in database");
             return false;
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
@@ -298,40 +261,33 @@ public class BookingDataServiceImpl implements BookingDataService{
     boolean ifGuestInDbUpdateId(GuestEntity guest){
         try {
             //check if entity already exists in DB
-            if (guest.getId() == null){
-                TypedQuery<GuestEntity> query = EM.createQuery("""
-                        SELECT g FROM GuestEntity g 
-                        WHERE g.firstName = :firstName
-                            AND g.lastName = :lastName 
-                            AND g.birthDate = :birthDate
-                            AND (g.telephoneNumber = :telNr OR g.email = :email)
-                        """, GuestEntity.class);
+            TypedQuery<GuestEntity> query = em.createQuery("""
+                    SELECT g FROM GuestEntity g 
+                    WHERE g.firstName = :firstName
+                        AND g.lastName = :lastName 
+                        AND g.birthdate = :birthdate
+                        AND (g.telephoneNumber = :telNr OR g.emailAddress = :email)
+                    """, GuestEntity.class);
 
-                query.setParameter("firstName", guest.getFirstName());
-                query.setParameter("lastName", guest.getLastName());
-                query.setParameter("birthDate", guest.getBirthdate());
-                query.setParameter("telNr", guest.getTelephoneNumber());
-                query.setParameter("email", guest.getEmailAddress());
+            query.setParameter("firstName", guest.getFirstName());
+            query.setParameter("lastName", guest.getLastName());
+            query.setParameter("birthdate", guest.getBirthdate());
+            query.setParameter("telNr", guest.getTelephoneNumber());
+            query.setParameter("email", guest.getEmailAddress());
 
-                List<GuestEntity> guests = executeTypedQuery(query);
+            List<GuestEntity> guests = executeTypedQuery(query);
 
-                if (guests.isEmpty()){
-                    return false;
-                } else{
-                    Integer id = guests.get(0).getId();
-                    guest.setId(id);
-                    return true;
-                }
-            } else {
-                GuestEntity g = EM.find(GuestEntity.class, guest.getId());
-                guest.setId(g.getId());
+            if (guests.isEmpty()){
+                return false;
+            } else{
+                Integer id = guests.get(0).getId();
+                guest.setId(id);
                 return true;
             }
         } catch (NoResultException e) {
             log.info("No catering types in database");
             return false;
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
@@ -349,44 +305,19 @@ public class BookingDataServiceImpl implements BookingDataService{
      @return a List of the query result objects.
 
      @throws PersistenceException if there is an error executing the query.
-     @throws NoResultException if the query has no result and cannot find an entity.
      */
-    <T> List<T> executeTypedQuery(TypedQuery<T> query) {
+    private <T> List<T> executeTypedQuery(TypedQuery<T> query) {
         try {
             List<T> queryResultList = query.getResultList();
 
             return queryResultList;
         } catch (NoResultException e) {
             log.error(e.toString(), e);
-            throw e;
+            return new ArrayList<T>();
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
     }
 
-
-    /**
-
-     Retrieves the database access properties from a "db.properties" file located in the classpath.
-
-     @return A {@link Properties} object containing the database access properties.
-
-     @throws RuntimeException if loading the properties file fails for any reason.
-     */
-    private Properties getDbAccessProperties() {
-        Properties dbAccessProperties;
-
-        try(InputStream is = getClass().getClassLoader().getResourceAsStream("db.properties") ) {
-            dbAccessProperties = new Properties();
-            dbAccessProperties.load(is);
-        }
-        catch(IOException | IllegalArgumentException | NullPointerException e ) {
-            final String msg = "Loading database connection properties failed";
-            log.error(msg, e);
-            throw new RuntimeException(msg);
-        }
-        return dbAccessProperties;
-    }
 }

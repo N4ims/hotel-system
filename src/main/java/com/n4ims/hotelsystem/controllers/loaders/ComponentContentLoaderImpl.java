@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.DateUtils;
+import com.n4ims.hotelsystem.utils.DateUtils;
 import java.lang.invoke.MethodHandles;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -44,6 +44,8 @@ public class ComponentContentLoaderImpl implements ComponentContentLoader{
     }
 
     public void loadFreeRooms(ChoiceBox<RoomEntity> choiceBox, RoomTypeEntity roomType, LocalDate fromLocalDate, LocalDate toLocalDate) throws PersistenceException{
+        System.out.println("LoadFreeRoomsCall");
+
         Date fromDate = null;
         Date toDate = null;
 
@@ -57,7 +59,9 @@ public class ComponentContentLoaderImpl implements ComponentContentLoader{
 
         List<RoomEntity> r;
         try{
+            System.out.println("choiceBox = " + choiceBox + ", roomType = " + roomType + ", fromLocalDate = " + fromLocalDate + ", toLocalDate = " + toLocalDate);
             r = bookingDataService.getAllFreeRoomsForPeriod(roomType, fromDate, toDate);
+            System.out.println("Rooms: " + r.toString());
             ObservableList<RoomEntity> freeRooms = FXCollections.observableList(r);
             choiceBox.setItems(freeRooms);
         } catch (PersistenceException e){

@@ -71,7 +71,6 @@ public class BasicController extends Application {
             Scene scene = new Scene(view);
             Stage stage = (Stage) sourceScene.getWindow();
             stage.setScene(scene);
-            stage.setMaximized(true);
             stage.show();
         } catch (IOException | NullPointerException e) {
             System.out.println("Navigation error: " + e.toString());
