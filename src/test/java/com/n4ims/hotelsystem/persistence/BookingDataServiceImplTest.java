@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import utils.AnyContainer;
 
@@ -49,24 +51,28 @@ public class BookingDataServiceImplTest {
 
     @Test
     public void persistCateringBookingsTest() {
-        boolean started = false;
-        boolean ended = false;
 
-        Set<CateringBookingEntity> emptyEntities = new HashSet<>();
-        emptyEntities.add(new CateringBookingEntity());
+        Set<CateringBookingEntity> emptyEntities = Set.of(
+            new CateringBookingEntity(null, null, null, new Date(2023)),
+            new CateringBookingEntity(null, null, null, new Date(2022))
+        );
 
         EntityTransaction transaction = Mockito.mock(EntityTransaction.class);
-        Mockito.when(transaction.begin());
+        Mockito.doNothing().when(transaction).begin();
+        Mockito.doNothing().when(transaction).commit();
 
-        when(em.getTransaction()).thenReturn()
+        when(em.getTransaction()).thenReturn(transaction);
 
         // CateringBookingEntity entity = new CateringBookingEntity();
-
-
 
         // Give back Empty ArrayList<GuestEntity>
 
         bookingDataServiceImpl.persistCateringBookings(emptyEntities);
+
+        InOrder executionOrder = Mockito.inOrder(transaction, em);
+        executionOrder.verify(transaction).begin();
+        executionOrder.verify(em, times(emptyEntities.size())).persist(Mockito.<CateringBookingEntity>any());
+        executionOrder.verify(transaction).commit();
 
 
         // 2. Testcase: Guest in database
@@ -110,7 +116,7 @@ public class BookingDataServiceImplTest {
         // when(em.createQuery(anyString(), eq(GuestEntity.class))).thenReturn(query);
         // when(query.setParameter(anyString(), any())).thenReturn(query);
         // when(query.setParameter(anyString(), anyString())).thenReturn(query);
-        when(bookingDataServiceImpl.executeTypedQuery(<TypedQuery<GuestEntity>>any())).thenReturn(new ArrayList<>());
+        when(bookingDataServiceImpl.executeTypedQuery(Mockito.<TypedQuery<GuestEntity>>any())).thenReturn(new ArrayList<>());
 
         when(em.createQuery(anyString(), GuestEntity.class)).thenReturn(query);
 

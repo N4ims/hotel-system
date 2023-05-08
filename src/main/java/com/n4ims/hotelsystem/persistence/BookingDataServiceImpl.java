@@ -216,8 +216,8 @@ public class BookingDataServiceImpl implements BookingDataService{
             for(CateringBookingEntity cb: cateringBookings){
                 EM.persist(cb);
             }
-
             EM.getTransaction().commit();
+
         } catch (PersistenceException e){
             EM.getTransaction().rollback();
             log.error(e.toString(), e);
