@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="198.0" fitWidth="1028.0" layoutX="447.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@assets/header_vineyard.jpg" />
+            <Image url="@assets/header_vineyard.jpg"  />
          </image>
       </ImageView>
       <Button fx:id="germanButton" alignment="CENTER_RIGHT" layoutX="844.0" layoutY="147.0" mnemonicParsing="false" text="German">

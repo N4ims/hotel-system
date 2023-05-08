@@ -19,7 +19,19 @@ import java.util.*;
  @author
  */
 public class BookingDataServiceImpl implements BookingDataService{
-    private static final String PERSISTENCE_UNIT = "HOTEL_SYSTEM";
+
+    private final EntityManager EM;
+
+    public BookingDataServiceImpl() {
+        EM = null;
+    }
+
+    public BookingDataServiceImpl(EntityManager em){
+        this.EM = em;
+    }
+
+    public static final String PERSISTENCE_UNIT = "HOTEL_SYSTEM";
+
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
@@ -30,7 +42,10 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public List<RoomBookingEntity> getAllBookingsForPeriod(Date fromDate, Date endDate) {
+
+        //To be changed
         return null;
+
     }
 
     /**
@@ -43,10 +58,9 @@ public class BookingDataServiceImpl implements BookingDataService{
     @Override
     public List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity roomType, Date fromDate, Date toDate) {
 
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager()) {
+        try {
 
-            TypedQuery<RoomEntity> query = em.createQuery("""
+            TypedQuery<RoomEntity> query = EM.createQuery("""
                 SELECT e FROM RoomEntity e
                     WHERE e NOT IN (SELECT DISTINCT r FROM RoomEntity r
                                  INNER JOIN e.roomBookings b
@@ -88,10 +102,9 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public List<CateringTypeEntity> getAllCateringTypes() throws PersistenceException{
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
+        try {
 
-            TypedQuery<CateringTypeEntity> query = em.createQuery("SELECT t FROM CateringTypeEntity t", CateringTypeEntity.class);
+            TypedQuery<CateringTypeEntity> query = EM.createQuery("SELECT t FROM CateringTypeEntity t", CateringTypeEntity.class);
 
             return executeTypedQuery(query);
         } catch (NoResultException e) {
@@ -114,17 +127,15 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public List<RoomTypeEntity> getAllRoomTypes() throws PersistenceException {
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
+        try {
 
-            TypedQuery<RoomTypeEntity> query = em.createQuery("SELECT t FROM RoomTypeEntity t", RoomTypeEntity.class);
+            TypedQuery<RoomTypeEntity> query = EM.createQuery("SELECT t FROM RoomTypeEntity t", RoomTypeEntity.class);
 
             return executeTypedQuery(query);
         } catch (NoResultException e) {
             log.info("No room types in database", e);
             return new ArrayList<RoomTypeEntity>();
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
@@ -139,20 +150,15 @@ public class BookingDataServiceImpl implements BookingDataService{
      @throws PersistenceException if an error occurs while persisting the entity
      */
     private <T> void persistSingleEntity(T entity) throws PersistenceException{
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        EntityManager em = factory.createEntityManager();
 
         try {
-            em.getTransaction().begin();
-            em.persist(entity);
-            em.getTransaction().commit();
+            EM.getTransaction().begin();
+            EM.persist(entity);
+            EM.getTransaction().commit();
         } catch (PersistenceException e){
-            em.getTransaction().rollback();
+            EM.getTransaction().rollback();
             log.error(e.toString(), e);
             throw e;
-        } finally {
-            factory.close();
-            em.close();
         }
     }
 
@@ -203,24 +209,19 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public void persistCateringBookings(Set<CateringBookingEntity> cateringBookings) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        EntityManager em = factory.createEntityManager();
 
         try{
-            em.getTransaction().begin();
+            EM.getTransaction().begin();
 
             for(CateringBookingEntity cb: cateringBookings){
-                em.persist(cb);
+                EM.persist(cb);
             }
 
-            em.getTransaction().commit();
+            EM.getTransaction().commit();
         } catch (PersistenceException e){
-            em.getTransaction().rollback();
+            EM.getTransaction().rollback();
             log.error(e.toString(), e);
             throw e;
-        } finally {
-            factory.close();
-            em.close();
         }
     }
 
@@ -237,13 +238,12 @@ public class BookingDataServiceImpl implements BookingDataService{
      @throws PersistenceException if there is an error accessing the database
      */
     public boolean ifAddressInDbUpdateId(AddressEntity address){
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
+        try {
 
 
             //check if entity already exists in DB
             if (address.getId() == null){
-                TypedQuery<AddressEntity> query = em.createQuery("""
+                TypedQuery<AddressEntity> query = EM.createQuery("""
                         SELECT a FROM AddressEntity a 
                         WHERE a.streetName = :streetName
                             AND a.streetNumber = :streetNr
@@ -268,7 +268,7 @@ public class BookingDataServiceImpl implements BookingDataService{
                     return true;
                 }
             } else {
-                AddressEntity g = em.find(AddressEntity.class, address.getId());
+                AddressEntity g = EM.find(AddressEntity.class, address.getId());
                 address.setId(g.getId());
                 return true;
             }
@@ -295,14 +295,11 @@ public class BookingDataServiceImpl implements BookingDataService{
 
      @throws PersistenceException If there was an error accessing the database.
      */
-    private boolean ifGuestInDbUpdateId(GuestEntity guest){
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
-
-
+    boolean ifGuestInDbUpdateId(GuestEntity guest){
+        try {
             //check if entity already exists in DB
             if (guest.getId() == null){
-                TypedQuery<GuestEntity> query = em.createQuery("""
+                TypedQuery<GuestEntity> query = EM.createQuery("""
                         SELECT g FROM GuestEntity g 
                         WHERE g.firstName = :firstName
                             AND g.lastName = :lastName 
@@ -326,7 +323,7 @@ public class BookingDataServiceImpl implements BookingDataService{
                     return true;
                 }
             } else {
-                GuestEntity g = em.find(GuestEntity.class, guest.getId());
+                GuestEntity g = EM.find(GuestEntity.class, guest.getId());
                 guest.setId(g.getId());
                 return true;
             }
@@ -352,15 +349,16 @@ public class BookingDataServiceImpl implements BookingDataService{
      @return a List of the query result objects.
 
      @throws PersistenceException if there is an error executing the query.
+     @throws NoResultException if the query has no result and cannot find an entity.
      */
-    private <T> List<T> executeTypedQuery(TypedQuery<T> query) {
+    <T> List<T> executeTypedQuery(TypedQuery<T> query) {
         try {
             List<T> queryResultList = query.getResultList();
 
             return queryResultList;
         } catch (NoResultException e) {
             log.error(e.toString(), e);
-            return new ArrayList<T>();
+            throw e;
         } catch (PersistenceException e) {
             // TODO show user error message: database down
             log.error(e.toString(), e);
