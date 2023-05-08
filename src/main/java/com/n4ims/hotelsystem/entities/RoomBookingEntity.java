@@ -12,7 +12,7 @@ import java.util.Set;
 public class RoomBookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private int id;
     @ManyToOne
     @JoinColumn(name = "guest_id")

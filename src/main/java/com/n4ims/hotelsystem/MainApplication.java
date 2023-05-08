@@ -12,6 +12,10 @@ import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * This Class is the entry to the JavaFX Application and starts the application
+ * @authors N4ims, Lenni1
+ */
 public class MainApplication extends Application {
     public static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     @Override

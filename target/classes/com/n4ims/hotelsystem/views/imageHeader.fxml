@@ -13,12 +13,12 @@
             <Image url="@assets/header_vineyard.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="germanButton" alignment="CENTER_RIGHT" layoutX="1387.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #130D5C;" text="German" textFill="WHITE">
+      <Button fx:id="germanButton" alignment="CENTER_RIGHT" layoutX="1343.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #130D5C;" text="German" textFill="WHITE">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="englishButton" layoutX="1461.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #130D5C;" text="English" textFill="WHITE">
+      <Button fx:id="englishButton" layoutX="1417.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #130D5C;" text="English" textFill="WHITE">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

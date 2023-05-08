@@ -4,25 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Move utils package.&#10;Outsource CateringBooking creation into entity class.">
+    <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Fix executability.&#10;Add persistence.xml example.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/loaders/ComponentContentLoaderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/loaders/ComponentContentLoaderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/OverviewCalenderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/OverviewCalenderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/AddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/AddressEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/GuestEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/GuestEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/RoomBookingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/RoomBookingEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/persistence/BookingDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/persistence/BookingDataServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/utils/ResourcePaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/utils/ResourcePaths.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/i18n/lang.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/i18n/lang.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/i18n/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/i18n/lang_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/bookingCreationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/bookingCreationView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/imageHeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/imageHeader.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/navigationBar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/navigationBar.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/i18n/lang.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/i18n/lang.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/bookingCreationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/bookingCreationView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/i18n/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/i18n/lang_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/imageHeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/imageHeader.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/navigationBar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/navigationBar.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -348,7 +346,8 @@
     <MESSAGE value="Resize view components." />
     <MESSAGE value="Remove some entities." />
     <MESSAGE value="Commit unversioned files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit unversioned files." />
+    <MESSAGE value="Fix executability.&#10;Add persistence.xml example." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix executability.&#10;Add persistence.xml example." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

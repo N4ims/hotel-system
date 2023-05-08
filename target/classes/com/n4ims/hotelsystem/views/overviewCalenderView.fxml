@@ -77,7 +77,7 @@
                                 <Image url="@assets/booking_calender.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="createBookingButton" layoutX="1109.0" layoutY="79.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="%bookingCreationButtonLabel" textFill="#130d5c" />
+                        <Button fx:id="createBookingButton" layoutX="1065.0" layoutY="79.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="%bookingCreationButtonLabel" textFill="#130d5c" />
                     </children>
                 </AnchorPane>
             </children>

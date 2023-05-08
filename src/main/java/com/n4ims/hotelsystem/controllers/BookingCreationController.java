@@ -337,6 +337,7 @@ public class BookingCreationController extends BasicController{
         Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
         int totalGuestNumber = childrenNumber + adultsNumber;
 
+
         AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, country);
         GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress);
         RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, notes);
