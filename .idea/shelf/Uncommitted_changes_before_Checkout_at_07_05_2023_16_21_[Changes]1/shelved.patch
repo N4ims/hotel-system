@@ -1,0 +1,43 @@
+Index: src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java b/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java
+--- a/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java	
++++ b/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java	
+@@ -131,7 +131,6 @@
+         birthDayTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+         birthMonthTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+         birthYearTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+-        postcodeTextField.setTextFormatter(new DecimalTextFormatter(0, 0, false));
+ 
+         // Clear fields of default TextFormatter value to show promptText
+         birthDayTextField.setText("");
+@@ -273,8 +272,8 @@
+             tmp = new CateringBookingEntity();
+             tmp.setCateringType(cateringType);
+             tmp.setRoomBooking(roomBooking);
+-            tmp.setStartDate(startDate);
+-            tmp.setEndDate(endDate);
++            tmp.setFromDate(startDate);
++            tmp.setToDate(endDate);
+             cateringBookings.add(tmp);
+         }
+ 
+Index: src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java b/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java
+--- a/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java	
++++ b/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java	
+@@ -2,7 +2,6 @@
+ 
+ import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoader;
+ import com.n4ims.hotelsystem.controllers.loaders.ComponentContentLoaderImpl;
+-import jakarta.persistence.criteria.Root;
+ import javafx.application.Application;
+ import javafx.fxml.FXML;
+ import javafx.fxml.FXMLLoader;

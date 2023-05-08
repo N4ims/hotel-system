@@ -25,9 +25,9 @@
             <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
 
             <!-- Hier Verbindungsdaten einstellen  -->
-            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/<Datenbankname>"/>
-            <property name="hibernate.connection.username" value="<Datenbankuser>"/>
-            <property name="hibernate.connection.password" value="<Datenpankpasswort>"/>
+            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/hotel-system"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="admin1"/>
 
         </properties>
     </persistence-unit>

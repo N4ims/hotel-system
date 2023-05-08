@@ -5,21 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Fix executability.&#10;Add persistence.xml example.">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.class_diagrams/class_diagram.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.class_diagrams/utils.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_13_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_05_2023_16_21_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_05_2023_16_21_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_05_2023_16_21__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_07_05_2023_16_21__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_05_2023_19_31_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_05_2023_19_31__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/n4ims/hotelsystem/controllers/converters/CateringTypeEntityConverterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/n4ims/hotelsystem/controllers/converters/RoomEntityConverterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/n4ims/hotelsystem/controllers/converters/RoomTypeConverterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/OverviewCalenderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/OverviewCalenderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/AddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/AddressEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/GuestEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/GuestEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/RoomBookingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/RoomBookingEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/persistence/BookingDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/persistence/BookingDataServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/imageHeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/imageHeader.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/i18n/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/i18n/lang_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/imageHeader.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/imageHeader.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/n4ims/hotelsystem/views/overviewCalenderView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotelsystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/hotelsystem.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/n4ims/hotelsystem/persistence/BookingDataServiceImplTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,20 +74,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/I551386/IdeaProjects/hotel-systems/src/main/resources/com/n4ims/hotelsystem/views/assets&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Facets&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "C:/Users/I551386/IdeaProjects/hotel-systems/src/main/resources/com/n4ims/hotelsystem/views/assets",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.JavaFX"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\I551386\IdeaProjects\hotel-systems\src\main\resources\com\n4ims\hotelsystem\views\assets" />
@@ -352,5 +357,10 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/hotel_system$BookingDataServiceImplTest.ic" NAME="BookingDataServiceImplTest Coverage Results" MODIFIED="1683387761371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.n4ims.hotelsystem.persistence.*</FILTER>
+    </SUITE>
   </component>
 </project>

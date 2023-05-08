@@ -1,0 +1,139 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,9 +4,14 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Add english translation.&#10;Refactor booking persistence.">
++    <list default="true" id="28818a24-3814-438e-8293-b6649d76b02f" name="Changes" comment="Add exception handling to MainApplication.java">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_05_2023_12_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_05_2023_12_57__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_05_05_2023_14_18__Changes_1.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/MainApplication.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BasicController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/controllers/BookingCreationController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -68,7 +73,7 @@
+     "project.structure.last.edited": "Modules",
+     "project.structure.proportion": "0.15",
+     "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "preferences.JavaFX"
++    "settings.editor.selected.configurable": "preferences.pluginManager"
+   }
+ }]]></component>
+   <component name="RecentsManager">
+@@ -300,7 +305,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1683409753389</updated>
+     </task>
+-    <option name="localTasksCounter" value="24" />
++    <task id="LOCAL-00024" summary="Add exception handling to MainApplication.java">
++      <created>1683415924360</created>
++      <option name="number" value="00024" />
++      <option name="presentableId" value="LOCAL-00024" />
++      <option name="project" value="LOCAL" />
++      <updated>1683415924360</updated>
++    </task>
++    <option name="localTasksCounter" value="25" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -339,7 +351,8 @@
+     <MESSAGE value="Remove some entities." />
+     <MESSAGE value="Commit unversioned files." />
+     <MESSAGE value="Add english translation.&#10;Refactor booking persistence." />
+-    <option name="LAST_COMMIT_MESSAGE" value="Add english translation.&#10;Refactor booking persistence." />
++    <MESSAGE value="Add exception handling to MainApplication.java" />
++    <option name="LAST_COMMIT_MESSAGE" value="Add exception handling to MainApplication.java" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java b/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java
+--- a/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java	
++++ b/src/main/java/com/n4ims/hotelsystem/entities/CateringBookingEntity.java	
+@@ -19,11 +19,11 @@
+     @JoinColumn(name = "room_booking_id")
+     private RoomBookingEntity roomBooking;
+     @Basic
+-    @Column(name = "start_date")
+-    private Date startDate;
++    @Column(name = "from_date")
++    private Date fromDate;
+     @Basic
+-    @Column(name = "end_date")
+-    private Date endDate;
++    @Column(name = "to_date")
++    private Date toDate;
+ 
+     public int getId() {
+         return id;
+@@ -49,29 +49,29 @@
+         this.roomBooking = bookingId;
+     }
+ 
+-    public Date getStartDate() {
+-        return startDate;
++    public Date getFromDate() {
++        return fromDate;
+     }
+ 
+-    public void setStartDate(Date startDate) {
+-        this.startDate = startDate;
++    public void setFromDate(Date fromDate) {
++        this.fromDate = fromDate;
+     }
+ 
+-    public Date getEndDate() {
+-        return endDate;
++    public Date getToDate() {
++        return toDate;
+     }
+ 
+-    public void setEndDate(Date endDate) {
+-        this.endDate = endDate;
++    public void setToDate(Date toDate) {
++        this.toDate = toDate;
+     }
+ 
+     public CateringBookingEntity(){};
+ 
+-    public CateringBookingEntity(CateringTypeEntity cateringType, RoomBookingEntity roomBooking, Date startDate, Date endDate) {
++    public CateringBookingEntity(CateringTypeEntity cateringType, RoomBookingEntity roomBooking, Date fromDate, Date toDate) {
+         this.cateringType = cateringType;
+         this.roomBooking = roomBooking;
+-        this.startDate = startDate;
+-        this.endDate = endDate;
++        this.fromDate = fromDate;
++        this.toDate = toDate;
+     }
+ 
+     @Override
+@@ -79,11 +79,11 @@
+         if (this == o) return true;
+         if (o == null || getClass() != o.getClass()) return false;
+         CateringBookingEntity that = (CateringBookingEntity) o;
+-        return id == that.id && Objects.equals(cateringType, that.cateringType) && Objects.equals(roomBooking, that.roomBooking) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate);
++        return id == that.id && Objects.equals(cateringType, that.cateringType) && Objects.equals(roomBooking, that.roomBooking) && Objects.equals(fromDate, that.fromDate) && Objects.equals(toDate, that.toDate);
+     }
+ 
+     @Override
+     public int hashCode() {
+-        return Objects.hash(id, cateringType, roomBooking, startDate, endDate);
++        return Objects.hash(id, cateringType, roomBooking, fromDate, toDate);
+     }
+ }

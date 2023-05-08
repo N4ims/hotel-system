@@ -1,0 +1,18 @@
+@startuml
+class utils.DateUtils {
++ {static} java.sql.Date asDate(LocalDate)
+}
+class utils.DecimalTextFormatter {
+- {static} DecimalFormat format
+- {static} StringConverter<Number> getStringConverter(int,int)
+- {static} UnaryOperator<javafx.scene.control.TextFormatter.Change> getUnaryOperator(int,boolean,int)
+}
+class utils.ResourcePaths {
++ {static} String BOOKING_CREATION_VIEW
++ {static} String OVERVIEW_CALENDER_VIEW
++ {static} String LANGUAGE_BUNDLE
+}
+
+
+javafx.scene.control.TextFormatter <|-- utils.DecimalTextFormatter
+@enduml
