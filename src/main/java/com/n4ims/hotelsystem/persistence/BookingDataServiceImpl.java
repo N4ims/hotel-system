@@ -2,11 +2,12 @@
 package com.n4ims.hotelsystem.persistence;
 
 import com.n4ims.hotelsystem.entities.*;
-import com.n4ims.hotelsystem.utils.ResourcePaths;
 import jakarta.persistence.*;
-import org.hibernate.PersistentObjectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
 import java.util.*;
 
@@ -15,26 +16,34 @@ import java.util.*;
 
  This class provides an implementation of the BookingDataService interface
  that uses Jakarta Persistence (JPA) to access the database.
+ @author
  */
 public class BookingDataServiceImpl implements BookingDataService{
-    private static final String PERSISTENCE_UNIT = ResourcePaths.PERSISTENCE_UNIT_NAME;
+
+    public static final String PERSISTENCE_UNIT = ResourcePaths.PERSISTENCE_UNIT_NAME;
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private final EntityManager EM;
+
+    public BookingDataServiceImpl() {
+        EM = null;
+    }
+
+    public BookingDataServiceImpl(EntityManager em){
+        this.EM = em;
+    }
 
     /**
-     * This method retrieves all the RoomBookingEntity objects with a certain room type within a specified time period
-     * @param roomType the type of the rooms that should be returned
+     * This method retrieves all the RoomEntity objects of a specific type that are not booked during a specified time period
+     * @param roomType the type of RoomEntity object to retrieve
      * @param fromDate the start date of the period
      * @param toDate the end date of the period
-     * @return a List of RoomBookingEntity objects within the specified period
+     * @return a List of RoomEntity objects that are not booked during the specified period
      */
     @Override
-
     public List<RoomEntity> getAllFreeRoomsForPeriod(RoomTypeEntity roomType, Date fromDate, Date toDate) {
 
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager()) {
-
-            TypedQuery<RoomEntity> query = em.createQuery("""
+        try {
+            TypedQuery<RoomEntity> query = EM.createQuery("""
                 SELECT e FROM RoomEntity e
                     WHERE e NOT IN (SELECT DISTINCT r FROM RoomEntity r
                                  INNER JOIN e.roomBookings b
@@ -45,24 +54,17 @@ public class BookingDataServiceImpl implements BookingDataService{
                                         OR ( (b.fromDate >= ?1 AND b.fromDate <= ?2) AND b.toDate > ?1)
                                     )
                                 )
-                    AND e.type = ?3
+                    AND ( e.type = ?3 OR ?3 = null)
             """, RoomEntity.class);
 
             query.setParameter(1, fromDate);
             query.setParameter(2, toDate);
             query.setParameter(3, roomType);
 
-            try {
-                log.debug("Fetching free rooms from database", fromDate, toDate);
-                List<RoomEntity> freeRooms = executeTypedQuery(query);
-                return freeRooms;
-            } catch (NoResultException e) {
-                log.info("No rooms for period " + fromDate + "-" + toDate);
-                return new ArrayList<RoomEntity>();
-            } catch (PersistenceException e) {
-                log.error(e.toString(), e);
-                throw e;
-            }
+            log.debug("Fetching free rooms from database", fromDate, toDate);
+            List<RoomEntity> freeRooms = executeTypedQuery(query);
+            return freeRooms;
+
         } catch (PersistenceException e){
             log.error(e.toString(), e);
             throw e;
@@ -76,10 +78,9 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public List<CateringTypeEntity> getAllCateringTypes() throws PersistenceException{
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
+        try {
 
-            TypedQuery<CateringTypeEntity> query = em.createQuery("SELECT t FROM CateringTypeEntity t", CateringTypeEntity.class);
+            TypedQuery<CateringTypeEntity> query = EM.createQuery("SELECT t FROM CateringTypeEntity t", CateringTypeEntity.class);
 
             return executeTypedQuery(query);
         } catch (NoResultException e) {
@@ -102,17 +103,15 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public List<RoomTypeEntity> getAllRoomTypes() throws PersistenceException {
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
+        try {
 
-            TypedQuery<RoomTypeEntity> query = em.createQuery("SELECT t FROM RoomTypeEntity t", RoomTypeEntity.class);
+            TypedQuery<RoomTypeEntity> query = EM.createQuery("SELECT t FROM RoomTypeEntity t", RoomTypeEntity.class);
 
             return executeTypedQuery(query);
         } catch (NoResultException e) {
             log.info("No room types in database", e);
             return new ArrayList<RoomTypeEntity>();
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
@@ -127,23 +126,15 @@ public class BookingDataServiceImpl implements BookingDataService{
      @throws PersistenceException if an error occurs while persisting the entity
      */
     private <T> void persistSingleEntity(T entity) throws PersistenceException{
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        EntityManager em = factory.createEntityManager();
 
         try {
-            em.getTransaction().begin();
-            em.persist(entity);
-            em.getTransaction().commit();
-        } catch (PersistentObjectException e){
-            // if object is already in database, update
-            em.merge(entity);
-        } catch (PersistenceException e) {
-            em.getTransaction().rollback();
+            EM.getTransaction().begin();
+            EM.persist(entity);
+            EM.getTransaction().commit();
+        } catch (PersistenceException e){
+            EM.getTransaction().rollback();
             log.error(e.toString(), e);
             throw e;
-        } finally {
-            factory.close();
-            em.close();
         }
     }
 
@@ -192,58 +183,19 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public void persistCateringBookings(Set<CateringBookingEntity> cateringBookings) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        EntityManager em = factory.createEntityManager();
 
         try{
-            em.getTransaction().begin();
+            EM.getTransaction().begin();
 
             for(CateringBookingEntity cb: cateringBookings){
                 persistSingleEntity(cb);
             }
 
-            em.getTransaction().commit();
+            EM.getTransaction().commit();
         } catch (PersistenceException e){
-            em.getTransaction().rollback();
+            EM.getTransaction().rollback();
             log.error(e.toString(), e);
             throw e;
-        } finally {
-            factory.close();
-            em.close();
-        }
-    }
-
-
-    /**
-     * Persists the given entities, which are needed to create a booking, to the database.
-     *
-     * @param address the address entity to persist
-     * @param guest the guest entity to persist
-     * @param roomBooking the room entity to persist
-     * @param cateringBookings the catering booking entities to persist
-     * @throws PersistenceException if an error occurs while accessing the database
-     */
-    @Override
-    public void persistBooking(AddressEntity address, GuestEntity guest, RoomBookingEntity roomBooking, Set<CateringBookingEntity> cateringBookings) throws PersistenceException {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        EntityManager em = factory.createEntityManager();
-
-        try{
-            em.getTransaction().begin();
-
-            persistAddress(address);
-            persistGuest(guest);
-            persistRoomBooking(roomBooking);
-            persistCateringBookings(cateringBookings);
-
-            em.getTransaction().commit();
-        } catch (PersistenceException e){
-            em.getTransaction().rollback();
-            log.error(e.toString(), e);
-            throw e;
-        } finally {
-            factory.close();
-            em.close();
         }
     }
 
@@ -257,27 +209,25 @@ public class BookingDataServiceImpl implements BookingDataService{
      *@throws PersistenceException if there is an error accessing the database
    */
     public boolean ifAddressInDbUpdateId(AddressEntity address){
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
-
-
+        try {
             //check if entity already exists in DB
-            TypedQuery<AddressEntity> query = em.createQuery("""
-                    SELECT a FROM AddressEntity a 
-                    WHERE a.streetName = :streetName
-                        AND a.streetNumber = :streetNr
-                        AND a.place = :place
-                        AND a.postcode = :postcode
-                        AND a.country = :country
-                    """, AddressEntity.class);
+            if (address.getId() == null){
+                TypedQuery<AddressEntity> query = EM.createQuery("""
+                        SELECT a FROM AddressEntity a 
+                        WHERE a.streetName = :streetName
+                            AND a.streetNumber = :streetNr
+                            AND a.place = :place
+                            AND a.postcode = :postcode
+                            AND a.country = :country
+                        """, AddressEntity.class);
 
-            query.setParameter("streetName", address.getStreetName());
-            query.setParameter("streetNr", address.getStreetNumber());
-            query.setParameter("place", address.getPlace());
-            query.setParameter("postcode", address.getPostcode());
-            query.setParameter("country", address.getCountry());
+                query.setParameter("streetName", address.getStreetName());
+                query.setParameter("streetNr", address.getStreetNumber());
+                query.setParameter("place", address.getPlace());
+                query.setParameter("postcode", address.getPostcode());
+                query.setParameter("country", address.getCountry());
 
-            List<AddressEntity> guests = executeTypedQuery(query);
+                List<AddressEntity> guests = executeTypedQuery(query);
 
             if (guests.isEmpty()){
                 return false;
@@ -290,7 +240,6 @@ public class BookingDataServiceImpl implements BookingDataService{
             log.info("No catering types in database");
             return false;
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
@@ -309,11 +258,8 @@ public class BookingDataServiceImpl implements BookingDataService{
 
      @throws PersistenceException If there was an error accessing the database.
      */
-    private boolean ifGuestInDbUpdateId(GuestEntity guest){
-        try (EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-             EntityManager em = factory.createEntityManager();) {
-
-
+    boolean ifGuestInDbUpdateId(GuestEntity guest){
+        try {
             //check if entity already exists in DB
             TypedQuery<GuestEntity> query = em.createQuery("""
                     SELECT g FROM GuestEntity g 
@@ -325,9 +271,6 @@ public class BookingDataServiceImpl implements BookingDataService{
 
             query.setParameter("firstName", guest.getFirstName());
             query.setParameter("lastName", guest.getLastName());
-
-            System.out.println("Birthdate: " + guest.getBirthdate());
-
             query.setParameter("birthdate", guest.getBirthdate());
             query.setParameter("telNr", guest.getTelephoneNumber());
             query.setParameter("email", guest.getEmailAddress());
@@ -345,7 +288,6 @@ public class BookingDataServiceImpl implements BookingDataService{
             log.info("No catering types in database");
             return false;
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
@@ -373,9 +315,9 @@ public class BookingDataServiceImpl implements BookingDataService{
             log.error(e.toString(), e);
             return new ArrayList<T>();
         } catch (PersistenceException e) {
-            // TODO show user error message: database down
             log.error(e.toString(), e);
             throw e;
         }
     }
+
 }

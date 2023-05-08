@@ -47,8 +47,9 @@ public class RoomTypeEntity {
         return type;
     }
 
-    public void setType(String type) {
+    public RoomTypeEntity setType(String type) {
         this.type = type;
+        return null;
     }
 
     public String getDescription() {

@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="200.0" fitWidth="1604.0" pickOnBounds="true">
          <image>
-            <Image url="@assets/header_vineyard.jpg" />
+            <Image url="@assets/header_vineyard.jpg"  />
          </image>
       </ImageView>
       <Button fx:id="germanButton" alignment="CENTER_RIGHT" layoutX="1343.0" layoutY="142.0" mnemonicParsing="false" style="-fx-background-color: #130D5C;" text="German" textFill="WHITE">
