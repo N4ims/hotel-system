@@ -2,12 +2,11 @@
 package com.n4ims.hotelsystem.persistence;
 
 import com.n4ims.hotelsystem.entities.*;
+import com.n4ims.hotelsystem.utils.ResourcePaths;
 import jakarta.persistence.*;
+import org.hibernate.PersistentObjectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
 import java.util.*;
 
@@ -16,16 +15,16 @@ import java.util.*;
 
  This class provides an implementation of the BookingDataService interface
  that uses Jakarta Persistence (JPA) to access the database.
- @author
  */
 public class BookingDataServiceImpl implements BookingDataService{
-    private static final String PERSISTENCE_UNIT = "HOTEL_SYSTEM";
+    private static final String PERSISTENCE_UNIT = ResourcePaths.PERSISTENCE_UNIT_NAME;
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
-     * This method retrieves all the RoomBookingEntity objects within a specified time period
+     * This method retrieves all the RoomBookingEntity objects with a certain room type within a specified time period
+     * @param roomType the type of the rooms that should be returned
      * @param fromDate the start date of the period
-     * @param endDate the end date of the period
+     * @param toDate the end date of the period
      * @return a List of RoomBookingEntity objects within the specified period
      */
     @Override
@@ -43,10 +42,10 @@ public class BookingDataServiceImpl implements BookingDataService{
                                     AND (
                                         (b.fromDate >= ?1 AND b.toDate <= ?2)
                                         OR (b.fromDate <= ?1 AND b.toDate > ?1)
-                                        OR (b.fromDate >= ?1 AND b.toDate > ?1)
+                                        OR ( (b.fromDate >= ?1 AND b.fromDate <= ?2) AND b.toDate > ?1)
                                     )
                                 )
-                    AND ( e.type = ?3 OR ?3 = null)
+                    AND e.type = ?3
             """, RoomEntity.class);
 
             query.setParameter(1, fromDate);
@@ -55,7 +54,7 @@ public class BookingDataServiceImpl implements BookingDataService{
 
             try {
                 log.debug("Fetching free rooms from database", fromDate, toDate);
-                List<RoomEntity> freeRooms = query.getResultList();
+                List<RoomEntity> freeRooms = executeTypedQuery(query);
                 return freeRooms;
             } catch (NoResultException e) {
                 log.info("No rooms for period " + fromDate + "-" + toDate);
@@ -135,7 +134,10 @@ public class BookingDataServiceImpl implements BookingDataService{
             em.getTransaction().begin();
             em.persist(entity);
             em.getTransaction().commit();
-        } catch (PersistenceException e){
+        } catch (PersistentObjectException e){
+            // if object is already in database, update
+            em.merge(entity);
+        } catch (PersistenceException e) {
             em.getTransaction().rollback();
             log.error(e.toString(), e);
             throw e;
@@ -165,9 +167,9 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public void persistAddress(AddressEntity address) throws PersistenceException{
-        boolean inDb = ifAddressInDbUpdateId(address);
+        ifAddressInDbUpdateId(address);
 
-        persistAddress(address);
+        persistSingleEntity(address);
     }
 
     /**
@@ -179,16 +181,14 @@ public class BookingDataServiceImpl implements BookingDataService{
      */
     @Override
     public void persistGuest(GuestEntity guest) throws PersistenceException{
-        boolean inDb = ifGuestInDbUpdateId(guest);
+        ifGuestInDbUpdateId(guest);
 
-        persistGuest(guest);
+        persistSingleEntity(guest);
     }
 
     /**
-     * Retrieves a list of all RoomTypeEntity objects stored in the database.
-     *
-     * @return A list of all RoomTypeEntity objects stored in the database.
-     * @throws PersistenceException If an error occurs while retrieving the RoomTypeEntity objects from the database.
+     * Stores all CateringBookingEntities of the given Set in the Database
+     * @param cateringBookings Set of CateringBookingEntities that shall be stored in the database
      */
     @Override
     public void persistCateringBookings(Set<CateringBookingEntity> cateringBookings) {
@@ -199,7 +199,7 @@ public class BookingDataServiceImpl implements BookingDataService{
             em.getTransaction().begin();
 
             for(CateringBookingEntity cb: cateringBookings){
-                em.persist(cb);
+                persistSingleEntity(cb);
             }
 
             em.getTransaction().commit();
@@ -262,34 +262,28 @@ public class BookingDataServiceImpl implements BookingDataService{
 
 
             //check if entity already exists in DB
-            if (address.getId() == null){
-                TypedQuery<AddressEntity> query = em.createQuery("""
-                        SELECT a FROM AddressEntity a 
-                        WHERE a.streetName = :streetName
-                            AND a.streetNumber = :streetNr
-                            AND a.place = :place
-                            AND a.postcode = :postcode
-                            AND a.country = :country
-                        """, AddressEntity.class);
+            TypedQuery<AddressEntity> query = em.createQuery("""
+                    SELECT a FROM AddressEntity a 
+                    WHERE a.streetName = :streetName
+                        AND a.streetNumber = :streetNr
+                        AND a.place = :place
+                        AND a.postcode = :postcode
+                        AND a.country = :country
+                    """, AddressEntity.class);
 
-                query.setParameter("streetName", address.getStreetName());
-                query.setParameter("streetNr", address.getStreetNumber());
-                query.setParameter("place", address.getPlace());
-                query.setParameter("postcode", address.getPostcode());
-                query.setParameter("country", address.getCountry());
+            query.setParameter("streetName", address.getStreetName());
+            query.setParameter("streetNr", address.getStreetNumber());
+            query.setParameter("place", address.getPlace());
+            query.setParameter("postcode", address.getPostcode());
+            query.setParameter("country", address.getCountry());
 
-                List<AddressEntity> guests = executeTypedQuery(query);
+            List<AddressEntity> guests = executeTypedQuery(query);
 
-                if (guests.isEmpty()){
-                    return false;
-                } else{
-                    Integer id = guests.get(0).getId();
-                    address.setId(id);
-                    return true;
-                }
-            } else {
-                AddressEntity g = em.find(AddressEntity.class, address.getId());
-                address.setId(g.getId());
+            if (guests.isEmpty()){
+                return false;
+            } else{
+                Integer id = guests.get(0).getId();
+                address.setId(id);
                 return true;
             }
         } catch (NoResultException e) {
@@ -321,33 +315,30 @@ public class BookingDataServiceImpl implements BookingDataService{
 
 
             //check if entity already exists in DB
-            if (guest.getId() == null){
-                TypedQuery<GuestEntity> query = em.createQuery("""
-                        SELECT g FROM GuestEntity g 
-                        WHERE g.firstName = :firstName
-                            AND g.lastName = :lastName 
-                            AND g.birthDate = :birthDate
-                            AND (g.telephoneNumber = :telNr OR g.email = :email)
-                        """, GuestEntity.class);
+            TypedQuery<GuestEntity> query = em.createQuery("""
+                    SELECT g FROM GuestEntity g 
+                    WHERE g.firstName = :firstName
+                        AND g.lastName = :lastName 
+                        AND g.birthdate = :birthdate
+                        AND (g.telephoneNumber = :telNr OR g.emailAddress = :email)
+                    """, GuestEntity.class);
 
-                query.setParameter("firstName", guest.getFirstName());
-                query.setParameter("lastName", guest.getLastName());
-                query.setParameter("birthDate", guest.getBirthdate());
-                query.setParameter("telNr", guest.getTelephoneNumber());
-                query.setParameter("email", guest.getEmailAddress());
+            query.setParameter("firstName", guest.getFirstName());
+            query.setParameter("lastName", guest.getLastName());
 
-                List<GuestEntity> guests = executeTypedQuery(query);
+            System.out.println("Birthdate: " + guest.getBirthdate());
 
-                if (guests.isEmpty()){
-                    return false;
-                } else{
-                    Integer id = guests.get(0).getId();
-                    guest.setId(id);
-                    return true;
-                }
-            } else {
-                GuestEntity g = em.find(GuestEntity.class, guest.getId());
-                guest.setId(g.getId());
+            query.setParameter("birthdate", guest.getBirthdate());
+            query.setParameter("telNr", guest.getTelephoneNumber());
+            query.setParameter("email", guest.getEmailAddress());
+
+            List<GuestEntity> guests = executeTypedQuery(query);
+
+            if (guests.isEmpty()){
+                return false;
+            } else{
+                Integer id = guests.get(0).getId();
+                guest.setId(id);
                 return true;
             }
         } catch (NoResultException e) {

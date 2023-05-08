@@ -44,6 +44,8 @@ public class ComponentContentLoaderImpl implements ComponentContentLoader{
     }
 
     public void loadFreeRooms(ChoiceBox<RoomEntity> choiceBox, RoomTypeEntity roomType, LocalDate fromLocalDate, LocalDate toLocalDate) throws PersistenceException{
+        System.out.println("LoadFreeRoomsCall");
+
         Date fromDate = null;
         Date toDate = null;
 
@@ -57,7 +59,9 @@ public class ComponentContentLoaderImpl implements ComponentContentLoader{
 
         List<RoomEntity> r;
         try{
+            System.out.println("choiceBox = " + choiceBox + ", roomType = " + roomType + ", fromLocalDate = " + fromLocalDate + ", toLocalDate = " + toLocalDate);
             r = bookingDataService.getAllFreeRoomsForPeriod(roomType, fromDate, toDate);
+            System.out.println("Rooms: " + r.toString());
             ObservableList<RoomEntity> freeRooms = FXCollections.observableList(r);
             choiceBox.setItems(freeRooms);
         } catch (PersistenceException e){

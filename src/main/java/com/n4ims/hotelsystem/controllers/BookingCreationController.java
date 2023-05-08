@@ -191,9 +191,10 @@ public class BookingCreationController extends BasicController{
      */
     @FXML
     private void handleOnRoomTypePicked(ActionEvent event){
-        RoomTypeEntity roomType= roomTypePicker.getValue();
+        RoomTypeEntity roomType = roomTypePicker.getValue();
         RoomEntity alreadySelectedRoom = roomNumberPicker.getValue();
 
+        // deselect picked room number if room type has changed
         if(alreadySelectedRoom != null){
             if (alreadySelectedRoom.getType() != roomType) {
                 roomNumberPicker.setValue(null);
@@ -267,7 +268,7 @@ public class BookingCreationController extends BasicController{
         String emailAddress = emailTextField.getText();
         String postcode = postcodeTextField.getText();
         String place = placeTextField.getText();
-        String county = countryTextField.getText();
+        String country = countryTextField.getText();
         RoomEntity room = roomNumberPicker.getValue();
         String notes = notesTextArea.getText();
 
@@ -277,11 +278,14 @@ public class BookingCreationController extends BasicController{
         int birthMonth;
         int birthYear;
 
-
         // No try and catch needed as formatter only allows numbers
-        adultsNumber = Integer.parseInt(adultNumberString);
-        childrenNumber = Integer.parseInt(childNumberString);
-
+        try{
+            adultsNumber = Integer.parseInt(adultNumberString);
+            childrenNumber = Integer.parseInt(childNumberString);
+        } catch (NumberFormatException e){
+            new Alert(Alert.AlertType.WARNING, langBundle.getString("selectNumberOfGuestsMessage")).showAndWait();
+            return;
+        }
 
         if (!checkInputDatesValidity(selectedFromDate, selectedToDate)){
             return;
@@ -308,6 +312,23 @@ public class BookingCreationController extends BasicController{
             return;
         }
 
+        if (firstName.isEmpty() || lastName.isEmpty() || postcode.isEmpty() || place.isEmpty()
+                || country.isEmpty() || streetName.isEmpty() || streetNumber .isEmpty())
+        {
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("enterAllGuestInformationFieldsMessage")
+            ).showAndWait();
+            return;
+        }
+
+        // only one of both is needed
+        if (telephoneNumber.isEmpty() && emailAddress.isEmpty()){
+            new Alert(Alert.AlertType.WARNING,
+                    langBundle.getString("enterPhoneNumberOrEmailMessage")
+            ).showAndWait();
+            return;
+        }
+
         if (!checkBirthdayValidity(birthMonth, birthDay)){
             return;
         }
@@ -316,19 +337,24 @@ public class BookingCreationController extends BasicController{
         Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
         int totalGuestNumber = childrenNumber + adultsNumber;
 
-        // TODO check if guest already existing and replace dateString
-        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, county);
+
+        AddressEntity address = new AddressEntity(streetName, streetNumber, place, postcode, country);
         GuestEntity guest = new GuestEntity(firstName, lastName, birthDate, address, telephoneNumber, "", emailAddress);
         RoomBookingEntity roomBooking = new RoomBookingEntity(guest, room, DateUtils.asDate(selectedFromDate), DateUtils.asDate(selectedToDate), adultsNumber, childrenNumber, timestamp, notes);
         Set<CateringBookingEntity> cateringBookings = CateringBookingEntity.createCateringBookings(totalGuestNumber, roomBooking, cateringType, fromDate, toDate);
 
         try{
             bookingDataService.persistBooking(address, guest, roomBooking, cateringBookings);
+            new Alert(Alert.AlertType.CONFIRMATION,
+                    langBundle.getString("bookingCreatedMessage")
+            ).showAndWait();
+            return;
         } catch (PersistenceException e){
             log.error("Error when trying to persist booking.", e);
             new Alert(Alert.AlertType.WARNING,
                     langBundle.getString("bookingCreationErrorMessage")
             ).showAndWait();
+            return;
         }
     }
 

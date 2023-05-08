@@ -87,7 +87,6 @@ public class OverviewCalenderController extends BasicController{
     private void handleOnCreateButtonClicked(MouseEvent event){
         Button button = (Button) event.getSource();
         Scene scene = button.getScene();
-        System.out.println("Button pressed");
         navigate(scene, ResourcePaths.BOOKING_CREATION_VIEW);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Objects;
 public class GuestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
     @Basic
     @Column(name = "first_name")
